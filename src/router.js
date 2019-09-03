@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Products from "./components/Products";
+import Products from "./components/products/Products";
 import Home from './components/Home'
 import MyPage from './components/MyPage.vue';
 

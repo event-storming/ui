@@ -115,15 +115,8 @@
             drawer: null,
             dialog: false,
             items: [
-                // { heading: 'Labels' },
                 {icon: 'home', text: 'Home', routelink: '/'},
-                {icon: 'shopping_cart', text: 'Shop', routelink: '/shop'},
-                // { icon: 'local_shipping', text: 'Delivery' },
-                // {icon: 'perm_identity', text: 'My Page', routelink: '/mypage'},
-                // { divider: true },
-                // { heading: 'My Page' },
-                // { icon: 'local_shipping', text: 'Delivery' },
-                // { icon: 'shopping_cart', text: 'Shopping Cart' },
+                {icon: 'shopping_cart', text: 'Products', routelink: '/products'},
             ],
         }),
         mounted() {

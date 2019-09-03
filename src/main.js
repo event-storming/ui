@@ -7,8 +7,8 @@ import vuetify from './plugins/vuetify';
 import 'vuetify/dist/vuetify.min.css';
 import VueNumberInput from '@chenfengyuan/vue-number-input';
 
-import Products from "./components/Products.vue";
-import ProductOrder from "./components/ProductOrder.vue";
+import Products from "./components/products/Products.vue";
+import ProductOrder from "./components/products/ProductOrder.vue";
 import Login from './components/oauth/Login.vue';
 import axios from 'axios'
 import OrderList from './components/order/OrderList';
