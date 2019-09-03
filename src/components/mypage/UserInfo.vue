@@ -27,9 +27,9 @@
             outlined
             v-else-if="$store.state.login && !isNavi"
     >
+        <v-card-title >유저 정보</v-card-title>
         <v-list-item three-line>
             <v-list-item-content>
-                <div class="overline mb-4">user Info</div>
                 <v-list-item-title class="headline mb-1"> {{$store.state.nickname}}</v-list-item-title>
                 <v-list-item-subtitle> 잔액 : {{$store.state.money}} ₩</v-list-item-subtitle>
                 <v-list-item-subtitle> 주소 : {{$store.state.address}}</v-list-item-subtitle>

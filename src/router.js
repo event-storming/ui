@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import Products from "./components/products/Products";
 import ProductOrder from "./components/products/ProductOrder";
 import Home from './components/Home'
-import MyPage from './components/MyPage.vue';
+import MyPage from './components/mypage/MyPage.vue';
 
 Vue.use(Router)
 

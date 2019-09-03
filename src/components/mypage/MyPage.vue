@@ -1,5 +1,4 @@
 <template>
-
     <v-container class="grey lighten-5">
         <user-info
             :is-navi=false
