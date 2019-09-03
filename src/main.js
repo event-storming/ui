@@ -13,6 +13,8 @@ import Login from './components/oauth/Login.vue';
 import axios from 'axios'
 import OrderList from './components/order/OrderList';
 import UserInfo from './components/mypage/UserInfo'
+import DeliveryStatus from './components/delivery/DeliveryStatus'
+
 
 Vue.prototype.$http = axios;
 Vue.use(VueNumberInput);
@@ -27,6 +29,8 @@ Vue.component('Products', Products);
 Vue.component('ProductOrder', ProductOrder);
 Vue.component('OrderList', OrderList);
 Vue.component('UserInfo', UserInfo)
+Vue.component('DeliveryStatus', DeliveryStatus)
+
 
 Vue.config.productionTip = false
 
