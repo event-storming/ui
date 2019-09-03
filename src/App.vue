@@ -33,7 +33,7 @@
                     class="grey lighten-4"
             >
                 <user-info
-                    :is-navi=true
+                        :is-navi=true
                 ></user-info>
                 <v-divider
                         dark
@@ -74,6 +74,20 @@
                         </v-list-item-content>
                     </v-list-item>
                 </template>
+                <v-list-item
+                        v-if="$store.state.login"
+                        to='/mypage'
+                        replace
+                >
+                    <v-list-item-action>
+                        <v-icon>perm_identity</v-icon>
+                    </v-list-item-action>
+                    <v-list-item-content>
+                        <v-list-item-title class="grey--text">
+                            My Page
+                        </v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
             </v-list>
         </v-navigation-drawer>
         <v-dialog
@@ -105,15 +119,15 @@
                 {icon: 'home', text: 'Home', routelink: '/'},
                 {icon: 'shopping_cart', text: 'Shop', routelink: '/shop'},
                 // { icon: 'local_shipping', text: 'Delivery' },
-                {icon: 'perm_identity', text: 'My Page', routelink: '/mypage'},
+                // {icon: 'perm_identity', text: 'My Page', routelink: '/mypage'},
                 // { divider: true },
                 // { heading: 'My Page' },
                 // { icon: 'local_shipping', text: 'Delivery' },
                 // { icon: 'shopping_cart', text: 'Shopping Cart' },
             ],
         }),
-        mounted () {
-            if(localStorage.getItem('accessToken') != null) {
+        mounted() {
+            if (localStorage.getItem('accessToken') != null) {
                 this.$store.state.login = true;
                 this.$store.state.nickname = localStorage.getItem('nickname');
                 this.$store.state.money = localStorage.getItem('money');
@@ -121,8 +135,7 @@
                 this.$store.state.accessToken = localStorage.getItem('accessToken');
             }
         },
-        watch: {
-        },
+        watch: {},
         methods: {
             logout: function () {
                 var me = this
