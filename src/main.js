@@ -8,7 +8,9 @@ import 'vuetify/dist/vuetify.min.css';
 import VueNumberInput from '@chenfengyuan/vue-number-input';
 
 import Products from "./components/products/Products.vue";
+import ProductList from "./components/products/ProductList.vue";
 import ProductOrder from "./components/products/ProductOrder.vue";
+import ProductRecommand from "./components/products/ProductRecommand.vue";
 import Login from './components/oauth/Login.vue';
 import axios from 'axios'
 import OrderList from './components/order/OrderList';
@@ -24,7 +26,9 @@ if( process.env.NODE_ENV == "development" ){
 }
 Vue.component('Login', Login);
 Vue.component('Products', Products);
+Vue.component('ProductList', ProductList);
 Vue.component('ProductOrder', ProductOrder);
+Vue.component('ProductRecommand',ProductRecommand);
 Vue.component('OrderList', OrderList);
 Vue.component('UserInfo', UserInfo)
 
