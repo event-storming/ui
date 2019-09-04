@@ -54,6 +54,11 @@
                 <div>Option</div>
                 <v-autocomplete label="Option"></v-autocomplete>
 
+<<<<<<< HEAD
+=======
+                <div>Qty</div>
+
+>>>>>>> e0d2fc1470a9ed97d554d2bccab55fdb3105c1a9
             </v-form>
         </v-card-text>
 
