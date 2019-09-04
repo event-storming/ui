@@ -5,13 +5,17 @@
                 :key="item.name"
                 cols="12"
                 sm="6"
-                md="4"
-                lg="3"
+                md="2"
+                lg="2"
+                max="4"
         >
-        <v-card height="300px">
-            <v-card-title style="height: 100px" class="subheading font-weight-bold">{{ item.name}}</v-card-title>
+        <v-card >
+            <v-card-title  class="subheading font-weight-bold">{{ item.name}}</v-card-title>
 
         <v-divider></v-divider>
+
+            <v-img v-if="item.imageUrl != null" :src=item.imageUrl aspect-ratio="1.7" contain></v-img>
+            <v-img v-else src='https://svgsilh.com/svg/1295383-ff9800.svg' aspect-ratio="1.7" contain></v-img>
 
         <v-list dense>
             <v-list-item
@@ -22,7 +26,7 @@
                 <v-list-item-content class="align-end" >{{ item[key.toLowerCase()] }}</v-list-item-content>
             </v-list-item>
             <div align="right">
-                <v-btn text @click="showDetail(item)"> DETAIL </v-btn>
+                <v-btn text @click="showDetail(item.name)"> DETAIL </v-btn>
                 <v-btn text> BUY </v-btn>
             </div>
         </v-list>
@@ -66,6 +70,18 @@
                         description: 3.7,
                         option: 67,
                     },
+                    {
+                        name: 'Cupcake',
+                        price: 305,
+                        description: 3.7,
+                        option: 67,
+                    },
+                    {
+                        name: 'Cupcake',
+                        price: 305,
+                        description: 3.7,
+                        option: 67,
+                    },
                 ]
             }
         },
@@ -74,9 +90,19 @@
                 return this.keys.filter(key => key !== `Name`&& key !== 'Image')
             },
         },
+        mounted() {
+            this.getProdReCommendList();
+        },
         methods: {
+            getProdReCommendList () {
+                // var me = this
+                // me.$http.get('http://localhost:8088/products').then(function(e) {
+                //     console.log();
+                //     me.items=e.data._embedded.products;
+                // })
+            },
             showDetail(val){
-                console.log(val);
+                this.$router.push('/products/'+val)
             },
             updateItemsPerPage (number) {
                 this.itemsPerPage = number

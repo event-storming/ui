@@ -40,12 +40,12 @@
                             md="4"
                             lg="3"
                     >
-                        <v-card height="300px">
-                            <v-card-title style="height: 100px" class="subheading font-weight-bold">{{ item.name }}</v-card-title>
+                        <v-card>
+                            <v-card-title  class="subheading font-weight-bold">{{ item.name }}</v-card-title>
 
                             <v-divider></v-divider>
 
-<!--                            <v-img url= {{item.imageUrl}}  aspect-ratio="1.7" contain></v-img>-->
+                            <v-img :src=item.imageUrl aspect-ratio="1.7" contain></v-img>
 
                             <v-list dense>
                                 <v-list-item

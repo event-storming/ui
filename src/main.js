@@ -12,7 +12,7 @@ import VueTheMask from 'vue-the-mask'
 import Products from "./components/products/Products.vue";
 import ProductList from "./components/products/ProductList.vue";
 import ProductOrder from "./components/products/ProductDetail.vue";
-import ProductRecommand from "./components/products/ProductRecommand.vue";
+import ProductRecommand from "./components/products/ProductRecommend.vue";
 import Login from './components/oauth/Login.vue';
 import axios from 'axios'
 import OrderList from './components/order/OrderList';
