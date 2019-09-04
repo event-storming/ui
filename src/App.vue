@@ -99,6 +99,22 @@
                     :dialog.sync="dialog"
             ></Login>
         </v-dialog>
+        <v-snackbar
+                v-model="snackbar"
+                :color="'success'"
+                right
+                :timeout="6000"
+                top
+        >
+            주문 완료되었습니다.
+            <v-btn
+                    dark
+                    text
+                    @click="snackbar = false"
+            >
+                Close
+            </v-btn>
+        </v-snackbar>
         <v-content>
             <router-view></router-view>
         </v-content>
@@ -107,6 +123,7 @@
 
 <script>
     export default {
+        name: 'App',
         props: {
             source: String,
             // login: Boolean
@@ -118,6 +135,7 @@
                 {icon: 'home', text: 'Home', routelink: '/'},
                 {icon: 'shopping_cart', text: 'Products', routelink: '/products'},
             ],
+            snackbar: false
         }),
         mounted() {
             if (localStorage.getItem('accessToken') != null) {

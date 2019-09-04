@@ -69,7 +69,7 @@
                                 </v-list-item>
                                 <div align="right">
                                     <v-btn text @click="showDetail(item.name)"> DETAIL </v-btn>
-                                    <v-btn text @click="showOrderFinish()"> BUY </v-btn>
+                                    <v-btn text @click="showBuy(item)"> BUY </v-btn>
 
                                 </div>
                             </v-list>
@@ -198,6 +198,9 @@
                 var me = this
                 me.buyDialog = true;
                 me.selectItem = item;
+            },
+            nextPage() {
+                if (this.page + 1 <= this.numberOfPages) this.page += 1
             }
         },
     }

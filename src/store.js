@@ -14,7 +14,7 @@ export default new Vuex.Store({
         address: ''
     },
     mutations: {
-        login (state, {userId, accessToken}) {
+        login(state, {userId, accessToken}) {
             console.log(userId)
             console.log(accessToken)
             state.accessToken = accessToken;
@@ -23,7 +23,6 @@ export default new Vuex.Store({
             localStorage.setItem("accessToken", accessToken)
 
             axios.get(`http://localhost:8088/users/${state.userId}`).then(function (e) {
-                console.log(e.data)
                 state.nickname = e.data.nickname
                 state.money = e.data.money
                 state.address = e.data.address
@@ -31,11 +30,11 @@ export default new Vuex.Store({
                 localStorage.setItem("nickname", e.data.nickname)
                 localStorage.setItem("money", e.data.money)
                 localStorage.setItem("address", e.data.address)
-
+                localStorage.setItem("userId", userId)
             })
 
         },
-        logout (state) {
+        logout(state) {
             state.accessToken = null;
             state.nickname = null;
             state.money = null;
@@ -45,7 +44,6 @@ export default new Vuex.Store({
             localStorage.removeItem("nickname")
             localStorage.removeItem("money")
             localStorage.removeItem("address")
-
         }
     },
     actions: {
@@ -69,7 +67,7 @@ export default new Vuex.Store({
             ).then(function (e) {
                 // console.log(e)
                 // console.log(e.data.access_token)
-                if( e && e.data && e.data.access_token){
+                if (e && e.data && e.data.access_token) {
                     // state.userId = userId;
                     var accessToken = e.data.access_token;
                     // localStorage.setItem("jwtToken", me.jwtToken)
@@ -82,7 +80,7 @@ export default new Vuex.Store({
                 }
             })
         },
-        logout ({commit}) {
+        logout({commit}) {
             commit('logout')
         },
     }

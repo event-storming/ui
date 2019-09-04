@@ -24,7 +24,6 @@
 
 <script>
     export default {
-
         name: "DeliveryStatus",
         props: {
             prodName: String
@@ -53,6 +52,16 @@
                 },
             ],
         }),
+        mounted() {
+            this.getStatus()
+        },
+        methods: {
+            getStatus() {
+                this.$http.get(`${API_HOST}/mypage/order/${this.$store.state.userId}`).then(function (e) {
+                    console.log(e)
+                })
+            }
+        }
     }
 </script>
 
