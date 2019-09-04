@@ -90,7 +90,8 @@
             <div class="flex-grow-1"></div>
             <v-card-actions>
                 <div class="flex-grow-1"></div>
-                <v-btn color="red accent-4" text>수정하기</v-btn>
+                <v-btn color="red accent-4" text @click="close()">결제하기</v-btn>
+                <v-btn color="red accent-4" text @click="close()">취소</v-btn>
             </v-card-actions>
         </v-card-text>
     </v-card>
@@ -104,7 +105,7 @@
         mixins: [validationMixin],
         props: {
             productInfo: Object,
-            dialog: Boolean
+            buyDialog: Boolean,
         },
         validations: {
             name: {required, maxLength: maxLength(10)},
@@ -116,7 +117,6 @@
             name: '',
             address: '',
             phoneNumber: '',
-            amount: 0,
             qty: 1
         }),
         mounted() {
@@ -153,6 +153,15 @@
         },
 
         methods: {
+            close() {
+                var me = this
+                console.log(me.buyDialog)
+                me.$emit('update:buyDialog', false)
+                console.log(me.buyDialog)
+            },
+            submit() {
+
+            }
             // submit() {
             //     this.$v.$touch()
             // }

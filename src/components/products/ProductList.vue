@@ -1,5 +1,15 @@
 <template>
     <v-container fluid>
+        <v-dialog
+                v-model="buyDialog"
+                width="800"
+                persistent
+        >
+            <order-page
+                    v-bind:buyDialog.sync="buyDialog"
+                    :productInfo="selectItem"
+            ></order-page>
+        </v-dialog>
         <v-data-iterator
                 :items="items"
                 :items-per-page.sync="itemsPerPage"
@@ -23,14 +33,10 @@
                             label="Search"
                     ></v-text-field>
                 </v-toolbar>
-            <v-container>
-<<<<<<< HEAD
-                <div>Recommand</div>
-=======
-                <div>Recommend</div>
->>>>>>> 40b486ea56ad914e7f8978d84ef7c7456b40d1fa
-                <ProductRecommend></ProductRecommend>
-            </v-container>
+                <v-container>
+                    <div>Recommend</div>
+                    <ProductRecommend></ProductRecommend>
+                </v-container>
 
             </template>
 
@@ -45,7 +51,7 @@
                             lg="3"
                     >
                         <v-card>
-                            <v-card-title  class="subheading font-weight-bold">{{ item.name }}</v-card-title>
+                            <v-card-title class="subheading font-weight-bold">{{ item.name }}</v-card-title>
 
                             <v-divider></v-divider>
 
@@ -57,12 +63,13 @@
                                         :key="index"
                                 >
                                     <v-list-item-content>{{ key }}:</v-list-item-content>
-                                    <v-list-item-content class="align-end" >{{ item[key.toLowerCase()] }}</v-list-item-content>
+                                    <v-list-item-content class="align-end">{{ item[key.toLowerCase()] }}
+                                    </v-list-item-content>
 
                                 </v-list-item>
                                 <div align="right">
-                                    <v-btn text @click="showDetail(item.name)"> DETAIL </v-btn>
-                                    <v-btn text> BUY </v-btn>
+                                    <v-btn text @click="showDetail(item.name)"> DETAIL</v-btn>
+                                    <v-btn text @click="showBuy(item)"> BUY</v-btn>
                                 </div>
                             </v-list>
                         </v-card>
@@ -127,11 +134,12 @@
         </v-data-iterator>
     </v-container>
 
+
 </template>
 
 <script>
     export default {
-        data () {
+        data() {
             return {
 
                 itemsPerPageArray: [4, 8, 12],
@@ -148,41 +156,48 @@
                     'Stock',
                     'Option',
                 ],
-                items:[],
+                items: [],
+                selectItem: {},
+                buyDialog: false
             }
         },
         mounted() {
-          this.getProdList();
+            this.getProdList();
         },
         computed: {
 
-            numberOfPages () {
+            numberOfPages() {
                 return Math.ceil(this.items.length / this.itemsPerPage)
             },
-            filteredKeys () {
-                return this.keys.filter(key => key !== `Name`&& key !== 'imageUrl')
+            filteredKeys() {
+                return this.keys.filter(key => key !== `Name` && key !== 'imageUrl')
             },
         },
         methods: {
-            getProdList () {
+            getProdList() {
                 var me = this
-                me.$http.get('http://localhost:8088/products').then(function(e) {
+                me.$http.get('http://localhost:8088/products').then(function (e) {
                     console.log();
-                    me.items=e.data._embedded.products;
+                    me.items = e.data._embedded.products;
                 })
             },
-            showDetail(val){
-                this.$router.push('/products/'+val)
+            showDetail(val) {
+                this.$router.push('/products/' + val)
             },
-            nextPage () {
+            nextPage() {
                 if (this.page + 1 <= this.numberOfPages) this.page += 1
             },
-            formerPage () {
+            formerPage() {
                 if (this.page - 1 >= 1) this.page -= 1
             },
-            updateItemsPerPage (number) {
+            updateItemsPerPage(number) {
                 this.itemsPerPage = number
             },
+            showBuy(item) {
+                var me = this
+                me.buyDialog = true;
+                me.selectItem = item;
+            }
         },
     }
 </script>

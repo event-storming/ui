@@ -5,16 +5,20 @@
     >
         <v-list-item three-line>
             <v-list-item-content>
-                <div class="overline mb-4">OVERLINE</div>
-                <v-list-item-title class="headline mb-1">Headline 5</v-list-item-title>
-                <v-list-item-subtitle>Greyhound divisely hello coldly fonwderfully</v-list-item-subtitle>
+                <div class="overline mb-4">상품 정보</div>
+                <v-list-item-title class="headline mb-1">{{productInfo.name}}</v-list-item-title>
+                <v-list-item-subtitle>{{productInfo.price}}</v-list-item-subtitle>
             </v-list-item-content>
 
             <v-list-item-avatar
                     tile
                     size="80"
-                    color="grey"
-            ></v-list-item-avatar>
+            >
+                <img
+                        :src="productInfo.imageUrl"
+                        alt="avatar"
+                >
+            </v-list-item-avatar>
         </v-list-item>
     </v-card>
 </template>
