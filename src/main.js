@@ -13,10 +13,6 @@ import ProductList from "./components/products/ProductList.vue";
 import ProductOrder from "./components/products/ProductDetail.vue";
 import ProductRecommend from "./components/products/ProductRecommend.vue";
 import ProductSimple from "./components/products/ProductSimple.vue";
-<<<<<<< HEAD
-
-=======
->>>>>>> 40b486ea56ad914e7f8978d84ef7c7456b40d1fa
 import Login from './components/oauth/Login.vue';
 import axios from 'axios'
 import OrderList from './components/order/OrderList';
