@@ -30,7 +30,7 @@ export default new Router({
         {
             path:'/OrderFinish',
             name: 'OrderFinish',
-            component: OrderFinish ,
+            component: OrderFinish,
         },
         {
             path:'/products/:name',

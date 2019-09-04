@@ -99,11 +99,7 @@
             <div class="flex-grow-1"></div>
             <v-card-actions>
                 <div class="flex-grow-1"></div>
-<<<<<<< HEAD
-                <v-btn color="red accent-4" text @click="submit()">결제하기</v-btn>
-=======
                 <v-btn color="primary accent-4" text @click="check()">결제하기</v-btn>
->>>>>>> 0382a9ae150a71eebd5b102cb1e33012923103a7
                 <v-btn color="red accent-4" text @click="close()">취소</v-btn>
             </v-card-actions>
         </v-card-text>
@@ -174,14 +170,10 @@
                 me.$emit('update:buyDialog', false)
                 console.log(me.buyDialog)
             },
-<<<<<<< HEAD
             submit() {
                 var me = this
-                console.log(me.card, me.qty,me.name,this.productInfo.price, me.address, me.phoneNumber,me.totalAmount);
-                me.$EventBus.$emit('message', this.productInfo, me.address, me.phoneNumber,me.totalAmount);
-                this.$router.push('/OrderFinish');
-
-=======
+                console.log(me.card, me.qty, me.name, this.productInfo.price, me.address, me.phoneNumber, me.totalAmount);
+            },
             check() {
                 var me = this
                 me.$v.$touch();
@@ -234,8 +226,15 @@
                     localStorage.setItem("nickname", e.data.nickname)
                     localStorage.setItem("money", e.data.money)
                     localStorage.setItem("address", e.data.address)
+                    var data = {
+                        'productInfo' :  me.productInfo,
+                        'address': me.address,
+                        'phoneNumber': me.phoneNumber,
+                        'totalAmount': me.totalAmount
+                    }
+                    me.$router.push({name: 'OrderFinish', params: data});
+                    // me.$EventBus.$emit('message', JSON.parse(JSON.stringify(data)));
                 })
->>>>>>> 0382a9ae150a71eebd5b102cb1e33012923103a7
             }
         },
     }
