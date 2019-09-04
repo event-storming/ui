@@ -24,8 +24,8 @@
                     ></v-text-field>
                 </v-toolbar>
             <v-container>
-                <div>Recommand</div>
-                <ProductRecommand></ProductRecommand>
+                <div>Recommend</div>
+                <ProductRecommend></ProductRecommend>
             </v-container>
 
             </template>

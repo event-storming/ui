@@ -11,12 +11,8 @@ import VueTheMask from 'vue-the-mask'
 import Products from "./components/products/Products.vue";
 import ProductList from "./components/products/ProductList.vue";
 import ProductOrder from "./components/products/ProductDetail.vue";
-<<<<<<< HEAD
-import ProductRecommand from "./components/products/ProductRecommend.vue";
-=======
+import ProductRecommend from "./components/products/ProductRecommend.vue";
 import ProductSimple from "./components/products/ProductSimple.vue";
-import ProductRecommand from "./components/products/ProductRecommand.vue";
->>>>>>> e0d2fc1470a9ed97d554d2bccab55fdb3105c1a9
 import Login from './components/oauth/Login.vue';
 import axios from 'axios'
 import OrderList from './components/order/OrderList';
@@ -39,7 +35,7 @@ Vue.component('Login', Login);
 Vue.component('Products', Products);
 Vue.component('ProductList', ProductList);
 Vue.component('ProductOrder', ProductOrder);
-Vue.component('ProductRecommand',ProductRecommand);
+Vue.component('ProductRecommend',ProductRecommend);
 Vue.component('OrderList', OrderList);
 Vue.component('UserInfo', UserInfo)
 Vue.component('DeliveryStatus', DeliveryStatus)
