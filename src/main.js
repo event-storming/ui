@@ -6,6 +6,8 @@ import './registerServiceWorker'
 import vuetify from './plugins/vuetify';
 import 'vuetify/dist/vuetify.min.css';
 import VueNumberInput from '@chenfengyuan/vue-number-input';
+import VueTheMask from 'vue-the-mask'
+
 
 import Products from "./components/products/Products.vue";
 import ProductList from "./components/products/ProductList.vue";
@@ -15,11 +17,14 @@ import Login from './components/oauth/Login.vue';
 import axios from 'axios'
 import OrderList from './components/order/OrderList';
 import UserInfo from './components/mypage/UserInfo'
-import DeliveryStatus from './components/delivery/DeliveryStatus'
+import DeliveryStatus from './components/delivery/DeliveryStatus';
+import OrderPage from './components/order/OrderPage'
+
 
 
 Vue.prototype.$http = axios;
 Vue.use(VueNumberInput);
+Vue.use(VueTheMask)
 
 if( process.env.NODE_ENV == "development" ){
     window.API_HOST = "http://localhost:8088";
@@ -34,6 +39,7 @@ Vue.component('ProductRecommand',ProductRecommand);
 Vue.component('OrderList', OrderList);
 Vue.component('UserInfo', UserInfo)
 Vue.component('DeliveryStatus', DeliveryStatus)
+Vue.component('OrderPage', OrderPage)
 
 
 Vue.config.productionTip = false

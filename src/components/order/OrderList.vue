@@ -17,9 +17,10 @@
                               max-width="800px"
                               scrollable>
                         <v-card>
-                                <delivery-status
-                                    :prod-name="editedItem.name"
-                                ></delivery-status>
+                            <order-page></order-page>
+                                <!--<delivery-status-->
+                                    <!--:prod-name="editedItem.name"-->
+                                <!--&gt;</delivery-status>-->
                             <v-card-actions>
                                 <div class="flex-grow-1"></div>
                                 <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>

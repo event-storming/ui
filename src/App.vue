@@ -133,6 +133,7 @@
             logout: function () {
                 var me = this
                 me.$store.dispatch('logout')
+                this.$router.push('/')
             },
             // slotOffer: function () {
             //     var me = this
