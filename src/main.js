@@ -26,7 +26,7 @@ import OrderPage from './components/order/OrderPage'
 Vue.prototype.$http = axios;
 Vue.use(VueNumberInput);
 Vue.use(VueTheMask)
-Vue.prototype.$EventBus = new Vue();
+// Vue.prototype.$EventBus = new Vue();
 
 if( process.env.NODE_ENV == "development" ){
     window.API_HOST = "http://localhost:8088";

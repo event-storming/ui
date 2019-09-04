@@ -30,13 +30,36 @@
             </template>
 
             <template v-slot:item.action="{ item }">
-                <v-icon
-                        small
-                        class="mr-2"
-                        @click="openDelivery(item)"
-                >
-                    local_shipping
-                </v-icon>
+                <!--<v-icon-->
+                        <!--small-->
+                        <!--class="mr-2"-->
+                        <!--@click="openDelivery(item)"-->
+                <!--&gt;-->
+                    <!--배송완료-->
+                <!--</v-icon>-->
+                <v-chip :color="'green'"
+                        dark
+                        v-if="item.deliveryStarted && item.deliveryCompleted"
+                > 배송 완료
+                </v-chip>
+                <v-chip :color="'green'"
+                        dark
+                        v-else-if="item.deliveryStarted"
+                > 배송 시작
+                </v-chip>
+                <v-chip :color="'red'"
+                        dark
+                        v-else="item.deliveryStarted"
+                > 배송 준비 중
+                </v-chip>
+                <!--<v-icon-->
+                        <!--small-->
+                        <!--class="mr-2"-->
+                        <!--@click="openDelivery(item)"-->
+                        <!--v-if="item.deliveryStarted"-->
+                <!--&gt;-->
+                    <!--배송중-->
+                <!--</v-icon>-->
             </template>
         </v-data-table>
 
@@ -73,11 +96,12 @@
                     value: 'productName',
                 },
                 {text: '주문자', value: 'username'},
-                {text: 'Stock', value: 'stock'},
+                {text: '결제금액', value: 'payment', align: 'center'},
+                {text: '구매수량', value: 'quantity', align: 'center'},
+                {text: '결제시각', value: 'timestamp', align: 'center'},
                 {text: 'Delivery', value: 'action', sortable: false}
             ],
-            orderList: [
-            ],
+            orderList: [],
             editedIndex: -1,
             editedItem: {
                 name: '',
