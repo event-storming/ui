@@ -7,13 +7,15 @@
         >
             <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
             <span class="title ml-3 mr-5">12&nbsp;<span class="font-weight-light">Street</span></span>
-            <!--<v-text-field-->
-            <!--solo-inverted-->
-            <!--flat-->
-            <!--hide-details-->
-            <!--label="Search"-->
-            <!--prepend-inner-icon="search"-->
-            <!--&gt;</v-text-field>-->
+            <v-text-field
+                    v-if="$route.path == '/products'"
+                    v-model="productSearch"
+                    solo-inverted
+                    flat
+                    hide-details
+                    label="Search"
+                    prepend-inner-icon="search"
+            ></v-text-field>
             <div class="flex-grow-1"></div>
             <v-btn text @click="dialog = true" v-if="$store.state.login == false">Login</v-btn>
             <v-btn text @click="logout" v-else>Logout</v-btn>
@@ -135,7 +137,8 @@
                 {icon: 'home', text: 'Home', routelink: '/'},
                 {icon: 'shopping_cart', text: 'Products', routelink: '/products'},
             ],
-            snackbar: false
+            snackbar: false,
+            productSearch: ''
         }),
         mounted() {
             if (localStorage.getItem('accessToken') != null) {
@@ -146,7 +149,11 @@
                 this.$store.state.accessToken = localStorage.getItem('accessToken');
             }
         },
-        watch: {},
+        watch: {
+            productSearch(newVal) {
+                this.$EventBus.$emit('search', newVal)
+            }
+        },
         methods: {
             logout: function () {
                 var me = this

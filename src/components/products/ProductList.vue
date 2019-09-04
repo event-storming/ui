@@ -18,21 +18,21 @@
                 hide-default-footer
         >
             <template v-slot:header>
-                <v-toolbar
-                        dark
-                        color="amber"
-                        class="mb-1"
-                >
-                    <v-text-field
-                            v-model="search"
-                            clearable
-                            flat
-                            solo-inverted
-                            hide-details
-                            prepend-inner-icon="search"
-                            label="Search"
-                    ></v-text-field>
-                </v-toolbar>
+                <!--<v-toolbar-->
+                        <!--dark-->
+                        <!--color="amber"-->
+                        <!--class="mb-1"-->
+                <!--&gt;-->
+                    <!--<v-text-field-->
+                            <!--v-model="search"-->
+                            <!--clearable-->
+                            <!--flat-->
+                            <!--solo-inverted-->
+                            <!--hide-details-->
+                            <!--prepend-inner-icon="search"-->
+                            <!--label="Search"-->
+                    <!--&gt;</v-text-field>-->
+                <!--</v-toolbar>-->
             <v-container>
                 <div>Recommand</div>
                 <ProductRecommend></ProductRecommend>
@@ -164,9 +164,14 @@
         },
         mounted() {
             this.getProdList();
+            var me = this
+            this.$EventBus.$on('search', function(newVal) {
+                console.log("aa")
+                me.search = newVal
+            })
+            console.log(this.$route)
         },
         computed: {
-
             numberOfPages() {
                 return Math.ceil(this.items.length / this.itemsPerPage)
             },
