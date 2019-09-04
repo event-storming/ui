@@ -6,9 +6,7 @@
                 cols="12"
                 sm="6"
                 md="2"
-                lg="2"
-                max="4"
-        >
+                lg="3"">
         <v-card >
             <v-card-title  class="subheading font-weight-bold">{{ item.name}}</v-card-title>
 
@@ -70,18 +68,7 @@
                         description: 3.7,
                         option: 67,
                     },
-                    {
-                        name: 'Cupcake',
-                        price: 305,
-                        description: 3.7,
-                        option: 67,
-                    },
-                    {
-                        name: 'Cupcake',
-                        price: 305,
-                        description: 3.7,
-                        option: 67,
-                    },
+
                 ]
             }
         },

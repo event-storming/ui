@@ -28,6 +28,13 @@
         <v-card-text>
             <v-form>
                 <v-text-field
+                        label="Product Id"
+                        :value=selectItem.id
+                        prepend-icon="person"
+                        readonly
+                        solo
+                ></v-text-field>
+                <v-text-field
                         label="Product Name"
                         :value=selectItem.name
                         prepend-icon="person"
@@ -54,11 +61,6 @@
                 <div>Option</div>
                 <v-autocomplete label="Option"></v-autocomplete>
 
-<<<<<<< HEAD
-=======
-                <div>Qty</div>
-
->>>>>>> e0d2fc1470a9ed97d554d2bccab55fdb3105c1a9
             </v-form>
         </v-card-text>
 

@@ -25,7 +25,7 @@
                 </v-toolbar>
             <v-container>
                 <div>Recommand</div>
-                <ProductRecommand></ProductRecommand>
+                <ProductRecommend></ProductRecommend>
             </v-container>
 
             </template>
