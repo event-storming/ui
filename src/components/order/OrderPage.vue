@@ -119,7 +119,6 @@
         validations: {
             name: {required, maxLength: maxLength(10)},
             address: {required, email},
-            phoneNumber: {required}
         },
         data: () => ({
             card: '',
@@ -153,12 +152,6 @@
                 const errors = []
                 if (!this.$v.address.$dirty) return errors
                 !this.$v.address.required && errors.push('Address is required')
-                return errors
-            },
-            phoneNumberErrors() {
-                const errors = []
-                if (!this.$v.phoneNumber.$dirty) return errors
-                !this.$v.phoneNumber.required && errors.push('phoneNumber is required')
                 return errors
             },
         },

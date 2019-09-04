@@ -44,35 +44,16 @@
                 </v-chip>
                 <v-chip :color="'green'"
                         dark
-                        v-else-if="item.deliveryStarted"
+                        v-else-if="item.deliveryStarted && !item.deliveryCompleted"
                 > 배송 시작
                 </v-chip>
                 <v-chip :color="'red'"
                         dark
-                        v-else="item.deliveryStarted"
+                        v-else
                 > 배송 준비 중
                 </v-chip>
-                <!--<v-icon-->
-                        <!--small-->
-                        <!--class="mr-2"-->
-                        <!--@click="openDelivery(item)"-->
-                        <!--v-if="item.deliveryStarted"-->
-                <!--&gt;-->
-                    <!--배송중-->
-                <!--</v-icon>-->
             </template>
         </v-data-table>
-
-        <!--<v-data-table item-key="name"-->
-        <!--:headers="headers"-->
-        <!--:items-per-page="5"-->
-        <!--class="elevation-1"-->
-        <!--:footer-props="{-->
-        <!--prevIcon: 'mdi-arrow-left',-->
-        <!--nextIcon: 'mdi-arrow-right'-->
-        <!--}"-->
-        <!--@click.native="deliveryDialog(item)"-->
-        <!--&gt;</v-data-table>-->
     </v-card>
 </template>
 
