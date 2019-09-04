@@ -11,7 +11,7 @@ import VueTheMask from 'vue-the-mask'
 
 import Products from "./components/products/Products.vue";
 import ProductList from "./components/products/ProductList.vue";
-import ProductOrder from "./components/products/ProductOrder.vue";
+import ProductOrder from "./components/products/ProductDetail.vue";
 import ProductRecommand from "./components/products/ProductRecommand.vue";
 import Login from './components/oauth/Login.vue';
 import axios from 'axios'
@@ -48,5 +48,6 @@ new Vue({
   router,
   store,
   vuetify,
-  render: function (h) { return h(App) }
+  render: function (h) { return h(App) },
+
 }).$mount('#app')

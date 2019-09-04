@@ -1,6 +1,4 @@
 <template>
-
-
     <v-container fluid>
         <v-data-iterator
                 :items="items"
@@ -42,12 +40,12 @@
                             md="4"
                             lg="3"
                     >
-                        <v-card>
-                            <v-card-title class="subheading font-weight-bold">{{ item.name }}</v-card-title>
+                        <v-card height="300px">
+                            <v-card-title style="height: 100px" class="subheading font-weight-bold">{{ item.name }}</v-card-title>
 
                             <v-divider></v-divider>
 
-<!--                            <v-img src=item.image aspect-ratio="1.7" contain></v-img>-->
+<!--                            <v-img url= {{item.imageUrl}}  aspect-ratio="1.7" contain></v-img>-->
 
                             <v-list dense>
                                 <v-list-item
@@ -59,10 +57,8 @@
 
                                 </v-list-item>
                                 <div align="right">
-                                    <v-btn
-                                            text
-                                    >BUY
-                                    </v-btn>
+                                    <v-btn text @click="showDetail(item)"> DETAIL </v-btn>
+                                    <v-btn text> BUY </v-btn>
                                 </div>
                             </v-list>
                         </v-card>
@@ -142,67 +138,13 @@
                 itemsPerPage: 8,
                 sortBy: 'name',
                 keys: [
+                    'Id',
                     'Name',
                     'Price',
-                    'Description',
+                    'Stock',
                     'Option',
                 ],
-                items: [
-                    {
-                        name: 'Frozen Yogurt',
-                        price: 159,
-                        description: 6.0,
-                        option: 24,
-                    },
-                    {
-                        name: 'Ice cream sandwich',
-                        price: '$237',
-                        description: 9.0,
-                        option: 37,
-                    },
-                    {
-                        name: 'Eclair',
-                        price: '$'+262,
-                        description: 16.0,
-                        option: 23,
-                    },
-                    {
-                        name: 'Cupcake',
-                        price: 305,
-                        description: 3.7,
-                        option: 67,
-                    },
-                    {
-                        name: 'Gingerbread',
-                        price: 356,
-                        description: 16.0,
-                        option: 49,
-                    },
-                    {
-                        name: 'Jelly bean',
-                        price: 375,
-                        description: 0.0,
-                        option: 94,
-                    },
-                    {
-                        name: 'Lollipop',
-                        price: 392,
-                        description: 0.2,
-                        option: 98,
-                    },
-                    {
-                        name: 'Honeycomb',
-                        price: 408,
-                        description: 3.2,
-                        option: 87,
-                    },
-                    {
-                        name: 'Donut',
-                        price: 452,
-                        description: 25.0,
-                        option: 51,
-                    },
-                ],
+                items:[],
             }
         },
         mounted() {
@@ -214,18 +156,19 @@
                 return Math.ceil(this.items.length / this.itemsPerPage)
             },
             filteredKeys () {
-                return this.keys.filter(key => key !== `Name`&& key !== 'Image')
+                return this.keys.filter(key => key !== `Name`&& key !== 'imageUrl')
             },
         },
         methods: {
             getProdList () {
                 var me = this
                 me.$http.get('http://localhost:8088/products').then(function(e) {
-                    console.log(e)
+                    console.log();
+                    me.items=e.data._embedded.products;
                 })
             },
-            buyBtn(){
-                this.$router.push('/products/ProductOrder');
+            showDetail(val){
+                console.log(val);
             },
             nextPage () {
                 if (this.page + 1 <= this.numberOfPages) this.page += 1

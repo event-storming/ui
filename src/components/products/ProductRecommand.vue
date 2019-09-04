@@ -8,8 +8,8 @@
                 md="4"
                 lg="3"
         >
-        <v-card>
-            <v-card-title class="subheading font-weight-bold">{{ item.name}}</v-card-title>
+        <v-card height="300px">
+            <v-card-title style="height: 100px" class="subheading font-weight-bold">{{ item.name}}</v-card-title>
 
         <v-divider></v-divider>
 
@@ -22,11 +22,8 @@
                 <v-list-item-content class="align-end" >{{ item[key.toLowerCase()] }}</v-list-item-content>
             </v-list-item>
             <div align="right">
-                <v-btn
-                        text
-                        flat
-                >BUY
-                </v-btn>
+                <v-btn text @click="showDetail(item)"> DETAIL </v-btn>
+                <v-btn text> BUY </v-btn>
             </div>
         </v-list>
     </v-card>
@@ -78,6 +75,9 @@
             },
         },
         methods: {
+            showDetail(val){
+                console.log(val);
+            },
             updateItemsPerPage (number) {
                 this.itemsPerPage = number
             },
