@@ -57,7 +57,7 @@
 
                                 </v-list-item>
                                 <div align="right">
-                                    <v-btn text @click="showDetail(item)"> DETAIL </v-btn>
+                                    <v-btn text @click="showDetail(item.name)"> DETAIL </v-btn>
                                     <v-btn text> BUY </v-btn>
                                 </div>
                             </v-list>
@@ -168,7 +168,7 @@
                 })
             },
             showDetail(val){
-                console.log(val);
+                this.$router.push('/products/'+val)
             },
             nextPage () {
                 if (this.page + 1 <= this.numberOfPages) this.page += 1

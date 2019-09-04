@@ -67,6 +67,13 @@
         watch:{
 
         },
+        mounted () {
+          this.$http.get(`${API_HOST}/products/search/findByName?name=`+this.$route.params.name).then(
+              function (e) {
+                  console.log(e)
+              }
+          )
+        },
         computed:{
 
         }

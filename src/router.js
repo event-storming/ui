@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Products from "./components/products/Products";
-import ProductDeatil from "./components/products/ProductDetail";
+import ProductDetail from "./components/products/ProductDetail";
 import Home from './components/Home'
 import MyPage from './components/mypage/MyPage.vue';
 
@@ -21,24 +21,19 @@ export default new Router({
             name: 'mypage',
             component: MyPage
         },
-        // {
-        //     path: '/about',
-        //     name: 'about',
-        //     // route level code-splitting
-        //     // this generates a separate chunk (about.[hash].js) for this route
-        //     // which is lazy-loaded when the route is visited.
-        //     component: function () {
-        //         return import(/* webpackChunkName: "about" */ './views/About.vue')
-        //     }
-        // },
         {
             path:'/products',
             name: 'products',
             component: Products ,
-            children:[
-                {   path: 'TV', component: { template: 'ProductDeatil' }
-                },
-            ]
+        },
+        {
+            path:'/products/:name',
+            name: 'productsDetail',
+            component: ProductDetail ,
+            // children:[
+            //     {   path: 'TV', component: { template: 'ProductDetail' }
+            //     },
+            // ]
         }
     ]
 })
