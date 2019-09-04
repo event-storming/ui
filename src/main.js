@@ -16,6 +16,7 @@ import ProductSimple from "./components/products/ProductSimple.vue";
 import Login from './components/oauth/Login.vue';
 import axios from 'axios'
 import OrderList from './components/order/OrderList';
+import OrderFinish from "./components/order/OrderFinish";
 import UserInfo from './components/mypage/UserInfo'
 import DeliveryStatus from './components/delivery/DeliveryStatus';
 import OrderPage from './components/order/OrderPage'
@@ -37,6 +38,7 @@ Vue.component('ProductList', ProductList);
 Vue.component('ProductOrder', ProductOrder);
 Vue.component('ProductRecommend',ProductRecommend);
 Vue.component('OrderList', OrderList);
+Vue.component('OrderFinish',OrderFinish);
 Vue.component('UserInfo', UserInfo)
 Vue.component('DeliveryStatus', DeliveryStatus)
 Vue.component('OrderPage', OrderPage)

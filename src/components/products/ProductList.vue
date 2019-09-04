@@ -24,11 +24,7 @@
                     ></v-text-field>
                 </v-toolbar>
             <v-container>
-<<<<<<< HEAD
                 <div>Recommand</div>
-=======
-                <div>Recommend</div>
->>>>>>> 40b486ea56ad914e7f8978d84ef7c7456b40d1fa
                 <ProductRecommend></ProductRecommend>
             </v-container>
 
@@ -62,7 +58,7 @@
                                 </v-list-item>
                                 <div align="right">
                                     <v-btn text @click="showDetail(item.name)"> DETAIL </v-btn>
-                                    <v-btn text> BUY </v-btn>
+                                    <v-btn text @click="showOrderFinish()"> BUY </v-btn>
                                 </div>
                             </v-list>
                         </v-card>
@@ -173,6 +169,9 @@
             },
             showDetail(val){
                 this.$router.push('/products/'+val)
+            },
+            showOrderFinish(){
+                this.$router.push('/OrderFinish');
             },
             nextPage () {
                 if (this.page + 1 <= this.numberOfPages) this.page += 1

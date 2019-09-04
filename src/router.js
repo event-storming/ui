@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Products from "./components/products/Products";
 import ProductDetail from "./components/products/ProductDetail";
+import OrderFinish from "./components/order/OrderFinish";
 import Home from './components/Home'
 import MyPage from './components/mypage/MyPage.vue';
 
@@ -25,6 +26,11 @@ export default new Router({
             path:'/products',
             name: 'products',
             component: Products ,
+        },
+        {
+            path:'/OrderFinish',
+            name: 'OrderFinish',
+            component: OrderFinish ,
         },
         {
             path:'/products/:name',
