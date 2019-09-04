@@ -90,7 +90,7 @@
             <div class="flex-grow-1"></div>
             <v-card-actions>
                 <div class="flex-grow-1"></div>
-                <v-btn color="red accent-4" text @click="close()">결제하기</v-btn>
+                <v-btn color="red accent-4" text @click="submit()">결제하기</v-btn>
                 <v-btn color="red accent-4" text @click="close()">취소</v-btn>
             </v-card-actions>
         </v-card-text>
@@ -160,6 +160,10 @@
                 console.log(me.buyDialog)
             },
             submit() {
+                var me = this
+                console.log(me.card, me.qty,me.name,this.productInfo.price, me.address, me.phoneNumber,me.totalAmount);
+                me.$EventBus.$emit('message', this.productInfo, me.address, me.phoneNumber,me.totalAmount);
+                this.$router.push('/OrderFinish');
 
             }
             // submit() {
