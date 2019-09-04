@@ -37,7 +37,6 @@
                 <v-autocomplete label="Option"></v-autocomplete>
 
                 <div>Qty</div>
-                <number-input v-model="value" :min="1" :max="10" inline controls></number-input>
 
             </v-form>
         </v-card-text>

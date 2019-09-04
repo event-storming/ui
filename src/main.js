@@ -8,10 +8,10 @@ import 'vuetify/dist/vuetify.min.css';
 import VueNumberInput from '@chenfengyuan/vue-number-input';
 import VueTheMask from 'vue-the-mask'
 
-
 import Products from "./components/products/Products.vue";
 import ProductList from "./components/products/ProductList.vue";
 import ProductOrder from "./components/products/ProductDetail.vue";
+import ProductSimple from "./components/products/ProductSimple.vue";
 import ProductRecommand from "./components/products/ProductRecommand.vue";
 import Login from './components/oauth/Login.vue';
 import axios from 'axios'
@@ -40,6 +40,7 @@ Vue.component('OrderList', OrderList);
 Vue.component('UserInfo', UserInfo)
 Vue.component('DeliveryStatus', DeliveryStatus)
 Vue.component('OrderPage', OrderPage)
+Vue.component('ProductSimple', ProductSimple)
 
 
 Vue.config.productionTip = false
