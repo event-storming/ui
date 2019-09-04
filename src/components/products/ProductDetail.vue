@@ -60,7 +60,10 @@
 
                 <div>Option</div>
                 <v-autocomplete label="Option"></v-autocomplete>
+<<<<<<< HEAD
 
+=======
+>>>>>>> 40b486ea56ad914e7f8978d84ef7c7456b40d1fa
             </v-form>
         </v-card-text>
 
