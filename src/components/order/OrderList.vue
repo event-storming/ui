@@ -13,20 +13,20 @@
                 class="elevation-1"
         >
             <template v-slot:top>
-                    <v-dialog v-model="dialog"
-                              max-width="800px"
-                              scrollable>
-                        <v-card>
-                            <order-page></order-page>
-                                <!--<delivery-status-->
-                                    <!--:prod-name="editedItem.name"-->
-                                <!--&gt;</delivery-status>-->
-                            <v-card-actions>
-                                <div class="flex-grow-1"></div>
-                                <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
-                            </v-card-actions>
-                        </v-card>
-                    </v-dialog>
+                <v-dialog v-model="dialog"
+                          max-width="800px"
+                          scrollable>
+                    <v-card>
+                        <!--<order-page></order-page>-->
+                        <delivery-status
+                                :prod-name="editedItem.name"
+                        ></delivery-status>
+                        <v-card-actions>
+                            <div class="flex-grow-1"></div>
+                            <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
+                        </v-card-actions>
+                    </v-card>
+                </v-dialog>
             </template>
 
             <template v-slot:item.action="{ item }">
@@ -41,14 +41,14 @@
         </v-data-table>
 
         <!--<v-data-table item-key="name"-->
-                      <!--:headers="headers"-->
-                      <!--:items-per-page="5"-->
-                      <!--class="elevation-1"-->
-                      <!--:footer-props="{-->
-                              <!--prevIcon: 'mdi-arrow-left',-->
-                              <!--nextIcon: 'mdi-arrow-right'-->
-                          <!--}"-->
-                      <!--@click.native="deliveryDialog(item)"-->
+        <!--:headers="headers"-->
+        <!--:items-per-page="5"-->
+        <!--class="elevation-1"-->
+        <!--:footer-props="{-->
+        <!--prevIcon: 'mdi-arrow-left',-->
+        <!--nextIcon: 'mdi-arrow-right'-->
+        <!--}"-->
+        <!--@click.native="deliveryDialog(item)"-->
         <!--&gt;</v-data-table>-->
     </v-card>
 </template>
@@ -61,26 +61,22 @@
             loadData: false,
             headers: [
                 {
+                    text: 'OrderId',
+                    align: 'left',
+                    sortable: false,
+                    value: 'orderId',
+                },
+                {
                     text: 'Product Name',
                     align: 'left',
                     sortable: false,
-                    value: 'name',
+                    value: 'productName',
                 },
-                { text: 'Price', value: 'price' },
-                { text: 'Stock', value: 'stock' },
-                { text: 'Delivery', value: 'action', sortable: false}
+                {text: '주문자', value: 'username'},
+                {text: 'Stock', value: 'stock'},
+                {text: 'Delivery', value: 'action', sortable: false}
             ],
             orderList: [
-                {
-                    name: 'Frozen Yogurt',
-                    price: 159,
-                    stock: 6.0,
-                },
-                {
-                    name: 'Ice cream sandwich',
-                    price: 237,
-                    stock: 9.0,
-                },
             ],
             editedIndex: -1,
             editedItem: {
@@ -99,28 +95,37 @@
             },
         }),
 
-        computed: {
-
-        },
+        computed: {},
 
         watch: {
-            dialog (val) {
+            dialog(val) {
                 val || this.close()
             },
         },
 
-        created () {
+        created() {
 
+        },
+        mounted() {
+            this.getOrderList()
         },
 
         methods: {
-            openDelivery (item) {
+            getOrderList() {
+                var me = this
+                this.$http.get(`${API_HOST}/mypage/order/${localStorage.getItem('userId')}`)
+                    .then(function (e) {
+                        console.log(e)
+                        me.orderList = e.data
+                    })
+            },
+            openDelivery(item) {
                 console.log(item)
                 this.editedIndex = this.orderList.indexOf(item)
                 this.editedItem = Object.assign({}, item)
                 this.dialog = true
             },
-            close () {
+            close() {
                 this.dialog = false
                 setTimeout(() => {
                     this.editedItem = Object.assign({}, this.defaultItem)

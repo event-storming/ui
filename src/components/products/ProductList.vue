@@ -195,6 +195,9 @@
                 var me = this
                 me.buyDialog = true;
                 me.selectItem = item;
+            },
+            nextPage() {
+                if (this.page + 1 <= this.numberOfPages) this.page += 1
             }
         },
     }

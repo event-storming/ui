@@ -42,10 +42,10 @@
             ></v-list-item-avatar>
         </v-list-item>
 
-        <v-card-actions>
-            <div class="flex-grow-1"></div>
-            <v-btn color="red accent-4" text>수정하기</v-btn>
-        </v-card-actions>
+        <!--<v-card-actions>-->
+            <!--<div class="flex-grow-1"></div>-->
+            <!--&lt;!&ndash;<v-btn color="red accent-4" text>수정하기</v-btn>&ndash;&gt;-->
+        <!--</v-card-actions>-->
     </v-card>
     <!-- Mypage Info End -->
 
