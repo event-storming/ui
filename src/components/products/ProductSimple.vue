@@ -16,7 +16,7 @@
                     size="80"
             >
                 <img
-                        :src="productInfo.host+productInfo.imageUrl"
+                        :src="host+productInfo.imageUrl"
                         alt="avatar"
                 >
             </v-list-item-avatar>
@@ -27,9 +27,16 @@
 <script>
     export default {
         name: "ProductSimple",
+        data: () => ({
+            host:''
+        }),
         props: {
             productInfo: Object
-        }
+        },
+        created() {
+            var me = this
+            me.host=API_HOST
+        },
     }
 </script>
 

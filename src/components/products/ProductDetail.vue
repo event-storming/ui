@@ -29,7 +29,7 @@
                 <v-card-title >
                     <v-row align="center" justify="center" outlined>
                         <v-img
-                                :src="host+selectItem.imageUrl"
+                                :src="this.host+selectItem.imageUrl"
                                 aspect-ratio="1.7"
                                 contain
                         ></v-img>
@@ -94,8 +94,6 @@
               function (getItem) {
                   me.selectItem=getItem.data._embedded.products[0];
                   me.host=API_HOST;
-                  me.selectItem.map( item => item.host = API_HOST)
-                  console.log(me.selectItem)
               })
 
         },
