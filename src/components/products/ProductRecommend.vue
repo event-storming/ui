@@ -45,13 +45,13 @@
                 ],
                 items: [
                     {
-                        name: 'Frozen Yogurt',
+                        name: 'Frozen',
                         price: 159,
                         description: 6.0,
                         option: 24,
                     },
                     {
-                        name: 'Ice cream sandwich',
+                        name: 'sandwich',
                         price: '$237',
                         description: 9.0,
                         option: 37,
