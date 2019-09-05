@@ -34,7 +34,7 @@
 
                             <v-divider></v-divider>
 
-                            <v-img :src=item.imageUrl aspect-ratio="1.7" contain></v-img>
+                            <v-img :src="item.host + item.imageUrl" aspect-ratio="1.7" contain></v-img>
 
                             <v-list dense>
                                 <v-list-item
@@ -167,9 +167,10 @@
         methods: {
             getProdList() {
                 var me = this
-                me.$http.get('http://localhost:8088/products').then(function (e) {
+                me.$http.get(`${API_HOST}/products`).then(function (e) {
                     console.log();
                     me.items = e.data._embedded.products;
+                    me.items.map( item => item.host = API_HOST)
                 })
             },
             formerPage() {
