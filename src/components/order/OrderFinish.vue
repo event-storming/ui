@@ -62,9 +62,9 @@
             <v-card-title>> 결제 정보</v-card-title>
             <v-divider></v-divider>
             <v-card-text>
-                결제 전 잔액: {{ orderData.totalAmount + $store.state.money }}
+                결제 전 잔액: {{ $store.state.money + orderData.totalAmount }}
                 <br>주문 총 금액: {{orderData.totalAmount}}
-                <br>결제 후 잔액: {{$store.state.money}}
+                <br>결제 후 잔액: {{$store.state.money  }}
             </v-card-text>
         </v-card>
 
