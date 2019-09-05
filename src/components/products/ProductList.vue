@@ -10,6 +10,7 @@
                     :productInfo="selectItem"
             ></order-page>
         </v-dialog>
+
         <v-data-iterator
                 :items="items"
                 :items-per-page.sync="itemsPerPage"
@@ -17,28 +18,6 @@
                 :search="search"
                 hide-default-footer
         >
-            <template v-slot:header>
-                <!--<v-toolbar-->
-                        <!--dark-->
-                        <!--color="amber"-->
-                        <!--class="mb-1"-->
-                <!--&gt;-->
-                    <!--<v-text-field-->
-                            <!--v-model="search"-->
-                            <!--clearable-->
-                            <!--flat-->
-                            <!--solo-inverted-->
-                            <!--hide-details-->
-                            <!--prepend-inner-icon="search"-->
-                            <!--label="Search"-->
-                    <!--&gt;</v-text-field>-->
-                <!--</v-toolbar>-->
-            <v-container>
-                <div>Recommand</div>
-                <ProductRecommend></ProductRecommend>
-            </v-container>
-
-            </template>
 
             <template v-slot:default="props">
                 <v-row>
@@ -68,7 +47,7 @@
 
                                 </v-list-item>
                                 <div align="right">
-                                    <v-btn text @click="showDetail(item.name)"> DETAIL </v-btn>
+                                    <v-btn text @click="showDetail(item)"> DETAIL </v-btn>
                                     <v-btn text @click="showBuy(item)"> BUY </v-btn>
 
                                 </div>
@@ -164,10 +143,16 @@
         },
         mounted() {
             this.getProdList();
-            var me = this
+            var me = this;
             this.$EventBus.$on('search', function(newVal) {
-                console.log("aa")
+                console.log("search");
+                console.log(newVal);
                 me.search = newVal
+            })
+
+            this.$EventBus.$on('buy', function(newVal) {
+                console.log("buy")
+                me.showBuy(newVal);
             })
             console.log(this.$route)
         },
@@ -187,9 +172,6 @@
                     me.items = e.data._embedded.products;
                 })
             },
-            showDetail(val) {
-                this.$router.push('/products/' + val)
-            },
             formerPage() {
                 if (this.page - 1 >= 1) this.page -= 1
             },
@@ -200,6 +182,9 @@
                 var me = this
                 me.buyDialog = true;
                 me.selectItem = item;
+            },
+            showDetail(item) {
+                this.$router.push('/products/' + item.name);
             },
             nextPage() {
                 if (this.page + 1 <= this.numberOfPages) this.page += 1

@@ -17,7 +17,7 @@
                           max-width="800px"
                           scrollable>
                     <v-card>
-                        <!--<order-page></order-page>-->
+<!--                        <order-page></order-page>-->
                         <delivery-status
                                 :prod-name="editedItem.name"
                         ></delivery-status>
@@ -53,6 +53,27 @@
                 > 배송 준비 중
                 </v-chip>
             </template>
+
+            <template v-slot:item.Survey="{ item }">
+                <v-icon
+                small
+                class="mr-2"
+                @click="openSurvey(item)"
+                v-if="surveyComplete"
+                >
+                리뷰작성
+                </v-icon>
+
+                <v-icon v-else
+                        small
+                        class="mr-2"
+                        @click="openSurvey(item)"
+                        style="color: darkolivegreen; background: chartreuse"
+                >
+                    작성완료
+                </v-icon>
+            </template>
+
         </v-data-table>
     </v-card>
 </template>
@@ -62,6 +83,7 @@
         name: 'OrderList',
         data: () => ({
             dialog: false,
+            surveyComplete :false,
             loadData: false,
             headers: [
                 {
@@ -79,8 +101,9 @@
                 {text: '주문자', value: 'username'},
                 {text: '결제금액', value: 'payment', align: 'center'},
                 {text: '구매수량', value: 'quantity', align: 'center'},
-                {text: '결제시각', value: 'timestamp', align: 'center'},
-                {text: 'Delivery', value: 'action', sortable: false}
+                // {text: '결제시각', value: 'timestamp', align: 'center'},
+                {text: 'Delivery', value: 'action', sortable: false},
+                {text: '리뷰', value: 'Survey', align: 'center'}
             ],
             orderList: [],
             editedIndex: -1,
@@ -137,6 +160,11 @@
                     this.editedIndex = -1
                 }, 300)
             },
+            openSurvey(item){
+                var me =  this
+                me.$router.push({name: 'survey', params: item});
+
+            }
         },
     }
 </script>

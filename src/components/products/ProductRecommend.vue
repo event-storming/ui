@@ -6,7 +6,7 @@
                 cols="12"
                 sm="6"
                 md="2"
-                lg="3"">
+                lg="3">
         <v-card >
             <v-card-title  class="subheading font-weight-bold">{{ item.name}}</v-card-title>
 

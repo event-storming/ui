@@ -1,76 +1,78 @@
 <template>
-
-    <v-card class="elevation-12">
-        <v-toolbar
-                color="amber"
-                flat
+    <v-container >
+        <v-dialog
+                v-model="buyDialog"
+                width="800"
+                persistent
         >
-            <v-toolbar-title> PRODUCT DETAIL </v-toolbar-title>
-            <div class="flex-grow-1"></div>
-        </v-toolbar>
+            <order-page
+                    v-bind:buyDialog.sync="buyDialog"
+                    :productInfo="selectItem"
+            ></order-page>
+        </v-dialog>
 
-        <v-row align="center" justify="center">
-            <v-img v-if="selectItem.imageUrl != null "
-                    :src=selectItem.imageUrl
-                    aspect-ratio="1"
-                    max-width="500"
-                    max-height="300"
-            ></v-img>
-            <v-img v-else
-                   src='http://uengine.org/assets/img/uengine/logo_bright.png'
-                   aspect-ratio="1"
-                   max-width="500"
-                   max-height="300"
-            ></v-img>
 
-        </v-row>
-
-        <v-card-text>
-            <v-form>
-                <v-text-field
-                        label="Product Id"
-                        :value=selectItem.id
-                        prepend-icon="person"
-                        readonly
-                        solo
-                ></v-text-field>
-                <v-text-field
-                        label="Product Name"
-                        :value=selectItem.name
-                        prepend-icon="person"
-                        readonly
-                        solo
-                ></v-text-field>
-                <v-text-field
-                        label="Product Price"
-                        :value=selectItem.price
-                        prepend-icon="person"
-                        readonly
-                        solo
-                ></v-text-field>
-
-                <v-text-field
-                        label="Product Detail"
-                        name="detail"
-                        prepend-icon="person"
+        <v-row style="justify-content: center">
+            <v-card flat width="500px" outlined >
+                <v-card
+                        class="mx-auto"
                         outlined
-                        readonly
-                        solo
-                ></v-text-field>
+                        color="amber"
+                >
+                    <v-card-text
+                        style="font-size: medium; color: black;">
+                        제품 상세 정보
+                    </v-card-text>
+                </v-card>
 
-                <div>Option</div>
-                <v-autocomplete label="Option"></v-autocomplete>
-            </v-form>
-        </v-card-text>
+                <v-card outlined>
+                <v-card-title >
+                    <v-row align="center" justify="center" outlined>
+                        <v-img
+                                :src=selectItem.imageUrl
+                                aspect-ratio="1"
+                                class="grey lighten-2"
+                                max-width="500"
+                                max-height="300"
+                        ></v-img>
+                    </v-row>
+                </v-card-title>
+                </v-card>
 
-        <v-card-actions>
-            <div class="flex-grow-1"></div>
-            <v-btn color="primary" >BUY</v-btn>
-            <v-btn color="primary" @click="Cancel()">CANCEL</v-btn>
-        </v-card-actions>
+                <v-card flat>
+                    <v-card-text>
+                        <v-card
+                                class="mx-auto"
+                                outlined
+                        >
+                            <form >
+                                <v-row >
+                                    <v-col
+                                            cols="15"
+                                            outline
+                                    >
+                                        <div>상품코드 : {{ selectItem.id }}
+                                            <br> 상품이름 : {{ selectItem.name }}
+                                            <br> 상품가격 : {{ selectItem.price }}
+                                            <br> 재고량 :   {{selectItem.stock}}
+                                            <br> 옵션 :
+                                        </div>
 
-    </v-card>
+                                    </v-col>
+                                </v-row>
+                            </form>
+                        </v-card>
+                    </v-card-text>
+                </v-card>
 
+                <v-card-actions>
+                    <div class="flex-grow-1"></div>
+                    <v-btn color="primary accent-4" text @click="check()">결제하기</v-btn>
+                    <v-btn color="red accent-4" text @click="close()">나가기</v-btn>
+                </v-card-actions>
+            </v-card>
+        </v-row>
+    </v-container>
 </template>
 
 <script>
@@ -79,17 +81,12 @@
         components: {
             'v-number-smarty': VNumberSmarty
         },
-        props:{
-
-        },
         data: () => ({
             value: 1,
             selectItem:{},
+            buyDialog: false,
         }),
-        watch:{
-
-
-        },
+        watch:{},
         mounted () {
             var me = this;
           this.$http.get(`${API_HOST}/products/search/findByName?name=`+this.$route.params.name).then(
@@ -102,8 +99,14 @@
 
         },
         methods:{
-            Cancel(){
+
+            close(){
                 this.$router.push('/products');
+            },
+            check(){
+                var me = this
+                    me.buyDialog=true;
+                // this.$EventBus.$emit('buy',this.selectItem);
             }
         }
     }

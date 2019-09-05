@@ -73,7 +73,6 @@
                 outlined
         >
             <v-row justify="end" align="center" wrap>
-                <v-btn text @click="goDetail()">주문 상세보기</v-btn>
                 <v-btn text @click="goShop()">쇼핑 계속하기</v-btn>
             </v-row>
         </v-card>
@@ -85,7 +84,6 @@
 
 <script>
     export default {
-        props: {},
         data: () => ({
             orderData: {}
         }),
@@ -102,10 +100,7 @@
         methods: {
             goShop() {
                 this.$router.push('/products');
-            },
-            goDetail() {
-
-            },
+            }
         },
     }
 </script>

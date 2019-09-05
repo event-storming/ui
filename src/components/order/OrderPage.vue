@@ -163,10 +163,6 @@
                 me.$emit('update:buyDialog', false)
                 console.log(me.buyDialog)
             },
-            submit() {
-                var me = this
-                console.log(me.card, me.qty, me.name, this.productInfo.price, me.address, me.phoneNumber, me.totalAmount);
-            },
             check() {
                 var me = this
                 me.$v.$touch();
@@ -189,8 +185,7 @@
                             setTimeout(function () {
                                 me.callUser()
                             }, 1000)
-                        }
-                    )
+                        })
                 }
             },
             getComponent(componentName) {
@@ -215,6 +210,7 @@
                     me.$store.state.nickname = e.data.nickname
                     me.$store.state.money = e.data.money
                     me.$store.state.address = e.data.address
+                    console.log(me.$store);
                     console.log(e.data.money)
                     localStorage.setItem("nickname", e.data.nickname)
                     localStorage.setItem("money", e.data.money)
@@ -225,7 +221,7 @@
                         'phoneNumber': me.phoneNumber,
                         'totalAmount': me.totalAmount
                     }
-                    me.$router.push({name: 'OrderFinish', params: data});
+                    me.$router.push({name: 'orderfinish', params: data});
                     // me.$EventBus.$emit('message', JSON.parse(JSON.stringify(data)));
                 })
             }

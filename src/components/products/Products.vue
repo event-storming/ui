@@ -1,6 +1,9 @@
 <template>
     <v-container v-if="true">
-        <productList></productList>
+
+        <div>Recommand</div>
+        <product-recommend></product-recommend>
+        <product-List></product-List>
     </v-container>
 
 

@@ -20,6 +20,8 @@ import OrderFinish from "./components/order/OrderFinish";
 import UserInfo from './components/mypage/UserInfo'
 import DeliveryStatus from './components/delivery/DeliveryStatus';
 import OrderPage from './components/order/OrderPage'
+import Survey from "./components/marketing/Survey";
+import SurveyForm from "./components/marketing/SurveyForm";
 
 
 
@@ -40,9 +42,11 @@ Vue.component('ProductOrder', ProductOrder);
 Vue.component('ProductRecommend',ProductRecommend);
 Vue.component('OrderList', OrderList);
 Vue.component('OrderFinish',OrderFinish);
+Vue.component('OrderPage', OrderPage)
+Vue.component('Survey',Survey);
+Vue.component('SurveyForm',SurveyForm);
 Vue.component('UserInfo', UserInfo)
 Vue.component('DeliveryStatus', DeliveryStatus)
-Vue.component('OrderPage', OrderPage)
 Vue.component('ProductSimple', ProductSimple)
 
 

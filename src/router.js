@@ -5,6 +5,7 @@ import ProductDetail from "./components/products/ProductDetail";
 import OrderFinish from "./components/order/OrderFinish";
 import Home from './components/Home'
 import MyPage from './components/mypage/MyPage.vue';
+import Survey from "./components/marketing/Survey";
 
 Vue.use(Router)
 
@@ -28,18 +29,19 @@ export default new Router({
             component: Products ,
         },
         {
-            path:'/OrderFinish',
-            name: 'OrderFinish',
+            path:'/orderfinish',
+            name: 'orderfinish',
             component: OrderFinish,
+        },
+        {
+            path:'/survey',
+            name: 'survey',
+            component: Survey,
         },
         {
             path:'/products/:name',
             name: 'productsDetail',
             component: ProductDetail ,
-            // children:[
-            //     {   path: 'TV', component: { template: 'ProductDetail' }
-            //     },
-            // ]
         }
     ]
 })
