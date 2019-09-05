@@ -168,7 +168,6 @@
             getProdList() {
                 var me = this
                 me.$http.get(`${API_HOST}/products`).then(function (e) {
-                    console.log();
                     me.items = e.data._embedded.products;
                     me.items.map( item => item.host = API_HOST)
                 })

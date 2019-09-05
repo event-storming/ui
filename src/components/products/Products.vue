@@ -1,6 +1,5 @@
 <template>
     <v-container v-if="true">
-
         <div>Recommand</div>
         <product-recommend></product-recommend>
         <product-List></product-List>

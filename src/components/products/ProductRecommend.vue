@@ -1,19 +1,20 @@
 <template>
+    <v-container fluid>
     <v-row>
         <v-col
                 v-for="item in items"
                 :key="item.name"
                 cols="12"
                 sm="6"
-                md="2"
-                lg="3">
+                md="4"
+                lg="3"
+        >
         <v-card >
             <v-card-title  class="subheading font-weight-bold">{{ item.name}}</v-card-title>
 
         <v-divider></v-divider>
 
-            <v-img v-if="item.imageUrl != null" :src=item.imageUrl aspect-ratio="1.7" contain></v-img>
-            <v-img v-else src='https://svgsilh.com/svg/1295383-ff9800.svg' aspect-ratio="1.7" contain></v-img>
+            <v-img  src='https://svgsilh.com/svg/1295383-ff9800.svg' aspect-ratio="1.7" contain></v-img>
 
         <v-list dense>
             <v-list-item
@@ -31,6 +32,7 @@
     </v-card>
         </v-col>
     </v-row>
+        </v-container>
 </template>
 
 <script>
@@ -39,34 +41,39 @@
             return {
                 keys: [
                     'Name',
+                    'Id',
                     'Price',
-                    'Description',
+                    'Stock',
                     'Option',
                 ],
                 items: [
                     {
                         name: 'Frozen',
-                        price: 159,
-                        description: 6.0,
-                        option: 24,
+                        id:1,
+                        price: 10000,
+                        stock: 6,
+                        option: '',
                     },
                     {
                         name: 'sandwich',
-                        price: '$237',
-                        description: 9.0,
-                        option: 37,
+                        id:2,
+                        price: 20000,
+                        stock: 1,
+                        option: '',
                     },
                     {
                         name: 'Eclair',
-                        price: '$'+262,
-                        description: 16.0,
-                        option: 23,
+                        id:3,
+                        price: 30000,
+                        stock: 16,
+                        option: '',
                     },
                     {
                         name: 'Cupcake',
-                        price: 305,
-                        description: 3.7,
-                        option: 67,
+                        id:4,
+                        price: 40000,
+                        stock: 11,
+                        option: '',
                     },
 
                 ]

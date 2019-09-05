@@ -83,7 +83,7 @@
         name: 'OrderList',
         data: () => ({
             dialog: false,
-            surveyComplete :false,
+            surveyComplete :true,
             loadData: false,
             headers: [
                 {

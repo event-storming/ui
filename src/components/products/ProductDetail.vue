@@ -29,11 +29,9 @@
                 <v-card-title >
                     <v-row align="center" justify="center" outlined>
                         <v-img
-                                :src=selectItem.imageUrl
-                                aspect-ratio="1"
-                                class="grey lighten-2"
-                                max-width="500"
-                                max-height="300"
+                                :src="host+selectItem.imageUrl"
+                                aspect-ratio="1.7"
+                                contain
                         ></v-img>
                     </v-row>
                 </v-card-title>
@@ -84,16 +82,22 @@
         data: () => ({
             value: 1,
             selectItem:{},
+            items:[],
             buyDialog: false,
+            host:''
         }),
         watch:{},
         mounted () {
             var me = this;
-          this.$http.get(`${API_HOST}/products/search/findByName?name=`+this.$route.params.name).then(
+
+            this.$http.get(`${API_HOST}/products/search/findByName?name=`+this.$route.params.name).then(
               function (getItem) {
                   me.selectItem=getItem.data._embedded.products[0];
-              }
-          )
+                  me.host=API_HOST;
+                  me.selectItem.map( item => item.host = API_HOST)
+                  console.log(me.selectItem)
+              })
+
         },
         computed:{
 
@@ -105,8 +109,7 @@
             },
             check(){
                 var me = this
-                    me.buyDialog=true;
-                // this.$EventBus.$emit('buy',this.selectItem);
+                me.buyDialog=true;
             }
         }
     }

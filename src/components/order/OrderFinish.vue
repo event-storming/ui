@@ -22,7 +22,7 @@
             <v-divider></v-divider>
             <v-card-text>
                 상품명: {{ orderData.productInfo.name }}
-                <br>상품금액: {{ orderData.productInfo.price }} | 수량: {{ orderData.productInfo.stock }}
+                <br>상품금액: {{ orderData.productInfo.price }} | 수량: {{ orderData.qty }}
             </v-card-text>
         </v-card>
 
@@ -89,6 +89,7 @@
         }),
         created() {
             this.orderData = this.$route.params
+            console.log(this.orderData);
         },
         beforeDestroy() {
         },

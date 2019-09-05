@@ -16,7 +16,7 @@
                     size="80"
             >
                 <img
-                        :src="productInfo.imageUrl"
+                        :src="productInfo.host+productInfo.imageUrl"
                         alt="avatar"
                 >
             </v-list-item-avatar>

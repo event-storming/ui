@@ -82,6 +82,8 @@
 </template>
 
 <script>
+    import Survey from "./Survey";
+
     export default {
 
         props:{
@@ -89,8 +91,8 @@
         },
         data: () => ({
             rating: 4,
-            surveyRecommend:'',
-            surveyDelivery:'',
+            surveyRecommend:2,
+            surveyDelivery:2,
             surveyComment:'',
 
         }),
@@ -111,9 +113,18 @@
         methods: {
             summit(){
                 var me = this
-                var surveyResult={
 
+                // http http://localhost:8084/surveys customerName="1@uengine.org" surveyMessage="nonooooo" productSatisfaction=1
+                let param = {
+                    'customerName': '1@uengine.org',
+                    'surveyMessage': me.surveyComment,
+                    'productSatisfaction': (me.surveyDelivery+me.surveyRecommend+me.rating)/3,
                 }
+                    me.$http.post(`${API_HOST}/surveys`, param).then(function (e) {
+                        console.log('Survey POST');
+                        console.log(e);
+                })
+
                 this.$router.push('/mypage');
             },
             goList(){

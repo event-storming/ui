@@ -219,6 +219,7 @@
                         'productInfo' :  me.productInfo,
                         'address': me.address,
                         'phoneNumber': me.phoneNumber,
+                        'qty':me.qty,
                         'totalAmount': me.totalAmount
                     }
                     me.$router.push({name: 'orderfinish', params: data});
