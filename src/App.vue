@@ -1,5 +1,6 @@
 <template>
     <v-app id="keep">
+
         <v-app-bar
                 app
                 clipped-left
@@ -16,7 +17,11 @@
                     label="Search"
                     prepend-inner-icon="search"
             ></v-text-field>
+
             <div class="flex-grow-1"></div>
+            <v-btn text v-if="$route.path == '/products'" @click="repositoryDialog = true"  >상품추가</v-btn>
+            <v-btn text v-if="$route.path == '/mypage' && oderBlackList "  @click="pageList()" style="background: red;" >블랙리스트</v-btn>
+            <v-btn text v-if="$route.path == '/mypage' && !oderBlackList"  @click="pageList()"  >구매리스트</v-btn>
             <v-btn text @click="dialog = true" v-if="$store.state.login == false">Login</v-btn>
             <v-btn text @click="logout" v-else>Logout</v-btn>
             <!--<v-btn text>-->
@@ -90,8 +95,10 @@
                         </v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
+
             </v-list>
         </v-navigation-drawer>
+
         <v-dialog
                 v-model="dialog"
                 width="500"
@@ -101,6 +108,17 @@
                     :dialog.sync="dialog"
             ></Login>
         </v-dialog>
+
+        <v-dialog
+                v-model="repositoryDialog"
+                width="500"
+                persistent
+        >
+            <product-repository
+                    :repositoryDialog.sync="repositoryDialog"
+            ></product-repository>
+        </v-dialog>
+
         <v-snackbar
                 v-model="snackbar"
                 :color="'success'"
@@ -133,6 +151,8 @@
         data: () => ({
             drawer: null,
             dialog: false,
+            repositoryDialog: false,
+            oderBlackList:false,
             items: [
                 {icon: 'home', text: 'Home', routelink: '/'},
                 {icon: 'shopping_cart', text: 'Products', routelink: '/products'},
@@ -159,6 +179,14 @@
                 var me = this
                 me.$store.dispatch('logout')
                 this.$router.push('/')
+            },
+            pageList(){
+                var me = this
+                me.oderBlackList = !me.oderBlackList
+
+                me.$EventBus.$emit('show',me.oderBlackList);
+
+
             },
             // slotOffer: function () {
             //     var me = this

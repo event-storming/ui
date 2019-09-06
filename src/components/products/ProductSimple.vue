@@ -34,8 +34,7 @@
             productInfo: Object
         },
         created() {
-            var me = this
-            me.host=API_HOST
+            this.host=API_HOST
         },
     }
 </script>

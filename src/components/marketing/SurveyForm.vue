@@ -120,7 +120,7 @@
                     'surveyMessage': me.surveyComment,
                     'productSatisfaction': (me.surveyDelivery+me.surveyRecommend+me.rating)/3,
                 }
-                    me.$http.post(`${API_HOST}/surveys`, param).then(function (e) {
+                    me.$http.post(`http://localhost:8084/surveys`, param).then(function (e) {
                         console.log('Survey POST');
                         console.log(e);
                 })

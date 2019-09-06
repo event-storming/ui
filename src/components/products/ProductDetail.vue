@@ -1,5 +1,6 @@
 <template>
     <v-container >
+
         <v-dialog
                 v-model="buyDialog"
                 width="800"
@@ -29,7 +30,7 @@
                 <v-card-title >
                     <v-row align="center" justify="center" outlined>
                         <v-img
-                                :src="this.host+selectItem.imageUrl"
+                                :src='this.img'
                                 aspect-ratio="1.7"
                                 contain
                         ></v-img>
@@ -84,7 +85,7 @@
             selectItem:{},
             items:[],
             buyDialog: false,
-            host:''
+            img:''
         }),
         watch:{},
         mounted () {
@@ -94,6 +95,7 @@
               function (getItem) {
                   me.selectItem=getItem.data._embedded.products[0];
                   me.host=API_HOST;
+                  me.img=API_HOST+me.selectItem.imageUrl;
               })
 
         },

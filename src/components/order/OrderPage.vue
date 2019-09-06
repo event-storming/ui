@@ -154,6 +154,12 @@
                 !this.$v.address.required && errors.push('Address is required')
                 return errors
             },
+            phoneNumberErrors() {
+                const errors = []
+                if (!this.$v.phoneNumber) return errors
+                !this.$v.phoneNumber.required && errors.push('phoneNumber is required')
+                return errors
+            },
         },
 
         methods: {
@@ -173,7 +179,7 @@
             },
             postOrder() {
                 var me = this
-                if ((me.nameErrors.length == 0) && (me.nameErrors.length == 0) && (me.nameErrors.length == 0)) {
+                if ((me.nameErrors.length == 0) && (me.addressErrors.length == 0) && (me.nameErrors.length == 0)) {
                     // http localhost:8081/orders productId=1 quantity=3 customerName="홍길동" customerAddr="서울시"
                     let param = {
                         'productId': me.productInfo.id,
@@ -202,7 +208,7 @@
             callUser() {
                 var me = this
                 var app = me.getComponent('App')
-                me.$http.get(`http://localhost:8088/users/${localStorage.getItem('userId')}`).then(function (e) {
+                me.$http.get(`${API_HOST}/users/${localStorage.getItem('userId')}`).then(function (e) {
                     me.$emit('update:buyDialog', false)
                     app.snackbar = true
                     me.overlay = false
@@ -223,7 +229,7 @@
                         'totalAmount': me.totalAmount
                     }
                     me.$router.push({name: 'orderfinish', params: data});
-                    // me.$EventBus.$emit('message', JSON.parse(JSON.stringify(data)));
+                    me.$EventBus.$emit('message', JSON.parse(JSON.stringify(data)));
                 })
             }
         },
