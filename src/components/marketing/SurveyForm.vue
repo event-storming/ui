@@ -111,8 +111,20 @@
         },
         computed: {},
         methods: {
+            getComponent(componentName) {
+                let component = null
+                let parent = this.$parent
+                while (parent && !component) {
+                    if (parent.$options.name === componentName) {
+                        component = parent
+                    }
+                    parent = parent.$parent
+                }
+                return component
+            },
             summit(){
                 var me = this
+                var app = me.getComponent('App')
 
                 // http http://localhost:8084/surveys customerName="1@uengine.org" surveyMessage="nonooooo" productSatisfaction=1
                 let param = {
@@ -120,9 +132,9 @@
                     'surveyMessage': me.surveyComment,
                     'productSatisfaction': (me.surveyDelivery+me.surveyRecommend+me.rating)/3,
                 }
-                    me.$http.post(`http://localhost:8084/surveys`, param).then(function (e) {
+                me.$http.post(`http://localhost:8084/surveys`, param).then(function (e) {
                         console.log('Survey POST');
-                        console.log(e);
+                        app.surveySnackbar = true
                 })
 
                 this.$router.push('/mypage');

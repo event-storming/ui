@@ -16,12 +16,18 @@
                     hide-details
                     label="Search"
                     prepend-inner-icon="search"
+                    style="padding-left: 10px"
             ></v-text-field>
 
             <div class="flex-grow-1"></div>
-            <v-btn text v-if="$route.path == '/products'" @click="repositoryDialog = true"  >상품추가</v-btn>
-            <v-btn text v-if="$route.path == '/mypage' && oderBlackList "  @click="pageList()" style="background: red;" >블랙리스트</v-btn>
-            <v-btn text v-if="$route.path == '/mypage' && !oderBlackList"  @click="pageList()"  >구매리스트</v-btn>
+            <v-btn text v-if="$route.path == '/products' && $store.state.login == true" @click="repositoryDialog = true"  >상품추가</v-btn>
+            <v-btn text
+                   v-if="$route.path == '/mypage' && oderBlackList && $store.state.login == true "
+                   @click="pageList()"
+                   style="background: red;" >블랙리스트</v-btn>
+            <v-btn text
+                   v-if="$route.path == '/mypage' && !oderBlackList && $store.state.login == true "
+                   @click="pageList()"  >구매리스트</v-btn>
             <v-btn text @click="dialog = true" v-if="$store.state.login == false">Login</v-btn>
             <v-btn text @click="logout" v-else>Logout</v-btn>
             <!--<v-btn text>-->
@@ -135,6 +141,25 @@
                 Close
             </v-btn>
         </v-snackbar>
+
+        <v-snackbar
+                v-model="snackbarList.surveySnackbar"
+                :color="'success'"
+                right
+                :timeout="6000"
+                top
+        >
+            리뷰 작성 완료 되었습니다.
+            <v-btn
+                    dark
+                    text
+                    @click="surveySnackbar = false"
+            >
+                Close
+            </v-btn>
+        </v-snackbar>
+
+
         <v-content>
             <router-view></router-view>
         </v-content>
@@ -158,7 +183,13 @@
                 {icon: 'shopping_cart', text: 'Products', routelink: '/products'},
             ],
             snackbar: false,
-            productSearch: ''
+            surveySnackbar:false,
+            productSnackbar:false,
+            productSearch: '',
+            snackbarList:[
+                {show: false, info:'리뷰 작성 완료 되었습니다.'},
+                {surveySnackbar: false, info:'상품이 추가 되었습니다.'},
+            ],
         }),
         mounted() {
             if (localStorage.getItem('accessToken') != null) {
@@ -183,10 +214,7 @@
             pageList(){
                 var me = this
                 me.oderBlackList = !me.oderBlackList
-
                 me.$EventBus.$emit('show',me.oderBlackList);
-
-
             },
             // slotOffer: function () {
             //     var me = this

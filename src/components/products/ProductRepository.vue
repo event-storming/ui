@@ -80,9 +80,20 @@
 
         }),
         methods: {
+            getComponent(componentName) {
+                let component = null
+                let parent = this.$parent
+                while (parent && !component) {
+                    if (parent.$options.name === componentName) {
+                        component = parent
+                    }
+                    parent = parent.$parent
+                }
+                return component
+            },
             register(){
                 var me = this
-
+                var app = me.getComponent('App')
                 let item={
                     'name':me.name,
                     'price': me.price,
@@ -93,6 +104,7 @@
                 me.$http.post(`http://localhost:8085/products`, item).then(function (e) {
                     console.log("post Item")
                     console.log(e)
+                    app.productSnackbar = true
                 })
 
             },
