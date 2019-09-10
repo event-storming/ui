@@ -1,15 +1,27 @@
 <template>
-    <v-container fluid>
+    <v-container >
         <v-dialog
                 v-model="buyDialog"
                 width="800"
-                persistent
         >
             <order-page
                     v-bind:buyDialog.sync="buyDialog"
                     :productInfo="selectItem"
             ></order-page>
         </v-dialog>
+
+        <v-dialog
+                v-model="editDialog"
+                width="500"
+        >
+            <product-repository
+                    v-if="editDialog"
+                    v-bind:repositoryDialog.sync="editDialog"
+                    :productInfo="selectItem"
+                    :edit=true
+            ></product-repository>
+        </v-dialog>
+
 
 
         <v-row>
@@ -22,27 +34,13 @@
                     lg="3"
                     v-if="idx<4"
             >
-                <v-card>
-                    <v-card-title class="subheading font-weight-bold">{{ list.item.name}}</v-card-title>
+                <product
+                        :item="list.item"
+                        :selectItem.sync="selectItem"
+                        :buyDialog.sync="buyDialog"
+                        :editDialog.sync="editDialog"
+                ></product>
 
-                    <v-divider></v-divider>
-
-                    <v-img :src='host+list.item.imageUrl' aspect-ratio="1.7" contain></v-img>
-
-                    <v-list dense>
-                        <v-list-item
-                                v-for="(key, index) in filteredKeys"
-                                :key="index"
-                        >
-                            <v-list-item-content>{{ key }}:</v-list-item-content>
-                            <v-list-item-content class="align-end">{{ list.item[key.toLowerCase()] }}</v-list-item-content>
-                        </v-list-item>
-                        <div align="right">
-                            <v-btn text @click="showDetail(list.item.name)"> DETAIL</v-btn>
-                            <v-btn text @click="showBuy(list.item)"> BUY</v-btn>
-                        </div>
-                    </v-list>
-                </v-card>
             </v-col>
         </v-row>
     </v-container>
@@ -61,10 +59,12 @@
                 productList: [],
                 orderList: [],
                 recommendList: [],
+                rr:[],
                 cnt:0,
                 host:`${API_HOST}`,
                 selectItem: {},
-                buyDialog: false
+                buyDialog: false,
+                editDialog: false,
             }
         },
         computed: {
@@ -72,7 +72,9 @@
                 return this.keys.filter(key => key !== `Name` && key !== 'Image')
             },
         },
-        created() {},
+        created() {
+            console.log(this.$getComponents())
+        },
         async mounted() {
             var me = this
             var productList = await me.getProductList();
@@ -98,7 +100,6 @@
             me.recommendList.sort(function(a, b) { // 내림차순
                 return b['cnt'] - a['cnt'];
             });
-            console.log(me.recommendList)
 
         },
         methods: {

@@ -24,6 +24,7 @@ import Survey from "./components/marketing/Survey";
 import SurveyForm from "./components/marketing/SurveyForm";
 import ProductRepository from "./components/products/ProductRepository";
 import ProductDelete from "./components/products/ProductDelete";
+import Product from "./components/products/Product";
 
 Vue.prototype.$http = axios;
 Vue.use(VueNumberInput);
@@ -47,6 +48,7 @@ Vue.component('Survey',Survey);
 Vue.component('SurveyForm',SurveyForm);
 Vue.component('UserInfo', UserInfo)
 Vue.component('DeliveryStatus', DeliveryStatus)
+Vue.component('Product',Product)
 Vue.component('ProductSimple', ProductSimple)
 Vue.component('ProductRepository',ProductRepository)
 Vue.component('ProductDelete',ProductDelete)

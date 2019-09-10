@@ -3,7 +3,6 @@
         <v-dialog
                 v-model="buyDialog"
                 width="800"
-                persistent
         >
             <order-page
                     v-bind:buyDialog.sync="buyDialog"
@@ -13,7 +12,6 @@
         <v-dialog
                 v-model="editDialog"
                 width="500"
-                persistent
         >
             <product-repository
                     v-if="editDialog"
@@ -22,6 +20,7 @@
                     :edit=true
             ></product-repository>
         </v-dialog>
+
 
         <v-data-iterator
                 :items="items"
@@ -41,30 +40,13 @@
                             md="4"
                             lg="3"
                     >
-                        <v-card>
-                            <v-card-title class="subheading font-weight-bold">{{ item.name }}</v-card-title>
+                        <product
+                                :item="item"
+                                :selectItem.sync="selectItem"
+                                :buyDialog.sync="buyDialog"
+                                :editDialog.sync="editDialog"
+                        ></product>
 
-                            <v-divider></v-divider>
-
-                            <v-img :src="item.host + item.imageUrl" aspect-ratio="1.7" contain></v-img>
-
-                            <v-list dense>
-                                <v-list-item
-                                        v-for="(key, index) in filteredKeys"
-                                        :key="index"
-                                >
-                                    <v-list-item-content>{{ key }}:</v-list-item-content>
-                                    <v-list-item-content class="align-end">{{ item[key.toLowerCase()] }}
-                                    </v-list-item-content>
-
-                                </v-list-item>
-                                <div align="right">
-                                    <v-btn text @click="showEdit(item)"> Edit</v-btn>
-                                    <v-btn text @click="showDetail(item)"> DETAIL</v-btn>
-                                    <v-btn text @click="showBuy(item)"> BUY</v-btn>
-                                </div>
-                            </v-list>
-                        </v-card>
                     </v-col>
                 </v-row>
             </template>
@@ -142,12 +124,6 @@
                 page: 1,
                 itemsPerPage: 8,
                 sortBy: 'name',
-                keys: [
-                    'Id',
-                    'Name',
-                    'Price',
-                    'Stock',
-                ],
                 items: [],
                 selectItem: {},
                 buyDialog: false,
@@ -163,20 +139,11 @@
                 me.search = newVal
             })
 
-            this.$EventBus.$on('buy', function (newVal) {
-                console.log("buy")
-                me.showBuy(newVal);
-            })
-            console.log(this.$route)
-
         },
         computed: {
             numberOfPages() {
                 return Math.ceil(this.items.length / this.itemsPerPage)
-            },
-            filteredKeys() {
-                return this.keys.filter(key => key !== `Name` && key !== 'imageUrl')
-            },
+            }
         },
         methods: {
             getProdList() {
@@ -191,27 +158,6 @@
             },
             updateItemsPerPage(number) {
                 this.itemsPerPage = number
-            },
-            showBuy(item) {
-                var me = this
-                if (item.stock >= 1) {
-                    me.buyDialog = true;
-                    me.selectItem = item;
-                } else {
-                    var app = me.$getComponents('App')
-                    app.snackbar = true;
-                    app.snackbarColor = 'error'
-                    app.snackbarMessage = '재고가 없습니다.'
-                }
-            },
-            showDetail(item) {
-                this.$router.push('/products/' + item.name);
-            },
-            showEdit(item) {
-                var me = this
-                    me.editDialog = true;
-                    me.selectItem = item;
-                    console.log(item)
             },
             nextPage() {
                 if (this.page + 1 <= this.numberOfPages) this.page += 1

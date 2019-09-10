@@ -1,5 +1,5 @@
-<template style="margin: 10px">
-    <v-container>
+<template>
+    <v-container style="padding: 0px">
         <v-card
                 color="amber"
         >
@@ -10,7 +10,7 @@
 
         <v-card flat>
             <v-img
-                    :src='this.host+this.img'
+                    :src="'http://localhost:8088'+this.imageUrl"
             >
             </v-img>
             <v-card-text>
@@ -45,7 +45,7 @@
 
                 <v-row>
                     <v-text-field
-                            v-model="img">
+                            v-model="imageUrl">
                         <template v-slot:label>
                             What Image you want?
                             <v-icon style="vertical-align: middle">find_in_page</v-icon>
@@ -82,24 +82,16 @@
             name: '',
             price: '',
             stock: '',
-            img: '/goods/img/TV.jpg',
-            host: `${API_HOST}`
-
+            imageUrl: '/goods/img/TV.jpg',
         }),
         watch: {
-            // img:function(newVal){
-            //     this.img=newVal
-            // }
         },
         mounted () {
-            console.log("aa")
           if(this.productInfo != null) {
               this.name = this.productInfo.name
               this.price = this.productInfo.price
               this.stock = this.productInfo.stock
               this.img = this.productInfo.imageUrl
-              this.host = this.productInfo.host
-
           }
         },
         methods: {
