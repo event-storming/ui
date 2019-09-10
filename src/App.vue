@@ -123,7 +123,9 @@
         >
             <product-repository
                     :repositoryDialog.sync="repositoryDialog"
-            ></product-repository>
+                    :edit=false>
+
+            </product-repository>
         </v-dialog>
 
         <v-dialog

@@ -10,6 +10,18 @@
                     :productInfo="selectItem"
             ></order-page>
         </v-dialog>
+        <v-dialog
+                v-model="editDialog"
+                width="500"
+                persistent
+        >
+            <product-repository
+                    v-if="editDialog"
+                    v-bind:repositoryDialog.sync="editDialog"
+                    :productInfo="selectItem"
+                    :edit=true
+            ></product-repository>
+        </v-dialog>
 
         <v-data-iterator
                 :items="items"
@@ -47,6 +59,7 @@
 
                                 </v-list-item>
                                 <div align="right">
+                                    <v-btn text @click="showEdit(item)"> Edit</v-btn>
                                     <v-btn text @click="showDetail(item)"> DETAIL</v-btn>
                                     <v-btn text @click="showBuy(item)"> BUY</v-btn>
                                 </div>
@@ -118,6 +131,7 @@
 
 <script>
     export default {
+        name: 'ProductList',
         data() {
             return {
 
@@ -136,7 +150,8 @@
                 ],
                 items: [],
                 selectItem: {},
-                buyDialog: false
+                buyDialog: false,
+                editDialog: false
             }
         },
         mounted() {
@@ -185,12 +200,18 @@
                 } else {
                     var app = me.$getComponents('App')
                     app.snackbar = true;
-                    app.snackbarColor= 'error'
+                    app.snackbarColor = 'error'
                     app.snackbarMessage = '재고가 없습니다.'
                 }
             },
             showDetail(item) {
                 this.$router.push('/products/' + item.name);
+            },
+            showEdit(item) {
+                var me = this
+                    me.editDialog = true;
+                    me.selectItem = item;
+                    console.log(item)
             },
             nextPage() {
                 if (this.page + 1 <= this.numberOfPages) this.page += 1

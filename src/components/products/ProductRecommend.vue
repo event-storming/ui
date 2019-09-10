@@ -123,8 +123,15 @@
             },
             showBuy(item) {
                 var me = this
-                me.buyDialog = true;
-                me.selectItem = item;
+                if (item.stock >= 1) {
+                    me.buyDialog = true;
+                    me.selectItem = item;
+                } else {
+                    var app = me.$getComponents('App')
+                    app.snackbar = true;
+                    app.snackbarColor= 'error'
+                    app.snackbarMessage = '재고가 없습니다.'
+                }
             },
             updateItemsPerPage(number) {
                 this.itemsPerPage = number
