@@ -46,20 +46,12 @@ Vue.component('OrderFinish',OrderFinish);
 Vue.component('OrderPage', OrderPage)
 Vue.component('Survey',Survey);
 Vue.component('SurveyForm',SurveyForm);
-<<<<<<< HEAD
-Vue.component('UserInfo', UserInfo);
-Vue.component('DeliveryStatus', DeliveryStatus);
-Vue.component('ProductSimple', ProductSimple);
-Vue.component('ProductRepository',ProductRepository);
-Vue.component('ProductDelete',ProductDelete);
-=======
 Vue.component('UserInfo', UserInfo)
 Vue.component('DeliveryStatus', DeliveryStatus)
 Vue.component('Product',Product)
 Vue.component('ProductSimple', ProductSimple)
 Vue.component('ProductRepository',ProductRepository)
 Vue.component('ProductDelete',ProductDelete)
->>>>>>> a8d0ff06c77a4b51b4c896c8333775d3ca27446f
 
 Vue.config.productionTip = false
 

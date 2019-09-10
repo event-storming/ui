@@ -1,9 +1,5 @@
 <template>
-<<<<<<< HEAD
-    <v-container>
-=======
     <v-container style="padding: 0px">
->>>>>>> a8d0ff06c77a4b51b4c896c8333775d3ca27446f
         <v-card
                 color="amber"
         >
