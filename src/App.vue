@@ -124,7 +124,6 @@
             <product-repository
                     :repositoryDialog.sync="repositoryDialog"
                     :edit=false>
-
             </product-repository>
         </v-dialog>
 
@@ -138,39 +137,6 @@
             ></product-delete>
         </v-dialog>
 
-        <!--<v-snackbar-->
-                <!--v-model="orderSnackbar"-->
-                <!--:color="'success'"-->
-                <!--right-->
-                <!--:timeout="6000"-->
-                <!--top-->
-        <!--&gt;-->
-            <!--주문 완료되었습니다.-->
-            <!--<v-btn-->
-                    <!--dark-->
-                    <!--text-->
-                    <!--@click="snackbar = false"-->
-            <!--&gt;-->
-                <!--Close-->
-            <!--</v-btn>-->
-        <!--</v-snackbar>-->
-
-        <!--<v-snackbar-->
-                <!--v-model="surveySnackbar"-->
-                <!--:color="'success'"-->
-                <!--right-->
-                <!--:timeout="6000"-->
-                <!--top-->
-        <!--&gt;-->
-            <!--리뷰 작성 완료 되었습니다.-->
-            <!--<v-btn-->
-                    <!--dark-->
-                    <!--text-->
-                    <!--@click="surveySnackbar = false"-->
-            <!--&gt;-->
-                <!--Close-->
-            <!--</v-btn>-->
-        <!--</v-snackbar>-->
         <v-snackbar
                 v-model="snackbar"
                 :color="snackbarColor"

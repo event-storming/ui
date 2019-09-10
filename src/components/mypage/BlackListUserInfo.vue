@@ -37,6 +37,7 @@
                 {text: 'E-mail', value: 'email', align: 'center'},
                 {text: '총 결제금액', value: 'money', align: 'center'},
                 {text: '구매 횟수', value: 'quantity', align: 'center'},
+                {text: '권한', value: 'role', align: 'center'},
             ],
             blackUserList: [],
             se: [],
