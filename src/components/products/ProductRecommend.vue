@@ -23,16 +23,15 @@
         </v-dialog>
 
 
-
         <v-row>
             <v-col
                     v-for="(list,idx) in recommendList"
                     :key="list.item.id"
+                    v-if="idx<4"
                     cols="12"
                     sm="6"
                     md="4"
                     lg="3"
-                    v-if="idx<4"
             >
                 <product
                         :item="list.item"
@@ -40,7 +39,6 @@
                         :buyDialog.sync="buyDialog"
                         :editDialog.sync="editDialog"
                 ></product>
-
             </v-col>
         </v-row>
     </v-container>
@@ -59,9 +57,7 @@
                 productList: [],
                 orderList: [],
                 recommendList: [],
-                rr:[],
                 cnt:0,
-                host:`${API_HOST}`,
                 selectItem: {},
                 buyDialog: false,
                 editDialog: false,
@@ -69,12 +65,10 @@
         },
         computed: {
             filteredKeys() {
-                return this.keys.filter(key => key !== `Name` && key !== 'Image')
+                return this.keys.filter(key => key !== `Name`)
             },
         },
-        created() {
-            console.log(this.$getComponents())
-        },
+        created() {},
         async mounted() {
             var me = this
             var productList = await me.getProductList();

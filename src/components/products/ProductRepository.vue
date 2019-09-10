@@ -91,7 +91,7 @@
               this.name = this.productInfo.name
               this.price = this.productInfo.price
               this.stock = this.productInfo.stock
-              this.img = this.productInfo.imageUrl
+              this.imageUrl = this.productInfo.imageUrl
           }
         },
         methods: {
@@ -119,7 +119,7 @@
                     'name': me.name,
                     'price': me.price,
                     'stock': me.stock,
-                    'imageUrl': me.img
+                    'imageUrl': me.imageUrl
                 };
                 me.$http.put(`${API_HOST}/products/` + me.productInfo.id, item).then(function (e) {
                     me.$emit('update:repositoryDialog', false)

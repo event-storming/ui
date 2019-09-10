@@ -24,7 +24,7 @@
                     <v-row>
                         <v-col cols="15" sm="3" md="3">
                             <v-text-field
-                                    v-model="name"
+                                    v-model="productName"
                                     :error-messages="nameErrors"
                                     :counter="10"
                                     label="To"
@@ -35,7 +35,7 @@
                         </v-col>
                         <v-col cols="15" sm="3" md="5">
                             <v-text-field
-                                    v-model="address"
+                                    v-model="customerAddr"
                                     :error-messages="addressErrors"
                                     label="Address"
                                     required
@@ -56,7 +56,7 @@
                     <v-row>
                         <v-col cols="15" sm="3" md="3">
                             구매수량
-                            <number-input v-model="qty" :min="1" :max="productInfo.stock" inline controls></number-input>
+                            <number-input v-model="quantity" :min="1" :max="productInfo.stock" inline controls></number-input>
                         </v-col>
                     </v-row>
 
@@ -77,7 +77,7 @@
                 <div style="margin-top: 26px;"> x</div>
                 <v-col cols="12" sm="6" md="2">
                     <v-text-field
-                            v-model="qty"
+                            v-model="productInfo.stock"
                             disabled
                             shaped
                             label="수량"
@@ -122,16 +122,16 @@
         },
         data: () => ({
             card: '',
-            name: '',
-            address: '',
+            productName: '',
+            customerAddr: '',
             phoneNumber: '',
-            qty: 1,
+            quantity: 1,
             overlay: false,
             snackbar: false
         }),
         mounted() {
-            this.name = this.$store.state.nickname
-            this.address = this.$store.state.address
+            this.productName = this.$store.state.nickname
+            this.customerAddr = this.$store.state.address
 
         },
         computed: {
@@ -139,7 +139,7 @@
             //     return this.productInfo.price * this.qty
             // },
             totalAmount() {
-                return this.productInfo.price * this.qty
+                return this.productInfo.price * this.quantity
             },
             nameErrors() {
                 const errors = []
@@ -165,9 +165,7 @@
         methods: {
             close() {
                 var me = this
-                console.log(me.buyDialog)
                 me.$emit('update:buyDialog', false)
-                console.log(me.buyDialog)
             },
             check() {
                 var me = this
@@ -183,7 +181,7 @@
                     // http localhost:8081/orders productId=1 quantity=3 customerName="홍길동" customerAddr="서울시"
                     let param = {
                         'productId': me.productInfo.id,
-                        'quantity': me.qty,
+                        'quantity': me.quantity,
                         'customerName': localStorage.getItem('userId'),
                         'customerAddr': me.address
                     }
@@ -203,19 +201,19 @@
                     app.snackbar = true;
                     app.snackbarColor= 'success'
                     app.snackbarMessage = '구매 완료 하였습니다.'
+
                     me.$store.state.nickname = e.data.nickname
                     me.$store.state.money = e.data.money
                     me.$store.state.address = e.data.address
-                    console.log(me.$store);
-                    console.log(e.data.money)
+
                     localStorage.setItem("nickname", e.data.nickname)
                     localStorage.setItem("money", e.data.money)
                     localStorage.setItem("address", e.data.address)
                     var data = {
                         'productInfo' :  me.productInfo,
-                        'address': me.address,
+                        'customerAddr': me.customerAddr,
                         'phoneNumber': me.phoneNumber,
-                        'qty':me.qty,
+                        'quantity':me.quantity,
                         'totalAmount': me.totalAmount
                     }
                     me.$router.push({name: 'orderfinish', params: data});

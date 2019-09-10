@@ -6,6 +6,7 @@ import OrderFinish from "./components/order/OrderFinish";
 import Home from './components/Home'
 import MyPage from './components/mypage/MyPage.vue';
 import Survey from "./components/marketing/Survey";
+import ProductList from "./components/products/ProductList";
 
 Vue.use(Router)
 
@@ -26,7 +27,7 @@ export default new Router({
         {
             path:'/products',
             name: 'products',
-            component: Products ,
+            component: ProductList ,
         },
         {
             path:'/orderfinish',

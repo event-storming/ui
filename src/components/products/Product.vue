@@ -42,7 +42,6 @@
                   'Price',
                   'Stock',
               ],
-              h:`${API_HOST}`
           }
         },
         computed:{
@@ -56,15 +55,12 @@
                 console.log("buy")
                 me.showBuy(newVal);
             })
-            console.log(this.$route)
-
         },
         methods:{
 
             showBuy(item) {
                 var me = this
                 if (item.stock >= 1) {
-                    me.buyDialog = true;
                     me.$emit('update:buyDialog', true)
                     me.$emit('update:selectItem', item)
 
