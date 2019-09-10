@@ -1,5 +1,17 @@
 <template>
     <v-container fluid>
+        <v-dialog
+                v-model="buyDialog"
+                width="800"
+                persistent
+        >
+            <order-page
+                    v-bind:buyDialog.sync="buyDialog"
+                    :productInfo="selectItem"
+            ></order-page>
+        </v-dialog>
+
+
         <v-row>
             <v-col
                     v-for="(list,idx) in recommendList"
@@ -27,7 +39,7 @@
                         </v-list-item>
                         <div align="right">
                             <v-btn text @click="showDetail(list.item.name)"> DETAIL</v-btn>
-                            <v-btn text> BUY</v-btn>
+                            <v-btn text @click="showBuy(list.item)"> BUY</v-btn>
                         </div>
                     </v-list>
                 </v-card>
@@ -51,6 +63,8 @@
                 recommendList: [],
                 cnt:0,
                 host:`${API_HOST}`,
+                selectItem: {},
+                buyDialog: false
             }
         },
         computed: {
@@ -104,11 +118,13 @@
                     });
                 });
             },
-            sortList:function(){
-
-            },
             showDetail(val) {
                 this.$router.push('/products/' + val)
+            },
+            showBuy(item) {
+                var me = this
+                me.buyDialog = true;
+                me.selectItem = item;
             },
             updateItemsPerPage(number) {
                 this.itemsPerPage = number
