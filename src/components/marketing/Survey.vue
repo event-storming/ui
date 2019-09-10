@@ -1,6 +1,6 @@
 <template>
     <survey-form
-    :orderData="orderData"
+        :orderData="orderData"
     >
     </survey-form>
 </template>

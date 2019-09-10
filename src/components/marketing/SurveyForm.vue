@@ -1,6 +1,6 @@
 <template >
-    <v-container style="width: 600px; margin-top: 30px" class="elevation-12">
-        <v-card >
+    <v-container style="width: 600px; margin-top: 30px" class="elevation-2" >
+        <v-card outlined>
             <v-card-title style="color: crimson; font-size: 25px; justify-content: left">리뷰 작성</v-card-title>
             <v-row >
                     <v-card-title style="font-size: 15px; justify-content: left">> 구매하신 상품</v-card-title>
@@ -17,7 +17,7 @@
             </v-row>
         </v-card>
 
-        <v-card>
+        <v-card outlined>
             <v-row>
             <v-card-title style="font-size: 15px; justify-content: left">> 상품평가</v-card-title>
                 <v-col center>
@@ -31,7 +31,7 @@
             </v-row>
         </v-card>
 
-        <v-card>
+        <v-card outlined>
             <v-row>
             <v-card-title style="font-size: 15px; justify-content: left">> 만족도 평가</v-card-title>
                 <v-col>
@@ -60,7 +60,7 @@
                 </v-col>
             </v-row>
         </v-card>
-        <v-card>
+        <v-card outlined>
             <v-textarea
                     name="input-7-1"
                     label="리뷰 작성해주세요."
@@ -73,8 +73,8 @@
                 outlined
         >
             <v-row justify="end" align="center" wrap>
-                <v-btn text @click="summit()">제출</v-btn>
-                <v-btn text @click="goList()">취소</v-btn>
+                <v-btn color="primary" text @click="summit()">제출</v-btn>
+                <v-btn color="red" text @click="goList()">취소</v-btn>
             </v-row>
         </v-card>
 
