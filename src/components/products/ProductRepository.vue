@@ -1,4 +1,4 @@
-<template style="margin: 10px">
+<template>
     <v-container>
         <v-card
                 color="amber"
