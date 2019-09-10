@@ -136,14 +136,47 @@
             ></product-delete>
         </v-dialog>
 
+        <!--<v-snackbar-->
+                <!--v-model="orderSnackbar"-->
+                <!--:color="'success'"-->
+                <!--right-->
+                <!--:timeout="6000"-->
+                <!--top-->
+        <!--&gt;-->
+            <!--주문 완료되었습니다.-->
+            <!--<v-btn-->
+                    <!--dark-->
+                    <!--text-->
+                    <!--@click="snackbar = false"-->
+            <!--&gt;-->
+                <!--Close-->
+            <!--</v-btn>-->
+        <!--</v-snackbar>-->
+
+        <!--<v-snackbar-->
+                <!--v-model="surveySnackbar"-->
+                <!--:color="'success'"-->
+                <!--right-->
+                <!--:timeout="6000"-->
+                <!--top-->
+        <!--&gt;-->
+            <!--리뷰 작성 완료 되었습니다.-->
+            <!--<v-btn-->
+                    <!--dark-->
+                    <!--text-->
+                    <!--@click="surveySnackbar = false"-->
+            <!--&gt;-->
+                <!--Close-->
+            <!--</v-btn>-->
+        <!--</v-snackbar>-->
         <v-snackbar
                 v-model="snackbar"
-                :color="'success'"
+                :color="snackbarColor"
                 right
                 :timeout="6000"
                 top
         >
-            주문 완료되었습니다.
+            {{snackbarMessage}}
             <v-btn
                     dark
                     text
@@ -152,24 +185,6 @@
                 Close
             </v-btn>
         </v-snackbar>
-
-        <v-snackbar
-                v-model="snackbarList.surveySnackbar"
-                :color="'success'"
-                right
-                :timeout="6000"
-                top
-        >
-            리뷰 작성 완료 되었습니다.
-            <v-btn
-                    dark
-                    text
-                    @click="surveySnackbar = false"
-            >
-                Close
-            </v-btn>
-        </v-snackbar>
-
 
         <v-content>
             <router-view></router-view>
@@ -182,7 +197,6 @@
         name: 'App',
         props: {
             source: String,
-            // login: Boolean
         },
         data: () => ({
             drawer: null,
@@ -195,13 +209,9 @@
                 {icon: 'shopping_cart', text: 'Products', routelink: '/products'},
             ],
             snackbar: false,
-            surveySnackbar:false,
-            productSnackbar:false,
+            snackbarColor: '',
+            snackbarMessage : '',
             productSearch: '',
-            snackbarList:[
-                {show: false, info:'리뷰 작성 완료 되었습니다.'},
-                {surveySnackbar: false, info:'상품이 추가 되었습니다.'},
-            ],
         }),
         mounted() {
             if (localStorage.getItem('accessToken') != null) {
@@ -223,27 +233,6 @@
                 me.$store.dispatch('logout')
                 this.$router.push('/')
             },
-            pageList(){
-                var me = this
-                me.oderBlackList = !me.oderBlackList
-                me.$EventBus.$emit('show',me.oderBlackList);
-            },
-            // slotOffer: function () {
-            //     var me = this
-            //
-            //     var url = `${window.API_HOST}/product/slotOffer?username=${me.formData.username}`
-            //     // var url = `${window.API_HOST}/product/slotOffer/${me.formData.offerId}?username=${me.formData.username}`
-            //     me.$http.get(url, {
-            //             headers: {
-            //                 'Authorization': `Bearer ${localStorage.getItem("jwtToken")}`,
-            //                 'Content-Type': 'application/json'
-            //             }
-            //         }
-            //     ).then(function (e) {
-            //         console.log(e)
-            //     })
-            //
-            // },
         }
     }
 </script>

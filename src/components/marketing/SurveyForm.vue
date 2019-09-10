@@ -1,15 +1,15 @@
-<template >
-    <v-container style="width: 600px; margin-top: 30px" class="elevation-2" >
+<template>
+    <v-container style="width: 600px; margin-top: 30px" class="elevation-2">
         <v-card outlined>
             <v-card-title style="color: crimson; font-size: 25px; justify-content: left">리뷰 작성</v-card-title>
-            <v-row >
-                    <v-card-title style="font-size: 15px; justify-content: left">> 구매하신 상품</v-card-title>
+            <v-row>
+                <v-card-title style="font-size: 15px; justify-content: left">> 구매하신 상품</v-card-title>
                 <v-col>
                     <v-card-text>
-                            주문번호 &ensp; {{orderData.orderId}}
-                        <br>상품명  &ensp; {{orderData.productName}}
+                        주문번호 &ensp; {{orderData.orderId}}
+                        <br>상품명 &ensp; {{orderData.productName}}
                         <br>상품금액 &ensp; {{orderData.payment}}&ensp;|&ensp; 수량 &ensp; {{orderData.quantity}}
-<!--                        <br>구매일자:{{orderData.timestamp}}-->
+                        <!--                        <br>구매일자:{{orderData.timestamp}}-->
                     </v-card-text>
 
                 </v-col>
@@ -19,24 +19,24 @@
 
         <v-card outlined>
             <v-row>
-            <v-card-title style="font-size: 15px; justify-content: left">> 상품평가</v-card-title>
+                <v-card-title style="font-size: 15px; justify-content: left">> 상품평가</v-card-title>
                 <v-col center>
                     <v-rating
                             v-model="rating"
                             background-color="red lighten-3"
                             color="red"
                     ></v-rating>
-                    <v-card-text style="font-size: 15px;" >별을 클릭하여 평가해주세요.</v-card-text>
+                    <v-card-text style="font-size: 15px;">별을 클릭하여 평가해주세요.</v-card-text>
                 </v-col>
             </v-row>
         </v-card>
 
         <v-card outlined>
             <v-row>
-            <v-card-title style="font-size: 15px; justify-content: left">> 만족도 평가</v-card-title>
+                <v-card-title style="font-size: 15px; justify-content: left">> 만족도 평가</v-card-title>
                 <v-col>
                     <v-card-title style="font-size: 15px; justify-content: left">> 추천하시나요?</v-card-title>
-                    <v-row justify="center" >
+                    <v-row justify="center">
                         <v-radio-group v-model="surveyRecommend" row>
                             <v-radio
                                     v-for="n in 3"
@@ -47,7 +47,7 @@
                         </v-radio-group>
                     </v-row>
                     <v-card-title style="font-size: 15px; justify-content: left">> 배송이 빨라나요?</v-card-title>
-                    <v-row justify="center" >
+                    <v-row justify="center">
                         <v-radio-group v-model="surveyDelivery" row>
                             <v-radio
                                     v-for="n in 3"
@@ -86,15 +86,15 @@
 
     export default {
 
-        props:{
-          orderData:Object,
+        props: {
+            orderData: Object,
         },
         data: () => ({
             rating: 4,
-            surveyRecommend:2,
-            surveyDelivery:2,
-            surveyComment:'',
-            user:`${localStorage.getItem('userId')}`
+            surveyRecommend: 2,
+            surveyDelivery: 2,
+            surveyComment: '',
+            user: `${localStorage.getItem('userId')}`
 
         }),
         created() {
@@ -103,42 +103,34 @@
         beforeDestroy() {
         },
         watch: {
-            rating:function (value) {
+            rating: function (value) {
                 console.log(value);
             }
         },
-        mounted() {},
+        mounted() {
+        },
         computed: {},
         methods: {
-            getComponent(componentName) {
-                let component = null
-                let parent = this.$parent
-                while (parent && !component) {
-                    if (parent.$options.name === componentName) {
-                        component = parent
-                    }
-                    parent = parent.$parent
-                }
-                return component
-            },
-            summit(){
+            summit() {
                 var me = this
-                var app = me.getComponent('App')
-
+                var app = me.$getComponents('App')
                 // http http://localhost:8084/surveys customerName="1@uengine.org" surveyMessage="nonooooo" productSatisfaction=1
                 let param = {
                     'customerName': me.user,
                     'surveyMessage': me.surveyComment,
-                    'productSatisfaction': (me.surveyDelivery+me.surveyRecommend+me.rating)/3,
+                    'productSatisfaction': (me.surveyDelivery + me.surveyRecommend + me.rating) / 3,
                 }
+                app.snackbar = true;
+                app.snackbarColor = 'success'
+                app.snackbarMessage = '리뷰 작성 되었습니다.'
                 me.$http.post(`${API_HOST}/surveys`, param).then(function () {
-                        console.log('Survey POST');
-                        app.surveySnackbar = true
+                    console.log('Survey POST');
+
                 })
 
                 this.$router.push('/mypage');
             },
-            goList(){
+            goList() {
                 this.$router.push('/mypage');
             }
         },

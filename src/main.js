@@ -25,8 +25,6 @@ import SurveyForm from "./components/marketing/SurveyForm";
 import ProductRepository from "./components/products/ProductRepository";
 import ProductDelete from "./components/products/ProductDelete";
 
-
-
 Vue.prototype.$http = axios;
 Vue.use(VueNumberInput);
 Vue.use(VueTheMask)
@@ -54,6 +52,18 @@ Vue.component('ProductRepository',ProductRepository)
 Vue.component('ProductDelete',ProductDelete)
 
 Vue.config.productionTip = false
+
+Vue.prototype.$getComponents = function (componentName) {
+    let component = null
+    let parent = this.$parent
+    while (parent && !component) {
+        if (parent.$options.name === componentName) {
+            component = parent
+        }
+        parent = parent.$parent
+    }
+    return component
+},
 
 new Vue({
   router,

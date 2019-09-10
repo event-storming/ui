@@ -56,7 +56,7 @@
                     <v-row>
                         <v-col cols="15" sm="3" md="3">
                             구매수량
-                            <number-input v-model="qty" :min="1" :max="10" inline controls></number-input>
+                            <number-input v-model="qty" :min="1" :max="productInfo.stock" inline controls></number-input>
                         </v-col>
                     </v-row>
 
@@ -194,25 +194,15 @@
                         })
                 }
             },
-            getComponent(componentName) {
-                let component = null
-                let parent = this.$parent
-                while (parent && !component) {
-                    if (parent.$options.name === componentName) {
-                        component = parent
-                    }
-                    parent = parent.$parent
-                }
-                return component
-            },
             callUser() {
                 var me = this
-                var app = me.getComponent('App')
+                var app = me.$getComponents('App')
                 me.$http.get(`${API_HOST}/users/${localStorage.getItem('userId')}`).then(function (e) {
                     me.$emit('update:buyDialog', false)
-                    app.snackbar = true
                     me.overlay = false
-                    me.snackbar = true
+                    app.snackbar = true;
+                    app.snackbarColor= 'success'
+                    app.snackbarMessage = '구매 완료 하였습니다.'
                     me.$store.state.nickname = e.data.nickname
                     me.$store.state.money = e.data.money
                     me.$store.state.address = e.data.address

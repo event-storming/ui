@@ -47,8 +47,8 @@
 
                                 </v-list-item>
                                 <div align="right">
-                                    <v-btn text @click="showDetail(item)"> DETAIL </v-btn>
-                                    <v-btn text @click="showBuy(item)"> BUY </v-btn>
+                                    <v-btn text @click="showDetail(item)"> DETAIL</v-btn>
+                                    <v-btn text @click="showBuy(item)"> BUY</v-btn>
                                 </div>
                             </v-list>
                         </v-card>
@@ -142,13 +142,13 @@
         mounted() {
             this.getProdList();
             var me = this;
-            this.$EventBus.$on('search', function(newVal) {
+            this.$EventBus.$on('search', function (newVal) {
                 console.log("search");
                 console.log(newVal);
                 me.search = newVal
             })
 
-            this.$EventBus.$on('buy', function(newVal) {
+            this.$EventBus.$on('buy', function (newVal) {
                 console.log("buy")
                 me.showBuy(newVal);
             })
@@ -168,7 +168,7 @@
                 var me = this
                 me.$http.get(`${API_HOST}/products`).then(function (e) {
                     me.items = e.data._embedded.products;
-                    me.items.map( item => item.host = API_HOST)
+                    me.items.map(item => item.host = API_HOST)
                 })
             },
             formerPage() {
@@ -179,8 +179,15 @@
             },
             showBuy(item) {
                 var me = this
-                me.buyDialog = true;
-                me.selectItem = item;
+                if (item.stock >= 1) {
+                    me.buyDialog = true;
+                    me.selectItem = item;
+                } else {
+                    var app = me.$getComponents('App')
+                    app.snackbar = true;
+                    app.snackbarColor= 'error'
+                    app.snackbarMessage = '재고가 없습니다.'
+                }
             },
             showDetail(item) {
                 this.$router.push('/products/' + item.name);

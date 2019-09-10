@@ -93,17 +93,6 @@
             }
         },
         methods: {
-            getComponent(componentName) {
-                let component = null
-                let parent = this.$parent
-                while (parent && !component) {
-                    if (parent.$options.name === componentName) {
-                        component = parent
-                    }
-                    parent = parent.$parent
-                }
-                return component
-            },
             register(){
                 var me = this
                 let item={
@@ -114,6 +103,10 @@
                 }
                 me.$http.post(`${API_HOST}/products`, item).then(function (e) {
                     me.$emit('update:repositoryDialog', false)
+                    var app = me.$getComponents('App')
+                    app.snackbar = true;
+                    app.snackbarColor= 'success'
+                    app.snackbarMessage = '상품 추가 되었습니다.'
                 })
 
 

@@ -23,7 +23,7 @@
         <v-row>
             <v-col></v-col>
             <v-col class=".col-6"
-                   :align-self="center">
+                   :align-self="'center'">
                 <v-card
                         class="mx-auto"
                         outlined>
