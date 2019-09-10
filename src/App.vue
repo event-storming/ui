@@ -7,7 +7,7 @@
                 color="amber"
         >
             <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
-            <span class="title ml-3 mr-5">12&nbsp;<span class="font-weight-light">Street</span></span>
+            <v-btn text  @click="$router.push('/')"><span class="title ml-3 mr-5">12&nbsp;<span class="font-weight-light">Street</span></span></v-btn>
             <v-text-field
                     v-if="$route.path == '/products'"
                     v-model="productSearch"
@@ -21,13 +21,14 @@
 
             <div class="flex-grow-1"></div>
             <v-btn text v-if="$route.path == '/products' && $store.state.login == true" @click="repositoryDialog = true"  >상품추가</v-btn>
-            <v-btn text
-                   v-if="$route.path == '/mypage' && oderBlackList && $store.state.login == true "
-                   @click="pageList()"
-                   style="background: red;" >블랙리스트</v-btn>
-            <v-btn text
-                   v-if="$route.path == '/mypage' && !oderBlackList && $store.state.login == true "
-                   @click="pageList()"  >구매리스트</v-btn>
+            <v-btn text v-if="$route.path == '/products' && $store.state.login == true" @click="deleteDialog = true"  >상품삭제</v-btn>
+<!--            <v-btn text-->
+<!--                   v-if="$route.path == '/mypage' && oderBlackList && $store.state.login == true "-->
+<!--                   @click="pageList()"-->
+<!--                   style="background: red;" >블랙리스트</v-btn>-->
+<!--            <v-btn text-->
+<!--                   v-if="$route.path == '/mypage' && !oderBlackList && $store.state.login == true "-->
+<!--                   @click="pageList()"  >구매리스트</v-btn>-->
             <v-btn text @click="dialog = true" v-if="$store.state.login == false">Login</v-btn>
             <v-btn text @click="logout" v-else>Logout</v-btn>
             <!--<v-btn text>-->
@@ -125,6 +126,16 @@
             ></product-repository>
         </v-dialog>
 
+        <v-dialog
+                v-model="deleteDialog"
+                width="500"
+                persistent
+        >
+            <product-delete
+                    :deleteDialog.sync="deleteDialog"
+            ></product-delete>
+        </v-dialog>
+
         <v-snackbar
                 v-model="snackbar"
                 :color="'success'"
@@ -177,6 +188,7 @@
             drawer: null,
             dialog: false,
             repositoryDialog: false,
+            deleteDialog: false,
             oderBlackList:false,
             items: [
                 {icon: 'home', text: 'Home', routelink: '/'},

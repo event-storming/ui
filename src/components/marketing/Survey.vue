@@ -9,7 +9,6 @@
     export default {
         data: () => ({
             orderData: {},
-
         }),
         created() {
             this.orderData=this.$route.params;

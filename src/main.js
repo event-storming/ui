@@ -23,6 +23,7 @@ import OrderPage from './components/order/OrderPage'
 import Survey from "./components/marketing/Survey";
 import SurveyForm from "./components/marketing/SurveyForm";
 import ProductRepository from "./components/products/ProductRepository";
+import ProductDelete from "./components/products/ProductDelete";
 
 
 
@@ -50,6 +51,7 @@ Vue.component('UserInfo', UserInfo)
 Vue.component('DeliveryStatus', DeliveryStatus)
 Vue.component('ProductSimple', ProductSimple)
 Vue.component('ProductRepository',ProductRepository)
+Vue.component('ProductDelete',ProductDelete)
 
 Vue.config.productionTip = false
 

@@ -23,7 +23,7 @@
                 <v-row>
                     <v-col
                             v-for="item in props.items"
-                            :key="item.name"
+                            :key="item.id"
                             cols="12"
                             sm="6"
                             md="4"
@@ -49,7 +49,6 @@
                                 <div align="right">
                                     <v-btn text @click="showDetail(item)"> DETAIL </v-btn>
                                     <v-btn text @click="showBuy(item)"> BUY </v-btn>
-
                                 </div>
                             </v-list>
                         </v-card>
@@ -134,7 +133,6 @@
                     'Name',
                     'Price',
                     'Stock',
-                    'Option',
                 ],
                 items: [],
                 selectItem: {},
@@ -155,6 +153,7 @@
                 me.showBuy(newVal);
             })
             console.log(this.$route)
+
         },
         computed: {
             numberOfPages() {

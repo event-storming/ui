@@ -3,8 +3,11 @@
         <user-info
             :is-navi=false
         ></user-info>
-        <order-list v-if=show style="margin-top: 10px;"></order-list>
-        <black-list-user-info v-else style="margin-top: 10px;" ></black-list-user-info>
+<!--        <order-list v-if=show style="margin-top: 10px;"></order-list>-->
+<!--        <black-list-user-info v-else style="margin-top: 10px;" ></black-list-user-info>-->
+
+        <order-list style="margin-top: 10px;"></order-list>
+        <black-list-user-info style="margin-top: 10px;" ></black-list-user-info>
     </v-container>
 </template>
 

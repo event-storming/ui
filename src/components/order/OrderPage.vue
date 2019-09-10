@@ -229,7 +229,7 @@
                         'totalAmount': me.totalAmount
                     }
                     me.$router.push({name: 'orderfinish', params: data});
-                    me.$EventBus.$emit('message', JSON.parse(JSON.stringify(data)));
+                    // me.$EventBus.$emit('message', JSON.parse(JSON.stringify(data)));
                 })
             }
         },

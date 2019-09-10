@@ -54,7 +54,6 @@
                                             <br> 상품이름 : {{ selectItem.name }}
                                             <br> 상품가격 : {{ selectItem.price }}
                                             <br> 재고량 :   {{selectItem.stock}}
-                                            <br> 옵션 :
                                         </div>
 
                                     </v-col>

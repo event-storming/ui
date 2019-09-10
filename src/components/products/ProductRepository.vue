@@ -1,4 +1,4 @@
-<template>
+<template style="margin: 10px">
     <v-container>
         <v-card
                 color="amber"
@@ -6,20 +6,26 @@
             <v-card-title>상품등록</v-card-title>
         </v-card>
 
-        <v-card>
-            <v-card-text style="width: auto">
+        <v-card >
+            <v-card flat >
+                <v-row>
+                    <v-img
+                            contain
+                            style="height: 300px; width: 300px; position: center"
+                            :src='this.host+this.img'
+                    >
+                    </v-img>
+                </v-row>
+            </v-card>
 
-                <v-img
-                        src="http://localhost:8088/goods/img/TV.jpg"
-                >
-                </v-img>
-
+            <v-card-text>
                 <v-row cols="8" md="4">
                     <v-text-field
                             v-model="name"
                             label="상품명"
                             placeholder="Name"
                             outlined
+                            required
                     ></v-text-field>
                 </v-row>
 
@@ -29,6 +35,7 @@
                             label="상품 가격"
                             placeholder="Price"
                             outlined
+                            required
                             numberonly
                     ></v-text-field>
 
@@ -37,19 +44,19 @@
                             label="상품 재고량"
                             placeholder="Stock"
                             outlined
+                            required
                     ></v-text-field>
                 </v-row>
 
-                <v-row cols="8" md="6">
-                    <v-file-input
-                            accept="image/png, image/jpeg, image/bmp"
-                            placeholder="상품 이미지 (png, jpeg, bmp 가능)"
-                            prepend-icon="mdi-camera"
-                            label="이미지"
-                    ></v-file-input>
+                <v-row >
+                        <v-text-field
+                                v-model="img">
+                            <template v-slot:label>
+                                What Image you want?  <v-icon style="vertical-align: middle">find_in_page</v-icon>
+                            </template>
+                        </v-text-field>
 
                 </v-row>
-
             </v-card-text>
         </v-card>
 
@@ -76,9 +83,15 @@
             name:'',
             price:'',
             stock:'',
-            src:'/goods/img/TV.jpg'
+            img:'/goods/img/TV.jpg',
+            host:`${API_HOST}`
 
         }),
+        watch:{
+            img:function(newVal){
+                this.img=newVal
+            }
+        },
         methods: {
             getComponent(componentName) {
                 let component = null
@@ -93,19 +106,16 @@
             },
             register(){
                 var me = this
-                var app = me.getComponent('App')
                 let item={
                     'name':me.name,
                     'price': me.price,
                     'stock': me.stock,
                     'imageUrl': me.src
                 }
-
-                me.$http.post(`http://localhost:8085/products`, item).then(function (e) {
-                    console.log("post Item")
-                    console.log(e)
-                    app.productSnackbar = true
+                me.$http.post(`${API_HOST}/products`, item).then(function (e) {
+                    me.$emit('update:repositoryDialog', false)
                 })
+
 
             },
             cancel(){

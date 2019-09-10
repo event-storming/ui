@@ -1,5 +1,5 @@
 <template >
-    <v-container style="width: 600px" class="elevation-12">
+    <v-container style="width: 600px; margin-top: 30px" class="elevation-12">
         <v-card >
             <v-card-title style="color: crimson; font-size: 25px; justify-content: left">리뷰 작성</v-card-title>
             <v-row >
@@ -46,7 +46,7 @@
                             ></v-radio>
                         </v-radio-group>
                     </v-row>
-                    <v-card-title style="font-size: 15px; justify-content: left">> 배송이빨라나요?</v-card-title>
+                    <v-card-title style="font-size: 15px; justify-content: left">> 배송이 빨라나요?</v-card-title>
                     <v-row justify="center" >
                         <v-radio-group v-model="surveyDelivery" row>
                             <v-radio
@@ -94,6 +94,7 @@
             surveyRecommend:2,
             surveyDelivery:2,
             surveyComment:'',
+            user:`${localStorage.getItem('userId')}`
 
         }),
         created() {
@@ -106,9 +107,7 @@
                 console.log(value);
             }
         },
-        mounted() {
-
-        },
+        mounted() {},
         computed: {},
         methods: {
             getComponent(componentName) {
@@ -128,11 +127,11 @@
 
                 // http http://localhost:8084/surveys customerName="1@uengine.org" surveyMessage="nonooooo" productSatisfaction=1
                 let param = {
-                    'customerName': '1@uengine.org',
+                    'customerName': me.user,
                     'surveyMessage': me.surveyComment,
                     'productSatisfaction': (me.surveyDelivery+me.surveyRecommend+me.rating)/3,
                 }
-                me.$http.post(`http://localhost:8084/surveys`, param).then(function (e) {
+                me.$http.post(`${API_HOST}/surveys`, param).then(function () {
                         console.log('Survey POST');
                         app.surveySnackbar = true
                 })
