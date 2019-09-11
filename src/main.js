@@ -27,9 +27,9 @@ import ProductDelete from "./components/products/ProductDelete";
 import Product from "./components/products/Product";
 
 Vue.prototype.$http = axios;
+Vue.prototype.$EventBus = new Vue();
 Vue.use(VueNumberInput);
 Vue.use(VueTheMask);
-Vue.prototype.$EventBus = new Vue();
 
 if( process.env.NODE_ENV == "development" ){
     window.API_HOST = "http://localhost:8088";

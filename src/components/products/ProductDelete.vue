@@ -61,10 +61,9 @@
                     },
                     {text: '상품 가격', value: 'price'},
                     {text: '상품 재고량', value: 'stock', align: 'center'},
-                    // {text: '삭제', value: 'Survey', align: 'center'}
                 ],
                 items: [],
-                selectItem: {},
+                selectItem: [],
             }
         },
         mounted() {
@@ -77,7 +76,6 @@
             getProdList() {
                 var me = this
                 me.$http.get(`${API_HOST}/products`).then(function (e) {
-                    console.log(e)
                     me.items = e.data._embedded.products;
                     me.items.map( item => item.host = API_HOST)
                 })
@@ -88,7 +86,8 @@
             },
             deleteItem(){
                 var me = this
-                console.log(me.selectItem)
+                console.log(me.selectItem);
+                me.$emit('update:deleteDialog', false)
 
             }
         },

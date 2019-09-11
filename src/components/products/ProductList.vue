@@ -24,7 +24,9 @@
 
         <v-card flat>
             <div style="font-size:30px; font-style: revert">추천 상품</div>
-            <product-recommend></product-recommend>
+            <product-recommend
+                    :auth.sync= role
+            ></product-recommend>
         </v-card>
 
         <v-card flat>
@@ -138,7 +140,8 @@
                 searchItem: [],
                 selectItem: {},
                 buyDialog: false,
-                editDialog: false
+                editDialog: false,
+                role :false
             }
         },
         mounted() {
@@ -156,12 +159,14 @@
             }
         },
         methods: {
+
             getProdList() {
                 var me = this
                 me.$http.get(`${API_HOST}/products`).then(function (e) {
                     me.items = e.data._embedded.products;
                     me.items.map(item => item.host = API_HOST)
                 })
+
             },
             formerPage() {
                 if (this.page - 1 >= 1) this.page -= 1

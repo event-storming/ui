@@ -31,7 +31,7 @@
                     </v-card-title>
                     <v-divider></v-divider>
                     <v-card-title style="font-size: 15px; justify-content: center">
-                        {{ $store.state.nickname }} / {{orderData.address}}
+                        {{ $store.state.nickname }} / {{orderData.customerAddr}}
                     </v-card-title>
                     <!--<v-card-title style="font-size: 15px; justify-content: center">-->
                     <!--2019-09-04 15:00-->
@@ -46,7 +46,7 @@
                     <v-divider></v-divider>
                     <v-card-text>
                         상품명: {{ orderData.productInfo.name }}
-                        <br>상품금액: {{ orderData.productInfo.price }} | 수량: {{ orderData.qty }}
+                        <br>상품금액: {{ orderData.productInfo.price }} | 수량: {{ orderData.quantity }}
                     </v-card-text>
                 </v-card>
 
@@ -75,7 +75,7 @@
                     <v-card-text>
                         수령자: {{$store.state.nickname}}
                         <!--<br>수령자 휴대번호: {{OrderInfo.toPhone}}-->
-                        <br>수령지: {{orderData.address}}
+                        <br>수령지: {{orderData.customerAddr}}
                     </v-card-text>
                 </v-card>
 

@@ -76,7 +76,7 @@
         props: {
             repositoryDialog: Boolean,
             productInfo: Object,
-            edit: Boolean
+            edit: Boolean,
         },
         data: () => ({
             name: '',

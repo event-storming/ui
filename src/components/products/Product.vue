@@ -18,7 +18,7 @@
 
             </v-list-item>
             <div align="right">
-                <v-btn text @click="showEdit(item)"> Edit</v-btn>
+                <v-btn text v-if='$store.state.role == "USER_ADMIN"' @click="showEdit(item)"> Edit</v-btn>
                 <v-btn text @click="showDetail(item)"> DETAIL</v-btn>
                 <v-btn text @click="showBuy(item)"> BUY</v-btn>
             </div>
@@ -57,7 +57,6 @@
             })
         },
         methods:{
-
             showBuy(item) {
                 var me = this
                 if (item.stock >= 1) {

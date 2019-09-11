@@ -24,13 +24,13 @@
                     <v-row>
                         <v-col cols="15" sm="3" md="3">
                             <v-text-field
-                                    v-model="productName"
+                                    v-model="userName"
                                     :error-messages="nameErrors"
                                     :counter="10"
                                     label="To"
                                     required
-                                    @input="$v.name.$touch()"
-                                    @blur="$v.name.$touch()"
+                                    @input="$v.userName.$touch()"
+                                    @blur="$v.userName.$touch()"
                             ></v-text-field>
                         </v-col>
                         <v-col cols="15" sm="3" md="5">
@@ -39,8 +39,8 @@
                                     :error-messages="addressErrors"
                                     label="Address"
                                     required
-                                    @input="$v.address.$touch()"
-                                    @blur="$v.address.$touch()"
+                                    @input="$v.customerAddr.$touch()"
+                                    @blur="$v.customerAddr.$touch()"
                             ></v-text-field>
                         </v-col>
                         <v-col cols="15" sm="3" md="4">
@@ -77,7 +77,7 @@
                 <div style="margin-top: 26px;"> x</div>
                 <v-col cols="12" sm="6" md="2">
                     <v-text-field
-                            v-model="productInfo.stock"
+                            v-model="quantity"
                             disabled
                             shaped
                             label="수량"
@@ -117,12 +117,12 @@
             buyDialog: Boolean,
         },
         validations: {
-            name: {required, maxLength: maxLength(10)},
-            address: {required, email},
+            userName: {required, maxLength: maxLength(10)},
+            customerAddr: {required, email},
         },
         data: () => ({
             card: '',
-            productName: '',
+            userName: '',
             customerAddr: '',
             phoneNumber: '',
             quantity: 1,
@@ -130,7 +130,7 @@
             snackbar: false
         }),
         mounted() {
-            this.productName = this.$store.state.nickname
+            this.userName = this.$store.state.nickname
             this.customerAddr = this.$store.state.address
 
         },
@@ -143,15 +143,15 @@
             },
             nameErrors() {
                 const errors = []
-                if (!this.$v.name.$dirty) return errors
-                !this.$v.name.maxLength && errors.push('Name must be at most 10 characters long')
-                !this.$v.name.required && errors.push('Name is required.')
+                if (!this.$v.userName.$dirty) return errors
+                !this.$v.userName.maxLength && errors.push('userName must be at most 10 characters long')
+                !this.$v.userName.required && errors.push('userName is required.')
                 return errors
             },
             addressErrors() {
                 const errors = []
-                if (!this.$v.address.$dirty) return errors
-                !this.$v.address.required && errors.push('Address is required')
+                if (!this.$v.customerAddr.$dirty) return errors
+                !this.$v.customerAddr.required && errors.push('deliveryAddress is required')
                 return errors
             },
             phoneNumberErrors() {
@@ -165,7 +165,9 @@
         methods: {
             close() {
                 var me = this
+                console.log(me.buyDialog)
                 me.$emit('update:buyDialog', false)
+                console.log(me.buyDialog)
             },
             check() {
                 var me = this
@@ -182,14 +184,14 @@
                     let param = {
                         'productId': me.productInfo.id,
                         'quantity': me.quantity,
-                        'customerName': localStorage.getItem('userId'),
-                        'customerAddr': me.address
+                        'customerEmail': localStorage.getItem('userId'),
+                        'customerAddr': me.customerAddr
                     }
                     me.$http.post(`${API_HOST}/orders`, param).then(function () {
-                            setTimeout(function () {
-                                me.callUser()
-                            }, 1000)
-                        })
+                        setTimeout(function () {
+                            me.callUser()
+                        }, 1000)
+                    })
                 }
             },
             callUser() {
@@ -201,11 +203,11 @@
                     app.snackbar = true;
                     app.snackbarColor= 'success'
                     app.snackbarMessage = '구매 완료 하였습니다.'
-
                     me.$store.state.nickname = e.data.nickname
                     me.$store.state.money = e.data.money
                     me.$store.state.address = e.data.address
-
+                    console.log(me.$store);
+                    console.log(e.data.money)
                     localStorage.setItem("nickname", e.data.nickname)
                     localStorage.setItem("money", e.data.money)
                     localStorage.setItem("address", e.data.address)

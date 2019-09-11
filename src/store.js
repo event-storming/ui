@@ -11,7 +11,8 @@ export default new Vuex.Store({
         login: false,
         nickname: '',
         money: '',
-        address: ''
+        address: '',
+        role: ''
     },
     mutations: {
         login(state, {userId, accessToken}) {
@@ -26,11 +27,13 @@ export default new Vuex.Store({
                 state.nickname = e.data.nickname
                 state.money = e.data.money
                 state.address = e.data.address
+                state.role = e.data.role
 
                 localStorage.setItem("nickname", e.data.nickname)
                 localStorage.setItem("money", e.data.money)
                 localStorage.setItem("address", e.data.address)
                 localStorage.setItem("userId", userId)
+                localStorage.setItem("role", e.data.role)
             })
 
         },
@@ -39,11 +42,13 @@ export default new Vuex.Store({
             state.nickname = null;
             state.money = null;
             state.address = null;
+            state.role = null;
             state.login = false;
             localStorage.removeItem("accessToken")
             localStorage.removeItem("nickname")
             localStorage.removeItem("money")
             localStorage.removeItem("address")
+            localStorage.removeItem("role")
         }
     },
     actions: {

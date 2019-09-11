@@ -20,8 +20,8 @@
             ></v-text-field>
 
             <div class="flex-grow-1"></div>
-            <v-btn text v-if="$route.path == '/products' && $store.state.login == true" @click="repositoryDialog = true"  >상품추가</v-btn>
-            <v-btn text v-if="$route.path == '/products' && $store.state.login == true" @click="deleteDialog = true"  >상품삭제</v-btn>
+            <v-btn text v-if='$route.path == "/products" && $store.state.login == true && $store.state.role == "USER_ADMIN"' @click="repositoryDialog = true"  >상품추가</v-btn>
+            <v-btn text v-if='$route.path == "/products" && $store.state.login == true && $store.state.role == "USER_ADMIN"' @click="deleteDialog = true"  >상품삭제</v-btn>
 <!--            <v-btn text-->
 <!--                   v-if="$route.path == '/mypage' && oderBlackList && $store.state.login == true "-->
 <!--                   @click="pageList()"-->
@@ -188,6 +188,7 @@
                 this.$store.state.money = localStorage.getItem('money');
                 this.$store.state.address = localStorage.getItem('address');
                 this.$store.state.accessToken = localStorage.getItem('accessToken');
+                this.$store.state.role = localStorage.getItem('role');
             }
         },
         watch: {

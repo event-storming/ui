@@ -58,6 +58,7 @@
                 orderList: [],
                 recommendList: [],
                 cnt:0,
+                totalCnt:0,
                 selectItem: {},
                 buyDialog: false,
                 editDialog: false,
