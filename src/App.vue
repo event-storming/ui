@@ -122,8 +122,10 @@
                 persistent
         >
             <product-repository
+                    v-if="repositoryDialog"
                     :repositoryDialog.sync="repositoryDialog"
-                    :edit=false>
+                    :edit=false
+            >
             </product-repository>
         </v-dialog>
 

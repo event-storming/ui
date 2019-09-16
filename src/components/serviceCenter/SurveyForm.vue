@@ -1,26 +1,24 @@
 <template>
     <v-container style="width: 600px; margin-top: 30px" class="elevation-2">
         <v-card outlined>
-            <v-card-title style="color: crimson; font-size: 25px; justify-content: left">리뷰 작성</v-card-title>
+            <v-card-title id="title" style="color: crimson; font-size: 25px; justify-content: left">리뷰 작성</v-card-title>
             <v-row>
-                <v-card-title style="font-size: 15px; justify-content: left">> 구매하신 상품</v-card-title>
-                <v-col>
-                    <v-card-text>
+                <v-card-title style="width:22%; font-size: 15px; justify-content: center;">구매하신 상품</v-card-title>
+                <v-col id="box">
+                    <v-card-text >
                         주문번호 &ensp; {{orderData.orderId}}
                         <br>상품명 &ensp; {{orderData.productName}}
                         <br>상품금액 &ensp; {{orderData.payment}}&ensp;|&ensp; 수량 &ensp; {{orderData.quantity}}
                         <!--                        <br>구매일자:{{orderData.timestamp}}-->
                     </v-card-text>
-
                 </v-col>
-
             </v-row>
         </v-card>
 
         <v-card outlined>
             <v-row>
-                <v-card-title style="font-size: 15px; justify-content: left">> 상품평가</v-card-title>
-                <v-col center>
+                <v-card-title style="width:22%; font-size: 15px; justify-content: center">상품평가</v-card-title>
+                <v-col id="box">
                     <v-rating
                             v-model="rating"
                             background-color="red lighten-3"
@@ -33,8 +31,8 @@
 
         <v-card outlined>
             <v-row>
-                <v-card-title style="font-size: 15px; justify-content: left">> 만족도 평가</v-card-title>
-                <v-col>
+                <v-card-title style="width:22%; font-size: 15px; justify-content: center">만족도 평가</v-card-title>
+                <v-col id="box">
                     <v-card-title style="font-size: 15px; justify-content: left">> 추천하시나요?</v-card-title>
                     <v-row justify="center">
                         <v-radio-group v-model="surveyRecommend" row>
@@ -137,6 +135,14 @@
     }
 </script>
 
-<style scoped>
+<style>
+    #title{
+        border: 1px groove black;
+    }
+
+    #box{
+        border-right: 1px double black;
+        border-left: 1px double black;
+    }
 
 </style>

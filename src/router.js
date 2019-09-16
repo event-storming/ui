@@ -1,11 +1,10 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Products from "./components/products/Products";
 import ProductDetail from "./components/products/ProductDetail";
 import OrderFinish from "./components/order/OrderFinish";
 import Home from './components/Home'
 import MyPage from './components/mypage/MyPage.vue';
-import Survey from "./components/marketing/Survey";
+import Survey from "./components/serviceCenter/Survey";
 import ProductList from "./components/products/ProductList";
 
 Vue.use(Router)

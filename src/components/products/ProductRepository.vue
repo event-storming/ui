@@ -69,9 +69,11 @@
 </template>
 
 <script>
+    import ProductListt from "./ProductList";
+
     export default {
         components: {
-            // VNumberSmarty,
+            ProductListt
         },
         props: {
             repositoryDialog: Boolean,
@@ -101,14 +103,21 @@
                     'name': me.name,
                     'price': me.price,
                     'stock': me.stock,
-                    'imageUrl': me.src
+                    'imageUrl': me.imageUrl
                 }
+
+
                 me.$http.post(`${API_HOST}/products`, item).then(function (e) {
                     me.$emit('update:repositoryDialog', false)
                     var app = me.$getComponents('App')
                     app.snackbar = true;
                     app.snackbarColor = 'success'
                     app.snackbarMessage = '상품 추가 되었습니다.'
+
+                    var productList = me.$getComponents('ProductList')
+
+                    console.log(me)
+                    // productList.getProdList();
                 })
 
 
@@ -128,8 +137,9 @@
                     app.snackbarColor = 'success'
                     app.snackbarMessage = '상품 변경 되었습니다.'
 
-                    var productList = me.$getComponents('ProductList')
-                    productList.getProdList();
+                    console.log(ProductListt)
+                    console.log(me.ProductListt)
+                    me.ProductListt.getProdList();
                 })
             },
             cancel() {

@@ -8,10 +8,9 @@ import 'vuetify/dist/vuetify.min.css';
 import VueNumberInput from '@chenfengyuan/vue-number-input';
 import VueTheMask from 'vue-the-mask'
 
-import Products from "./components/products/Products.vue";
 import ProductList from "./components/products/ProductList.vue";
 import ProductOrder from "./components/products/ProductDetail.vue";
-import ProductRecommend from "./components/products/ProductRecommend.vue";
+import ProductRecommend from "./components/marketing/ProductRecommend.vue";
 import ProductSimple from "./components/products/ProductSimple.vue";
 import Login from './components/oauth/Login.vue';
 import axios from 'axios'
@@ -19,9 +18,9 @@ import OrderList from './components/order/OrderList';
 import OrderFinish from "./components/order/OrderFinish";
 import UserInfo from './components/mypage/UserInfo'
 import DeliveryStatus from './components/delivery/DeliveryStatus';
-import OrderPage from './components/order/OrderPage'
-import Survey from "./components/marketing/Survey";
-import SurveyForm from "./components/marketing/SurveyForm";
+import OrderPage from './components/order/Order'
+import Survey from "./components/serviceCenter/Survey";
+import SurveyForm from "./components/serviceCenter/SurveyForm";
 import ProductRepository from "./components/products/ProductRepository";
 import ProductDelete from "./components/products/ProductDelete";
 import Product from "./components/products/Product";
@@ -37,7 +36,6 @@ if( process.env.NODE_ENV == "development" ){
     window.API_HOST = process.env.VUE_APP_API_HOST
 }
 Vue.component('Login', Login);
-Vue.component('Products', Products);
 Vue.component('ProductList', ProductList);
 Vue.component('ProductOrder', ProductOrder);
 Vue.component('ProductRecommend',ProductRecommend);

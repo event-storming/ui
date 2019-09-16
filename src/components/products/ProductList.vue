@@ -153,15 +153,18 @@
             })
 
         },
+        beforeUpdate(){
+        },
         computed: {
             numberOfPages() {
                 return Math.ceil(this.items.length / this.itemsPerPage)
             }
         },
         methods: {
-
             getProdList() {
                 var me = this
+                console.log("Aa")
+
                 me.$http.get(`${API_HOST}/products`).then(function (e) {
                     me.items = e.data._embedded.products;
                     me.items.map(item => item.host = API_HOST)
