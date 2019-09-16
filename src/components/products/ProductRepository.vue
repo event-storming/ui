@@ -13,6 +13,8 @@
                     :src="'http://localhost:8088'+this.imageUrl"
             >
             </v-img>
+
+
             <v-card-text>
                 <v-row cols="8" md="4">
                     <v-text-field
