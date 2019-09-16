@@ -10,7 +10,7 @@
 
         <v-card flat>
             <v-img
-                    :src="'http://localhost:8088'+this.imageUrl"
+                    :src="srcDomain"
             >
             </v-img>
 
@@ -71,11 +71,10 @@
 </template>
 
 <script>
-    import ProductListt from "./ProductList";
 
     export default {
         components: {
-            ProductListt
+            // ProductListt
         },
         props: {
             repositoryDialog: Boolean,
@@ -86,7 +85,7 @@
             name: '',
             price: '',
             stock: '',
-            imageUrl: '/goods/img/TV.jpg',
+            imageUrl: '',
         }),
         watch: {
         },
@@ -96,6 +95,15 @@
               this.price = this.productInfo.price
               this.stock = this.productInfo.stock
               this.imageUrl = this.productInfo.imageUrl
+          }
+        },
+        computed : {
+          srcDomain () {
+              if(this.imageUrl.includes("http")){
+                    return  this.imageUrl
+              }else{
+                  return `${API_HOST}`+this.imageUrl
+              }
           }
         },
         methods: {
@@ -116,7 +124,7 @@
                     app.snackbarColor = 'success'
                     app.snackbarMessage = '상품 추가 되었습니다.'
 
-                    var productList = me.$getComponents('ProductList')
+                    var productList = me.$root.$children.find(child => {return child.$options.name === 'ProductList'})
 
                     console.log(me)
                     // productList.getProdList();
@@ -139,9 +147,9 @@
                     app.snackbarColor = 'success'
                     app.snackbarMessage = '상품 변경 되었습니다.'
 
-                    console.log(ProductListt)
-                    console.log(me.ProductListt)
-                    me.ProductListt.getProdList();
+                    var productList = me.$getComponents('ProductList')
+                    productList.getProdList();
+
                 })
             },
             cancel() {

@@ -21,7 +21,7 @@
                 <v-card-title id="rightline" style="width:22%; font-size: 15px; justify-content: center">상품평가</v-card-title>
                 <v-col>
                     <v-rating
-                            v-model="rating"
+                            v-model="productSatisfaction"
                             background-color="red lighten-3"
                             color="red"
                     ></v-rating>
@@ -89,11 +89,11 @@
             orderData: Object,
         },
         data: () => ({
-            rating: 4,
+            productSatisfaction: 4,
             surveyRecommend: 2,
             surveyDelivery: 2,
             surveyComment: '',
-            user: `${localStorage.getItem('userId')}`
+            customerName: `${localStorage.getItem('userId')}`
 
         }),
         created() {
@@ -102,7 +102,7 @@
         beforeDestroy() {
         },
         watch: {
-            rating: function (value) {
+            productSatisfaction: function (value) {
                 console.log(value);
             }
         },
@@ -113,18 +113,20 @@
             summit() {
                 var me = this
                 var app = me.$getComponents('App')
-                // http http://localhost:8084/surveys customerName="1@uengine.org" surveyMessage="nonooooo" productSatisfaction=1
+
                 let param = {
-                    'customerName': me.user,
+                    'customerName': me.customerName,
                     'surveyMessage': me.surveyComment,
-                    'productSatisfaction': (me.surveyDelivery + me.surveyRecommend + me.rating) / 3,
+                    'surveyRecommend':me.surveyRecommend,
+                    'surveyDelivery':me.surveyDelivery,
+                    'productSatisfaction': me.productSatisfaction,
                 }
-                app.snackbar = true;
-                app.snackbarColor = 'success'
-                app.snackbarMessage = '리뷰 작성 되었습니다.'
+
                 me.$http.post(`${API_HOST}/surveys`, param).then(function () {
                     console.log('Survey POST');
-
+                    app.snackbar = true;
+                    app.snackbarColor = 'success'
+                    app.snackbarMessage = '리뷰 작성 되었습니다.'
                 })
 
                 this.$router.push('/mypage');
