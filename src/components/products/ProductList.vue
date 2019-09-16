@@ -54,6 +54,7 @@
                                         :selectItem.sync="selectItem"
                                         :buyDialog.sync="buyDialog"
                                         :editDialog.sync="editDialog"
+
                                 ></product>
 
                             </v-col>
