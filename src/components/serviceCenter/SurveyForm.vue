@@ -1,10 +1,11 @@
 <template>
     <v-container style="width: 600px; margin-top: 30px" class="elevation-2">
-        <v-card outlined>
-            <v-card-title id="title" style="color: crimson; font-size: 25px; justify-content: left">리뷰 작성</v-card-title>
+        <v-card-title id="box" style="color: crimson; font-size: 25px; justify-content: left">리뷰 작성</v-card-title>
+
+        <v-card id="box" >
             <v-row>
-                <v-card-title style="width:22%; font-size: 15px; justify-content: center;">구매하신 상품</v-card-title>
-                <v-col id="box">
+                <v-card-title  id="rightline" style="width:22%; font-size: 15px; justify-content: center;">구매하신 상품</v-card-title>
+                <v-col >
                     <v-card-text >
                         주문번호 &ensp; {{orderData.orderId}}
                         <br>상품명 &ensp; {{orderData.productName}}
@@ -15,12 +16,12 @@
             </v-row>
         </v-card>
 
-        <v-card outlined>
+        <v-card id="box">
             <v-row>
-                <v-card-title style="width:22%; font-size: 15px; justify-content: center">상품평가</v-card-title>
-                <v-col id="box">
+                <v-card-title id="rightline" style="width:22%; font-size: 15px; justify-content: center">상품평가</v-card-title>
+                <v-col>
                     <v-rating
-                            v-model="rating"
+                            v-model="productSatisfaction"
                             background-color="red lighten-3"
                             color="red"
                     ></v-rating>
@@ -29,10 +30,10 @@
             </v-row>
         </v-card>
 
-        <v-card outlined>
+        <v-card id="box">
             <v-row>
-                <v-card-title style="width:22%; font-size: 15px; justify-content: center">만족도 평가</v-card-title>
-                <v-col id="box">
+                <v-card-title id="rightline" style="width:22%; font-size: 15px; justify-content: center">만족도 평가</v-card-title>
+                <v-col >
                     <v-card-title style="font-size: 15px; justify-content: left">> 추천하시나요?</v-card-title>
                     <v-row justify="center">
                         <v-radio-group v-model="surveyRecommend" row>
@@ -58,7 +59,7 @@
                 </v-col>
             </v-row>
         </v-card>
-        <v-card outlined>
+        <v-card id="box">
             <v-textarea
                     name="input-7-1"
                     label="리뷰 작성해주세요."
@@ -88,11 +89,11 @@
             orderData: Object,
         },
         data: () => ({
-            rating: 4,
+            productSatisfaction: 4,
             surveyRecommend: 2,
             surveyDelivery: 2,
             surveyComment: '',
-            user: `${localStorage.getItem('userId')}`
+            customerName: `${localStorage.getItem('userId')}`
 
         }),
         created() {
@@ -101,7 +102,7 @@
         beforeDestroy() {
         },
         watch: {
-            rating: function (value) {
+            productSatisfaction: function (value) {
                 console.log(value);
             }
         },
@@ -112,18 +113,20 @@
             summit() {
                 var me = this
                 var app = me.$getComponents('App')
-                // http http://localhost:8084/surveys customerName="1@uengine.org" surveyMessage="nonooooo" productSatisfaction=1
+
                 let param = {
-                    'customerName': me.user,
+                    'customerName': me.customerName,
                     'surveyMessage': me.surveyComment,
-                    'productSatisfaction': (me.surveyDelivery + me.surveyRecommend + me.rating) / 3,
+                    'surveyRecommend':me.surveyRecommend,
+                    'surveyDelivery':me.surveyDelivery,
+                    'productSatisfaction': me.productSatisfaction,
                 }
-                app.snackbar = true;
-                app.snackbarColor = 'success'
-                app.snackbarMessage = '리뷰 작성 되었습니다.'
+
                 me.$http.post(`${API_HOST}/surveys`, param).then(function () {
                     console.log('Survey POST');
-
+                    app.snackbar = true;
+                    app.snackbarColor = 'success'
+                    app.snackbarMessage = '리뷰 작성 되었습니다.'
                 })
 
                 this.$router.push('/mypage');
@@ -141,8 +144,10 @@
     }
 
     #box{
+        border: 1px groove black;
+    }
+    #rightline{
         border-right: 1px double black;
-        border-left: 1px double black;
     }
 
 </style>

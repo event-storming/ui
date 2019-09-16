@@ -168,7 +168,7 @@
 
                 me.$http.get(`${API_HOST}/products`).then(function (e) {
                     me.items = e.data._embedded.products;
-                    me.items.map(item => item.host = API_HOST)
+                    // me.items.map(item => item.host = API_HOST)
                 })
 
             },

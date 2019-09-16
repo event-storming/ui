@@ -4,8 +4,7 @@
 
         <v-divider></v-divider>
 
-        <v-img v-if="item.host != null" :src="item.host + item.imageUrl" aspect-ratio="1.7" contain></v-img>
-        <v-img v-if="item.host == null" :src="'http://localhost:8088'+item.imageUrl" aspect-ratio="1.7" contain></v-img>
+        <v-img :src="srcDomain" aspect-ratio="1.7" contain></v-img>
 
         <v-list dense>
             <v-list-item
@@ -47,7 +46,17 @@
         computed:{
             filteredKeys() {
                     return this.keys.filter(key => key !== `Name` && key !== 'imageUrl')
-                },
+            },
+            srcDomain () {
+                if(this.item.imageUrl) {
+                    if(this.item.imageUrl.includes("http")){
+                        return  this.item.imageUrl
+                    }else{
+                        return `${API_HOST}`+this.item.imageUrl
+                    }
+                }
+            }
+
         },
         mounted(){
             var me =this
