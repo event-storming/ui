@@ -93,7 +93,8 @@
             surveyRecommend: 2,
             surveyDelivery: 2,
             surveyComment: '',
-            customerName: `${localStorage.getItem('userId')}`
+            customerName: `${localStorage.getItem('nickname')}`,
+            customerId: `${localStorage.getItem('userId')}`
 
         }),
         created() {
@@ -114,7 +115,15 @@
                 var me = this
                 var app = me.$getComponents('App')
 
+                //  "customerId" : null,
+                // "customerName" : null,
+                //     "surveyMessage" : null,
+                //     "surveyRecommend" : 0,
+                //     "surveyDelivery" : 0,
+                //     "productSatisfaction" : 0,
+
                 let param = {
+                    'customerId':me.customerId,
                     'customerName': me.customerName,
                     'surveyMessage': me.surveyComment,
                     'surveyRecommend':me.surveyRecommend,

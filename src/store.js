@@ -72,14 +72,14 @@ export default new Vuex.Store({
             ).then(function (e) {
                 console.log(e)
                 // console.log(e.data.access_token)
-                if (e && e.data && e.data.refresh_token) {
+                if (e && e.data && e.data.access_token) {
                     // state.userId = userId;
-                    var accessToken = e.data.refresh_token;
+                    var accessToken = e.data.access_token;
                     // localStorage.setItem("jwtToken", me.jwtToken)
                     // me.formData.isLogin = true
                     console.log(accessToken)
                     commit('login', {userId, accessToken})
-                    Vue.prototype.$http.defaults.headers.common['Authorization'] = `Bearer ${e.data.refresh_token}`;
+                    Vue.prototype.$http.defaults.headers.common['Authorization'] = `Bearer ${e.data.access_token}`;
                 }
             })
         },
