@@ -17,7 +17,7 @@ export default new Router({
         {
             path: '/',
             name: 'home',
-            component: Home
+            component: Home,
         },
         {
             path: '/mypage',
@@ -25,24 +25,24 @@ export default new Router({
             component: MyPage
         },
         {
-            path:'/products',
+            path: '/products',
             name: 'products',
-            component: ProductPage ,
+            component: ProductPage,
         },
         {
-            path:'/orderfinish',
+            path: '/orderfinish',
             name: 'orderfinish',
             component: OrderFinish,
         },
         {
-            path:'/survey',
+            path: '/survey',
             name: 'survey',
             component: Survey,
         },
         {
-            path:'/products/:name',
+            path: '/products/:name',
             name: 'productsDetail',
-            component: ProductDetail ,
+            component: ProductDetail,
         }
     ]
 })
