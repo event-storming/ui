@@ -50,6 +50,7 @@ export default new Vuex.Store({
             localStorage.removeItem("money")
             localStorage.removeItem("address")
             localStorage.removeItem("role")
+            localStorage.removeItem('userId')
         }
     },
     actions: {
