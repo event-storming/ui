@@ -22,9 +22,17 @@
                                     lg="3"
                             >
                                 <product
+<<<<<<< HEAD
                                         v-model="props.items[index]"
                                         @inputBuy="showBuy"
                                         @inputEdit="showEdit"
+=======
+                                        :item="item"
+                                        :selectItem.sync="selectItem"
+                                        :buyDialog.sync="buyDialog"
+                                        :editDialog.sync="editDialog"
+
+>>>>>>> 0bb90993e7bfbd42af73a49c035906d9620cc0f3
                                 ></product>
 
                             </v-col>

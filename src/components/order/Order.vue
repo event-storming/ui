@@ -178,7 +178,8 @@
                     let param = {
                         'productId': me.value.id,
                         'quantity': me.quantity,
-                        'customerEmail': localStorage.getItem('userId'),
+                        'customerId': localStorage.getItem('userId'),
+                        'customerName': localStorage.getItem('nickname'),
                         'customerAddr': me.customerAddr
                     }
                     me.$http.post(`${API_HOST}/orders`, param).then(function () {
