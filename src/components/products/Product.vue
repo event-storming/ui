@@ -1,6 +1,6 @@
 <template>
     <v-card>
-        <v-card-title class="subheading font-weight-bold">{{ item.name }}</v-card-title>
+        <v-card-title class="subheading font-weight-bold">{{ value.name }}</v-card-title>
 
         <v-divider></v-divider>
 
@@ -12,14 +12,14 @@
                     :key="index"
             >
                 <v-list-item-content>{{ key }}:</v-list-item-content>
-                <v-list-item-content class="align-end">{{ item[key.toLowerCase()] }}
+                <v-list-item-content class="align-end">{{ value[key.toLowerCase()] }}
                 </v-list-item-content>
 
             </v-list-item>
             <div align="right">
-                <v-btn text v-if='$store.state.role == "USER_ADMIN"' @click="showEdit(item)"> Edit</v-btn>
-                <v-btn text @click="showDetail(item)"> DETAIL</v-btn>
-                <v-btn text @click="showBuy(item)"> BUY</v-btn>
+                <v-btn text v-if='$store.state.role == "USER_ADMIN"' @click="showEdit"> Edit</v-btn>
+                <v-btn text @click="showDetail"> DETAIL</v-btn>
+                <v-btn text @click="showBuy"> BUY</v-btn>
             </div>
         </v-list>
     </v-card>
@@ -28,10 +28,7 @@
 <script>
     export default {
         props:{
-            item:Object,
-            selectItem:Object,
-            buyDialog: Boolean,
-            editDialog:Boolean,
+            value: Object
         },
         data(){
           return{
@@ -43,50 +40,32 @@
               ],
           }
         },
+        created () {
+        },
         computed:{
             filteredKeys() {
                     return this.keys.filter(key => key !== `Name` && key !== 'imageUrl')
             },
             srcDomain () {
-                if(this.item.imageUrl) {
-                    if(this.item.imageUrl.includes("http")){
-                        return  this.item.imageUrl
+                if(this.value.imageUrl) {
+                    if(this.value.imageUrl.includes("http")){
+                        return  this.value.imageUrl
                     }else{
-                        return `${API_HOST}`+this.item.imageUrl
+                        return `${API_HOST}`+this.value.imageUrl
                     }
                 }
             }
 
         },
-        mounted(){
-            var me =this
-            this.$EventBus.$on('buy', function (newVal) {
-                console.log("buy")
-                me.showBuy(newVal);
-            })
-        },
         methods:{
-            showBuy(item) {
-                var me = this
-                if (item.stock >= 1) {
-                    me.$emit('update:buyDialog', true)
-                    me.$emit('update:selectItem', item)
-
-                } else {
-                    var app = me.$getComponents('App')
-                    app.snackbar = true;
-                    app.snackbarColor = 'error'
-                    app.snackbarMessage = '재고가 없습니다.'
-                }
+            showBuy() {
+                this.$emit('inputBuy', this.value);
             },
-            showDetail(item) {
-                this.$router.push('/products/' + item.name);
+            showEdit() {
+                this.$emit('inputEdit', this.value)
             },
-            showEdit(item) {
-                var me = this
-                me.$emit('update:editDialog', true)
-                me.$emit('update:selectItem', item)
-                console.log(item)
+            showDetail() {
+                this.$router.push('/products/' + this.value.name);
             },
 
         }

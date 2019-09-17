@@ -1,38 +1,10 @@
 <template>
     <v-container fluid>
-        <v-dialog
-                v-model="buyDialog"
-                width="800"
-        >
-            <order-page
-                    v-bind:buyDialog.sync="buyDialog"
-                    :productInfo="selectItem"
-            ></order-page>
-        </v-dialog>
-        <v-dialog
-                v-model="editDialog"
-                width="500"
-        >
-            <product-repository
-                    v-if="editDialog"
-                    v-bind:repositoryDialog.sync="editDialog"
-                    :productInfo="selectItem"
-                    :edit=true
-            ></product-repository>
-        </v-dialog>
-
-
-        <v-card flat>
-            <div style="font-size:30px; font-style: revert">추천 상품</div>
-            <product-recommend
-                    :auth.sync= role
-            ></product-recommend>
-        </v-card>
-
         <v-card flat>
             <div style="font-size:30px; font-style: revert"><br>일반 상품</div>
             <v-container>
                 <v-data-iterator
+                        v-if="items"
                         :items="items"
                         :items-per-page.sync="itemsPerPage"
                         :page="page"
@@ -42,7 +14,7 @@
                     <template v-slot:default="props">
                         <v-row>
                             <v-col
-                                    v-for="item in props.items"
+                                    v-for="(item, index) in props.items"
                                     :key="item.id"
                                     cols="12"
                                     sm="6"
@@ -50,10 +22,9 @@
                                     lg="3"
                             >
                                 <product
-                                        :item="item"
-                                        :selectItem.sync="selectItem"
-                                        :buyDialog.sync="buyDialog"
-                                        :editDialog.sync="editDialog"
+                                        v-model="props.items[index]"
+                                        @inputBuy="showBuy"
+                                        @inputEdit="showEdit"
                                 ></product>
 
                             </v-col>
@@ -125,7 +96,6 @@
 
 <script>
     export default {
-        name: 'ProductList',
         data() {
             return {
 
@@ -144,16 +114,16 @@
                 role :false
             }
         },
+        created() {
+        },
         mounted() {
-            this.getProdList();
             var me = this;
+            this.getProdList();
+
             this.$EventBus.$on('search', function (newVal) {
-                console.log("search");
                 me.search = newVal
             })
 
-        },
-        beforeUpdate(){
         },
         computed: {
             numberOfPages() {
@@ -161,13 +131,25 @@
             }
         },
         methods: {
+            showEdit (item) {
+                this.$emit('editItem',item);
+            },
+            showBuy(item) {
+                var me = this
+                if (item.stock >= 1) {
+                    this.$emit('buyItem',item);
+                } else {
+                    var app = me.$getComponents('App')
+                    app.snackbar = true;
+                    app.snackbarColor = 'error'
+                    app.snackbarMessage = '재고가 없습니다.'
+                }
+            },
             getProdList() {
                 var me = this
-                console.log("Aa")
 
                 me.$http.get(`${API_HOST}/products`).then(function (e) {
                     me.items = e.data._embedded.products;
-                    // me.items.map(item => item.host = API_HOST)
                 })
 
             },

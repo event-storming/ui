@@ -9,7 +9,7 @@
                 loading-text="Loading... Please wait"
                 :headers="headers"
                 :items="orderList"
-                sort-by="calories"
+                sort-by="orderId"
                 class="elevation-1"
         >
 
@@ -98,7 +98,7 @@
                     sortable: false,
                     value: 'productName',
                 },
-                {text: '주문자', value: 'username'},
+                {text: '주문자', value: 'nickName'},
                 {text: '결제금액', value: 'payment', align: 'center'},
                 {text: '구매수량', value: 'quantity', align: 'center'},
                 // {text: '결제시각', value: 'timestamp', align: 'center'},

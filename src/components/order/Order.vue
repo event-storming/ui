@@ -14,7 +14,7 @@
         </v-card-title>
         <v-card-text>
             <product-simple
-                    :productInfo="productInfo"
+                    v-model="value"
             ></product-simple>
             <v-card
                     class="mx-auto"
@@ -56,7 +56,7 @@
                     <v-row>
                         <v-col cols="15" sm="3" md="3">
                             구매수량
-                            <number-input v-model="quantity" :min="1" :max="productInfo.stock" inline controls></number-input>
+                            <number-input v-model="quantity" :min="1" :max="value.stock" inline controls></number-input>
                         </v-col>
                     </v-row>
 
@@ -67,7 +67,7 @@
             <v-row style="margin-top: 5px;">
                 <v-col cols="15" sm="3" md="3">
                     <v-text-field
-                            v-model="productInfo.price"
+                            v-model="value.price"
                             disabled
                             shaped
                             label="구매금액"
@@ -100,7 +100,7 @@
             <v-card-actions>
                 <div class="flex-grow-1"></div>
                 <v-btn color="primary accent-4" text @click="check()">결제하기</v-btn>
-                <v-btn color="red accent-4" text @click="close()">취소</v-btn>
+                <v-btn color="red accent-4" text @click="buyCancel">취소</v-btn>
             </v-card-actions>
         </v-card-text>
     </v-card>
@@ -113,8 +113,7 @@
     export default {
         mixins: [validationMixin],
         props: {
-            productInfo: Object,
-            buyDialog: Boolean,
+            value:Object,
         },
         validations: {
             userName: {required, maxLength: maxLength(10)},
@@ -135,11 +134,8 @@
 
         },
         computed: {
-            // amount() {
-            //     return this.productInfo.price * this.qty
-            // },
             totalAmount() {
-                return this.productInfo.price * this.quantity
+                return this.value.price * this.quantity
             },
             nameErrors() {
                 const errors = []
@@ -163,11 +159,9 @@
         },
 
         methods: {
-            close() {
+            buyCancel() {
                 var me = this
-                console.log(me.buyDialog)
-                me.$emit('update:buyDialog', false)
-                console.log(me.buyDialog)
+                me.$emit('cancel', false)
             },
             check() {
                 var me = this
@@ -182,7 +176,7 @@
                 if ((me.nameErrors.length == 0) && (me.addressErrors.length == 0) && (me.nameErrors.length == 0)) {
                     // http localhost:8081/orders productId=1 quantity=3 customerName="홍길동" customerAddr="서울시"
                     let param = {
-                        'productId': me.productInfo.id,
+                        'productId': me.value.id,
                         'quantity': me.quantity,
                         'customerEmail': localStorage.getItem('userId'),
                         'customerAddr': me.customerAddr
@@ -206,13 +200,12 @@
                     me.$store.state.nickname = e.data.nickname
                     me.$store.state.money = e.data.money
                     me.$store.state.address = e.data.address
-                    console.log(me.$store);
-                    console.log(e.data.money)
+
                     localStorage.setItem("nickname", e.data.nickname)
                     localStorage.setItem("money", e.data.money)
                     localStorage.setItem("address", e.data.address)
                     var data = {
-                        'productInfo' :  me.productInfo,
+                        'productInfo' :  me.value,
                         'customerAddr': me.customerAddr,
                         'phoneNumber': me.phoneNumber,
                         'quantity':me.quantity,

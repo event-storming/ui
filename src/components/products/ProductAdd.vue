@@ -3,8 +3,8 @@
         <v-card
                 color="amber"
         >
-            <v-card-title v-if="edit == true">상품 변경</v-card-title>
-            <v-card-title v-if="edit == false">상품 추가</v-card-title>
+            <v-card-title v-if="value == null">상품 추가</v-card-title>
+            <v-card-title v-else>상품 변경</v-card-title>
 
         </v-card>
 
@@ -62,9 +62,9 @@
         <v-card>
             <v-card-actions>
                 <div class="flex-grow-1"></div>
-                <v-btn v-if="edit == false" color="primary accent-4" text @click="register()">등록하기</v-btn>
-                <v-btn v-if="edit == true" color="primary accent-4" text @click="editProduct()">변경하기</v-btn>
-                <v-btn color="red accent-4" text @click="cancel()">취소</v-btn>
+                <v-btn v-if="value == null" color="primary accent-4" text @click="register">등록하기</v-btn>
+                <v-btn v-else color="primary accent-4" text @click="editProduct">변경하기</v-btn>
+                <v-btn color="red accent-4" text @click="cancel">취소</v-btn>
             </v-card-actions>
         </v-card>
     </v-container>
@@ -73,13 +73,8 @@
 <script>
 
     export default {
-        components: {
-            // ProductListt
-        },
         props: {
-            repositoryDialog: Boolean,
-            productInfo: Object,
-            edit: Boolean,
+            value: Object,
         },
         data: () => ({
             name: '',
@@ -90,11 +85,11 @@
         watch: {
         },
         mounted () {
-          if(this.productInfo != null) {
-              this.name = this.productInfo.name
-              this.price = this.productInfo.price
-              this.stock = this.productInfo.stock
-              this.imageUrl = this.productInfo.imageUrl
+          if(this.value != null) {
+              this.name = this.value.name
+              this.price = this.value.price
+              this.stock = this.value.stock
+              this.imageUrl = this.value.imageUrl
           }
         },
         computed : {
@@ -118,16 +113,12 @@
 
 
                 me.$http.post(`${API_HOST}/products`, item).then(function (e) {
-                    me.$emit('update:repositoryDialog', false)
+                    me.$emit('cancel', false)
                     var app = me.$getComponents('App')
                     app.snackbar = true;
                     app.snackbarColor = 'success'
                     app.snackbarMessage = '상품 추가 되었습니다.'
 
-                    var productList = me.$root.$children.find(child => {return child.$options.name === 'ProductList'})
-
-                    console.log(me)
-                    // productList.getProdList();
                 })
 
 
@@ -140,22 +131,18 @@
                     'stock': me.stock,
                     'imageUrl': me.imageUrl
                 };
-                me.$http.put(`${API_HOST}/products/` + me.productInfo.id, item).then(function (e) {
-                    me.$emit('update:repositoryDialog', false)
+                me.$http.put(`${API_HOST}/products/` + me.value.id, item).then(function (e) {
+                    me.$emit('cancel', false)
                     var app = me.$getComponents('App')
                     app.snackbar = true;
                     app.snackbarColor = 'success'
                     app.snackbarMessage = '상품 변경 되었습니다.'
-
-                    var productList = me.$getComponents('ProductList')
-                    productList.getProdList();
-
                 })
             },
             cancel() {
                 var me = this
-                me.$emit('update:productInfo', null);
-                me.$emit('update:repositoryDialog', false);
+                me.$emit('cancel',false);
+
             }
         }
 

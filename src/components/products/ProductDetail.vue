@@ -6,10 +6,10 @@
                 width="800"
                 persistent
         >
-            <order-page
-                    v-bind:buyDialog.sync="buyDialog"
-                    :productInfo="selectItem"
-            ></order-page>
+            <order
+                    v-model="selectItem"
+                    @cancel="buyDialog=false"
+            ></order>
         </v-dialog>
 
 
@@ -30,7 +30,7 @@
                 <v-card-title >
                     <v-row align="center" justify="center" outlined>
                         <v-img
-                                :src='this.img'
+                                :src="srcDomain"
                                 aspect-ratio="1.7"
                                 contain
                         ></v-img>
@@ -65,8 +65,8 @@
 
                 <v-card-actions>
                     <div class="flex-grow-1"></div>
-                    <v-btn color="primary accent-4" text @click="check()">결제하기</v-btn>
-                    <v-btn color="red accent-4" text @click="close()">나가기</v-btn>
+                    <v-btn color="primary accent-4" text @click="payment">결제하기</v-btn>
+                    <v-btn color="red accent-4" text @click="close">나가기</v-btn>
                 </v-card-actions>
             </v-card>
         </v-row>
@@ -93,20 +93,27 @@
             this.$http.get(`${API_HOST}/products/search/findByName?name=`+this.$route.params.name).then(
               function (getItem) {
                   me.selectItem=getItem.data._embedded.products[0];
-                  me.host=API_HOST;
-                  me.img=API_HOST+me.selectItem.imageUrl;
               })
 
         },
         computed:{
-
+            srcDomain () {
+                console.log(this.selectItem)
+                if(this.selectItem.imageUrl) {
+                    if(this.selectItem.imageUrl.includes("http")){
+                        return  this.selectItem.imageUrl
+                    }else{
+                        return `${API_HOST}`+this.selectItem.imageUrl
+                    }
+                }
+            }
         },
         methods:{
 
             close(){
                 this.$router.push('/products');
             },
-            check(){
+            payment(item){
                 var me = this
                 me.buyDialog=true;
             }

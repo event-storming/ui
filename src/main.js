@@ -12,18 +12,22 @@ import ProductList from "./components/products/ProductList.vue";
 import ProductOrder from "./components/products/ProductDetail.vue";
 import ProductRecommend from "./components/marketing/ProductRecommend.vue";
 import ProductSimple from "./components/products/ProductSimple.vue";
+import ProductAdd from "./components/products/ProductAdd";
+import ProductDelete from "./components/products/ProductDelete";
+import Product from "./components/products/Product";
+import ProductPage from "./components/products/ProductPage";
+
 import Login from './components/oauth/Login.vue';
 import axios from 'axios'
 import OrderList from './components/order/OrderList';
 import OrderFinish from "./components/order/OrderFinish";
+import Order from './components/order/Order'
 import UserInfo from './components/mypage/UserInfo'
 import DeliveryStatus from './components/delivery/DeliveryStatus';
-import OrderPage from './components/order/Order'
+
 import Survey from "./components/serviceCenter/Survey";
 import SurveyForm from "./components/serviceCenter/SurveyForm";
-import ProductRepository from "./components/products/ProductRepository";
-import ProductDelete from "./components/products/ProductDelete";
-import Product from "./components/products/Product";
+import BlackListUserInfo from "./components/mypage/BlackListUserInfo";
 
 Vue.prototype.$http = axios;
 Vue.prototype.$EventBus = new Vue();
@@ -36,20 +40,22 @@ if( process.env.NODE_ENV == "development" ){
     window.API_HOST = process.env.VUE_APP_API_HOST
 }
 Vue.component('Login', Login);
+Vue.component('ProductPage',ProductPage)
 Vue.component('ProductList', ProductList);
 Vue.component('ProductOrder', ProductOrder);
 Vue.component('ProductRecommend',ProductRecommend);
 Vue.component('OrderList', OrderList);
 Vue.component('OrderFinish',OrderFinish);
-Vue.component('OrderPage', OrderPage)
+Vue.component('Order', Order)
 Vue.component('Survey',Survey);
 Vue.component('SurveyForm',SurveyForm);
 Vue.component('UserInfo', UserInfo)
 Vue.component('DeliveryStatus', DeliveryStatus)
 Vue.component('Product',Product)
 Vue.component('ProductSimple', ProductSimple)
-Vue.component('ProductRepository',ProductRepository)
+Vue.component('ProductAdd',ProductAdd)
 Vue.component('ProductDelete',ProductDelete)
+Vue.component('BlackListUserInfo',BlackListUserInfo)
 
 Vue.config.productionTip = false
 

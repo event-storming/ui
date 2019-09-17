@@ -10,7 +10,7 @@
                     v-model="selectItem"
                     :headers="headers"
                     :items="items"
-                    item-key="name"
+                    item-key="id"
                     show-select
                     class="elevation-1"
             >
@@ -77,23 +77,20 @@
                 var me = this
                 me.$http.get(`${API_HOST}/products`).then(function (e) {
                     me.items = e.data._embedded.products;
-                    me.items.map( item => item.host = API_HOST)
-
                 })
             },
             cancel(){
                 var me = this
-                me.$emit('update:deleteDialog', false)
+                me.$emit('cancel', false)
             },
             deleteItem(){
                 var me = this
                 me.selectItem.forEach(function(item){
-                    me.$http.delete(`${API_HOST}/products/${item.id}`).then(function (e) {
-                        var productList = me.$getComponents('ProductList')
-                        productList.getProdList();
+                    me.$http.delete(`${API_HOST}/products/${item.id}`).then(function () {
                     })
                 })
-                me.$emit('update:deleteDialog', false)
+                me.$emit('cancel', false)
+
                 var app = me.$getComponents('App')
                 app.snackbar = true;
                 app.snackbarColor = 'success'

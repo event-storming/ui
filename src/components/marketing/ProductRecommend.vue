@@ -1,43 +1,20 @@
 <template>
     <v-container >
-        <v-dialog
-                v-model="buyDialog"
-                width="800"
-        >
-            <order-page
-                    v-bind:buyDialog.sync="buyDialog"
-                    :productInfo="selectItem"
-            ></order-page>
-        </v-dialog>
-
-        <v-dialog
-                v-model="editDialog"
-                width="500"
-        >
-            <product-repository
-                    v-if="editDialog"
-                    v-bind:repositoryDialog.sync="editDialog"
-                    :productInfo="selectItem"
-                    :edit=true
-            ></product-repository>
-        </v-dialog>
-
-
+        <div style="font-size:30px; font-style: revert"><br>추천 상품</div>
         <v-row>
             <v-col
-                    v-for="(list,idx) in recommendList"
-                    :key="list.item.id"
-                    v-if="idx<4"
+                    v-for="(item,index) in recommendList"
+                    :key="item.item.id"
+                    v-if="index<4  "
                     cols="12"
                     sm="6"
                     md="4"
                     lg="3"
             >
                 <product
-                        :item="list.item"
-                        :selectItem.sync="selectItem"
-                        :buyDialog.sync="buyDialog"
-                        :editDialog.sync="editDialog"
+                        v-model="recommendList[index].item"
+                        @inputBuy="showBuy"
+                        @inputEdit="showEdit"
                 ></product>
             </v-col>
         </v-row>
@@ -46,6 +23,9 @@
 
 <script>
     export default {
+        props:{
+          value:Object
+        },
         data() {
             return {
                 keys: [
@@ -59,7 +39,6 @@
                 recommendList: [],
                 cnt:0,
                 totalCnt:0,
-                selectItem: {},
                 buyDialog: false,
                 editDialog: false,
             }
@@ -78,8 +57,8 @@
             me.productList = productList;
             me.orderList = orderList;
 
-            me.productList.forEach(function (productVal,idx) {
-                me.orderList.forEach(function (orderVal,idx) {
+            me.productList.forEach(function (productVal) {
+                me.orderList.forEach(function (orderVal) {
                     if(productVal.id == orderVal.productId){
                         me.cnt=me.cnt+1;
                     }
@@ -117,20 +96,22 @@
             showDetail(val) {
                 this.$router.push('/products/' + val)
             },
+            updateItemsPerPage(number) {
+                this.itemsPerPage = number
+            },
+            showEdit (item) {
+                this.$emit('editItem',item);
+            },
             showBuy(item) {
                 var me = this
                 if (item.stock >= 1) {
-                    me.buyDialog = true;
-                    me.selectItem = item;
+                    this.$emit('buyItem',item);
                 } else {
                     var app = me.$getComponents('App')
                     app.snackbar = true;
-                    app.snackbarColor= 'error'
+                    app.snackbarColor = 'error'
                     app.snackbarMessage = '재고가 없습니다.'
                 }
-            },
-            updateItemsPerPage(number) {
-                this.itemsPerPage = number
             },
         },
     }
