@@ -1,6 +1,6 @@
 <template>
     <survey-form
-        :orderData="orderData"
+        v-model="value"
     >
     </survey-form>
 </template>
@@ -8,10 +8,10 @@
 <script>
     export default {
         data: () => ({
-            orderData: {},
+            value: {},
         }),
         created() {
-            this.orderData=this.$route.params;
+            this.value=this.$route.params;
         },
     }
 </script>

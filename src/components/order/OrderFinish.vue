@@ -1,24 +1,4 @@
 <template>
-    <!--<v-container class="grey lighten-5">-->
-    <!--<v-row-->
-    <!--no-gutters-->
-    <!--style="height: 150px;"-->
-    <!--&gt;-->
-    <!--<v-col-->
-    <!--v-for="align in alignments"-->
-    <!--:key="align"-->
-    <!--:align-self="align"-->
-    <!--&gt;-->
-    <!--<v-card-->
-    <!--class="pa-2"-->
-    <!--outlined-->
-    <!--tile-->
-    <!--&gt;-->
-    <!--One of three columns-->
-    <!--</v-card>-->
-    <!--</v-col>-->
-    <!--</v-row>-->
-    <!--</v-container>-->
     <v-container>
         <v-row>
             <v-col></v-col>

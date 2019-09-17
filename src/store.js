@@ -22,6 +22,7 @@ export default new Vuex.Store({
             state.userId = userId;
             state.login = true;
             localStorage.setItem("accessToken", accessToken)
+            Vue.prototype.$http.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
             // 모든 HTTP 요청 헤더에 Authorization 을 추가한다.
             Vue.prototype.$http.get(`${window.API_HOST}/users/${state.userId}`).then(function (e) {
                 state.nickname = e.data.nickname
@@ -49,6 +50,7 @@ export default new Vuex.Store({
             localStorage.removeItem("money")
             localStorage.removeItem("address")
             localStorage.removeItem("role")
+            localStorage.removeItem('userId')
         }
     },
     actions: {

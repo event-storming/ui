@@ -197,6 +197,7 @@
                 this.$store.state.address = localStorage.getItem('address');
                 this.$store.state.accessToken = localStorage.getItem('accessToken');
                 this.$store.state.role = localStorage.getItem('role');
+                this.$store.state.userId = localStorage.getItem('userId')
                 this.$http.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('accessToken')}`
             }
         },

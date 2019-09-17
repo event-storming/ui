@@ -7,9 +7,9 @@
                 <v-card-title  id="rightline" style="width:22%; font-size: 15px; justify-content: center;">구매하신 상품</v-card-title>
                 <v-col >
                     <v-card-text >
-                        주문번호 &ensp; {{orderData.orderId}}
-                        <br>상품명 &ensp; {{orderData.productName}}
-                        <br>상품금액 &ensp; {{orderData.payment}}&ensp;|&ensp; 수량 &ensp; {{orderData.quantity}}
+                        주문번호 &ensp; {{value.orderId}}
+                        <br>상품명 &ensp; {{value.productName}}
+                        <br>상품금액 &ensp; {{value.payment}}&ensp;|&ensp; 수량 &ensp; {{value.quantity}}
                         <!--                        <br>구매일자:{{orderData.timestamp}}-->
                     </v-card-text>
                 </v-col>
@@ -86,7 +86,7 @@
     export default {
 
         props: {
-            orderData: Object,
+            value: Object,
         },
         data: () => ({
             productSatisfaction: 4,
@@ -98,13 +98,11 @@
 
         }),
         created() {
-            console.log(this.orderData);
         },
         beforeDestroy() {
         },
         watch: {
             productSatisfaction: function (value) {
-                console.log(value);
             }
         },
         mounted() {
@@ -115,15 +113,8 @@
                 var me = this
                 var app = me.$getComponents('App')
 
-                //  "customerId" : null,
-                // "customerName" : null,
-                //     "surveyMessage" : null,
-                //     "surveyRecommend" : 0,
-                //     "surveyDelivery" : 0,
-                //     "productSatisfaction" : 0,
-
                 let param = {
-                    'customerId':me.customerId,
+                    'customerId': me.customerId,
                     'customerName': me.customerName,
                     'surveyMessage': me.surveyComment,
                     'surveyRecommend':me.surveyRecommend,
