@@ -6,6 +6,12 @@
                 clipped-left
                 color="green"
         >
+
+        <!--<v-app-bar-->
+                <!--app-->
+                <!--clipped-left-->
+                <!--color="amber"-->
+        <!--&gt;-->
             <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
             <v-btn text  @click="$router.push('/')"><span class="title ml-3 mr-5">12&nbsp;<span class="font-weight-light">Street</span></span></v-btn>
             <v-text-field
