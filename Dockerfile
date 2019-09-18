@@ -16,4 +16,4 @@ ARG VUE_APP_API_HOST
 ENV VUE_APP_API_HOST=$VUE_APP_API_HOST
 EXPOSE 8080
 ENTRYPOINT ["sh","/opt/run.sh"]
-CMD ["pushstate-server", "-d", "/opt/www/", "-p", "8080"]
+CMD ["pushstate-server", "-d", "/opt/www", "-p", "8080"]
