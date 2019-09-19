@@ -31,9 +31,10 @@
         var lines = data.split('\n');
         $.each(lines, function (i, line) {
           // console.log(line);
-          console.log(api_host)
           if (line && line.indexOf('VUE_APP_API_HOST=') == 0) {
-            api_host = line.split('=')[1];
+            var api_host = line.split('=')[1];
+            console.log(api_host)
+
             window.API_HOST = api_host;
             // console.log(window.API_HOST);
           }
