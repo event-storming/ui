@@ -149,7 +149,7 @@
             },
             getProdList() {
                 var me = this
-
+                console.log(`${API_HOST}`);
                 me.$http.get(`${API_HOST}/products`).then(function (e) {
                     me.items = e.data._embedded.products;
                 })
