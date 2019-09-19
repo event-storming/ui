@@ -22,7 +22,7 @@
                 ></product-add>
             </v-dialog>
 
-        <v-card flat>
+        <v-card flat v-if="$store.state.login == true">
             <product-recommend
                     @buyItem="buyValue"
                     @editItem="editValue"
