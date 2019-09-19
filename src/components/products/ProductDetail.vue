@@ -65,7 +65,7 @@
 
                 <v-card-actions>
                     <div class="flex-grow-1"></div>
-                    <v-btn color="primary accent-4" text @click="payment">결제하기</v-btn>
+                    <v-btn color="primary accent-4" v-if="$store.state.login == true" text @click="payment">결제하기</v-btn>
                     <v-btn color="red accent-4" text @click="close">나가기</v-btn>
                 </v-card-actions>
             </v-card>

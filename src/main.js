@@ -8,6 +8,7 @@ import 'vuetify/dist/vuetify.min.css';
 import VueNumberInput from '@chenfengyuan/vue-number-input';
 import VueTheMask from 'vue-the-mask'
 
+import Home from "./components/Home";
 import ProductList from "./components/products/ProductList.vue";
 import ProductOrder from "./components/products/ProductDetail.vue";
 import ProductRecommend from "./components/marketing/ProductRecommend.vue";
@@ -40,6 +41,7 @@ if (process.env.NODE_ENV == "development") {
 } else {
     window.API_HOST = process.env.VUE_APP_API_HOST
 }
+Vue.component('Home',Home)
 Vue.component('Login', Login);
 Vue.component('ProductPage', ProductPage)
 Vue.component('ProductList', ProductList);
