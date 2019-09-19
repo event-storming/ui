@@ -114,6 +114,7 @@
 
                 me.$http.post(`${API_HOST}/products`, item).then(function (e) {
                     me.$emit('cancel', false)
+                    me.$EventBus.$emit('updateList')
                     var app = me.$getComponents('App')
                     app.snackbar = true;
                     app.snackbarColor = 'success'
@@ -133,6 +134,8 @@
                 };
                 me.$http.put(`${API_HOST}/products/` + me.value.id, item).then(function (e) {
                     me.$emit('cancel', false)
+                    me.$EventBus.$emit('updateList')
+
                     var app = me.$getComponents('App')
                     app.snackbar = true;
                     app.snackbarColor = 'success'

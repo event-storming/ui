@@ -1,5 +1,5 @@
 <template>
-    <v-container >
+    <v-container>
         <div style="font-size:30px; font-style: revert"><br>추천 상품</div>
         <v-row>
             <v-col
@@ -23,8 +23,8 @@
 
 <script>
     export default {
-        props:{
-          value:Object
+        props: {
+            value: Object
         },
         data() {
             return {
@@ -37,8 +37,6 @@
                 productList: [],
                 orderList: [],
                 recommendList: [],
-                cnt:0,
-                totalCnt:0,
                 buyDialog: false,
                 editDialog: false,
             }
@@ -48,39 +46,22 @@
                 return this.keys.filter(key => key !== `Name`)
             },
         },
-        created() {},
-        async mounted() {
+        created() {
+        },
+        mounted() {
             var me = this
-            var productList = await me.getProductList();
-            var orderList = await me.getOrderList()
+            this.mountedFunction()
 
-            me.productList = productList;
-            me.orderList = orderList;
-
-            me.productList.forEach(function (productVal) {
-                me.orderList.forEach(function (orderVal) {
-                    if(productVal.id == orderVal.productId){
-                        me.cnt=me.cnt+1;
-                    }
-                })
-                let data={
-                    'item':productVal,
-                    'cnt': me.cnt,
-                }
-                me.recommendList.push(data);
-                me.cnt=0;
+            this.$EventBus.$on('updateList', function () {
+                me.mountedFunction()
             })
-
-            me.recommendList.sort(function(a, b) { // 내림차순
-                return b['cnt'] - a['cnt'];
-            });
-
         },
         methods: {
             getProductList: function () {
                 var me = this
                 return new Promise(function (resolve, reject) {
                     me.$http.get(`${API_HOST}/products`).then(function (e) {
+                        console.log("prod" + e)
                         resolve(e.data._embedded.products)
                     });
                 });
@@ -89,9 +70,46 @@
                 var me = this
                 return new Promise(function (resolve, reject) {
                     me.$http.get(`${API_HOST}/mypage/order/${localStorage.getItem('userId')}`).then(function (e) {
+                        console.log("order" + e)
                         resolve(e.data)
                     });
                 });
+            },
+            async mountedFunction() {
+                var me = this;
+
+                me.productList = [];
+                me.orderList = [];
+                console.log(me.productList)
+
+                var productList = await me.getProductList();
+                var orderList = await me.getOrderList()
+
+                console.log("Aa")
+                me.productList = productList;
+                me.orderList = orderList;
+                me.recommendList = []
+
+                var cnt = 0;
+                console.log(productList)
+                me.productList.forEach(function (productVal) {
+                    me.orderList.forEach(function (orderVal) {
+                        if (productVal.id == orderVal.productId) {
+                            cnt = cnt + 1;
+                        }
+                    })
+                    let data = {
+                        'item': productVal,
+                        'cnt': cnt,
+                    }
+                    me.recommendList.push(data);
+                    cnt = 0;
+                })
+
+                me.recommendList.sort(function (a, b) { // 내림차순
+                    return b['cnt'] - a['cnt'];
+                });
+
             },
             showDetail(val) {
                 this.$router.push('/products/' + val)
@@ -99,13 +117,13 @@
             updateItemsPerPage(number) {
                 this.itemsPerPage = number
             },
-            showEdit (item) {
-                this.$emit('editItem',item);
+            showEdit(item) {
+                this.$emit('editItem', item);
             },
             showBuy(item) {
                 var me = this
                 if (item.stock >= 1) {
-                    this.$emit('buyItem',item);
+                    this.$emit('buyItem', item);
                 } else {
                     var app = me.$getComponents('App')
                     app.snackbar = true;

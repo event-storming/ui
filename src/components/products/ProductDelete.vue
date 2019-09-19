@@ -74,6 +74,7 @@
         },
         methods: {
             getProdList() {
+                console.log("Aa")
                 var me = this
                 me.$http.get(`${API_HOST}/products`).then(function (e) {
                     me.items = e.data._embedded.products;
@@ -85,16 +86,17 @@
             },
             deleteItem(){
                 var me = this
+
                 me.selectItem.forEach(function(item){
                     me.$http.delete(`${API_HOST}/products/${item.id}`).then(function () {
+                        me.$emit('cancel', false)
+                        me.$EventBus.$emit('updateList')
+                        var app = me.$getComponents('App')
+                        app.snackbar = true;
+                        app.snackbarColor = 'success'
+                        app.snackbarMessage = me.selectItem.length+'개 상품 삭제 되었습니다.'
                     })
                 })
-                me.$emit('cancel', false)
-
-                var app = me.$getComponents('App')
-                app.snackbar = true;
-                app.snackbarColor = 'success'
-                app.snackbarMessage = me.selectItem.length+'개 상품 삭제 되었습니다.'
 
 
             }

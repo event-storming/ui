@@ -140,6 +140,7 @@
                 persistent
         >
             <product-delete
+                    v-if="deleteDialog"
                     @cancel="deleteDialog=false"
             ></product-delete>
         </v-dialog>

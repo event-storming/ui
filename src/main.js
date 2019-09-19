@@ -31,31 +31,32 @@ import BlackListUserInfo from "./components/mypage/BlackListUserInfo";
 
 Vue.prototype.$http = axios;
 Vue.prototype.$EventBus = new Vue();
+
 Vue.use(VueNumberInput);
 Vue.use(VueTheMask);
 
-if( process.env.NODE_ENV == "development" ){
+if (process.env.NODE_ENV == "development") {
     window.API_HOST = "http://localhost:8088";
-}else{
+} else {
     window.API_HOST = process.env.VUE_APP_API_HOST
 }
 Vue.component('Login', Login);
-Vue.component('ProductPage',ProductPage)
+Vue.component('ProductPage', ProductPage)
 Vue.component('ProductList', ProductList);
 Vue.component('ProductOrder', ProductOrder);
-Vue.component('ProductRecommend',ProductRecommend);
+Vue.component('ProductRecommend', ProductRecommend);
 Vue.component('OrderList', OrderList);
-Vue.component('OrderFinish',OrderFinish);
+Vue.component('OrderFinish', OrderFinish);
 Vue.component('Order', Order)
-Vue.component('Survey',Survey);
-Vue.component('SurveyForm',SurveyForm);
+Vue.component('Survey', Survey);
+Vue.component('SurveyForm', SurveyForm);
 Vue.component('UserInfo', UserInfo)
 Vue.component('DeliveryStatus', DeliveryStatus)
-Vue.component('Product',Product)
+Vue.component('Product', Product)
 Vue.component('ProductSimple', ProductSimple)
-Vue.component('ProductAdd',ProductAdd)
-Vue.component('ProductDelete',ProductDelete)
-Vue.component('BlackListUserInfo',BlackListUserInfo)
+Vue.component('ProductAdd', ProductAdd)
+Vue.component('ProductDelete', ProductDelete)
+Vue.component('BlackListUserInfo', BlackListUserInfo)
 
 Vue.config.productionTip = false
 
@@ -71,9 +72,11 @@ Vue.prototype.$getComponents = function (componentName) {
     return component
 },
 
-new Vue({
-  router,
-  store,
-  vuetify,
-  render: function (h) { return h(App) },
-}).$mount('#app')
+    new Vue({
+        router,
+        store,
+        vuetify,
+        render: function (h) {
+            return h(App)
+        },
+    }).$mount('#app')

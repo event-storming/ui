@@ -123,7 +123,9 @@
             this.$EventBus.$on('search', function (newVal) {
                 me.search = newVal
             })
-
+            this.$EventBus.$on('updateList', function (newVal) {
+                me.getProdList()
+            })
         },
         computed: {
             numberOfPages() {
