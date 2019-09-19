@@ -118,7 +118,10 @@
         },
         mounted() {
             var me = this;
-            this.getProdList();
+
+            this.$nextTick(function(){
+                this.getProdList();
+            })
 
             this.$EventBus.$on('search', function (newVal) {
                 me.search = newVal
