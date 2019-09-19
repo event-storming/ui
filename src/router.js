@@ -18,32 +18,44 @@ export default new Router({
             path: '/',
             name: 'home',
             component: Home,
-        },
-        {
-            path: '/mypage',
-            name: 'mypage',
-            component: MyPage
-        },
-        {
-            path: '/products',
-            name: 'products',
-            component: ProductPage,
-        },
-        {
-            path: '/orderfinish',
-            name: 'orderfinish',
-            component: OrderFinish,
-        },
-        {
-            path: '/survey',
-            name: 'survey',
-            component: Survey,
+            children: [
+                { path: 'mypage', component: MyPage },
+                { path: 'orderfinish', component: OrderFinish },
+                { path: 'survey', component: Survey },
+                { path: 'products', component: ProductPage },
+
+            ]
         },
         {
             path: '/products/:name',
             name: 'productsDetail',
             component: ProductDetail,
-        }
+        },
+        // {
+        //     path: '/mypage',
+        //     name: 'mypage',
+        //     component: MyPage
+        // },
+        // {
+        //     path: '/products',
+        //     name: 'products',
+        //     component: ProductPage,
+        // },
+        // {
+        //     path: '/orderfinish',
+        //     name: 'orderfinish',
+        //     component: OrderFinish,
+        // },
+        // {
+        //     path: '/survey',
+        //     name: 'survey',
+        //     component: Survey,
+        // },
+        // {
+        //     path: '/products/:name',
+        //     name: 'productsDetail',
+        //     component: ProductDetail,
+        // }
     ]
 })
 
