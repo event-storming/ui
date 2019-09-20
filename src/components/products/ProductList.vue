@@ -1,7 +1,6 @@
 <template>
     <v-container fluid>
         <v-card flat>
-            <div style="font-size:30px; font-style: revert"><br>일반 상품</div>
             <v-container>
                 <v-data-iterator
                         v-if="items"
