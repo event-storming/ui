@@ -160,13 +160,9 @@
             },
             getProdList() {
                 var me = this
-                if(`${API_HOST}` == "undefined"){
-                    console.log(window.location.path);
-                    console.log(window.location);
-                    console.log(window.location.hostname);
-                }else{
-                    console.log(`${API_HOST}`)
-                }
+                if(`${API_HOST}` == 'undefined')
+                    window.API_HOST = localStorage.getItem('api_host')
+
                 me.$http.get(`${API_HOST}/products`).then(function (e) {
                     me.items = e.data._embedded.products;
                 })
