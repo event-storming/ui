@@ -52,6 +52,7 @@
                 edit:'',
                 buyDialog: false,
                 editDialog: false,
+
             }
         },
         methods:{
@@ -64,6 +65,9 @@
                 this.editDialog = true
             }
 
+        },
+        created() {
+            this.$EventBus.$emit('API',`${API_HOST}`);
         }
 
     }

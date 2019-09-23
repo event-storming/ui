@@ -111,9 +111,13 @@
                 buyDialog: false,
                 editDialog: false,
                 role :false,
+                api:'',
             }
         },
         created() {
+            this.$EventBus.on('API',function (item) {
+                this.api=item;
+            })
         },
         mounted() {
             var me = this;
@@ -121,6 +125,7 @@
                 me.$forceUpdate()
             } else {
                 this.$nextTick(function(){
+                    console.log(me.api)
                     this.getProdList();
                 })
 
@@ -156,6 +161,7 @@
             },
             getProdList() {
                 var me = this
+                console.log(me.api)
                 me.$http.get(`${API_HOST}/products`).then(function (e) {
                     me.items = e.data._embedded.products;
                 })
