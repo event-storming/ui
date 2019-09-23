@@ -111,39 +111,28 @@
                 buyDialog: false,
                 editDialog: false,
                 role :false,
-                API:''
             }
         },
         created() {
         },
-        beforeUpdate(){
-            var me = this
-            console.log(`${API_HOST}`)
-            me.API=`${API_HOST}`
-        },
-        beforeMount(){
-            var me = this
-            console.log(`${API_HOST}`)
-            me.API=`${API_HOST}`
-        },
-        beforeDestroy(){
-            var me = this
-            console.log(`${API_HOST}`)
-            me.API=`${API_HOST}`
-        },
         mounted() {
             var me = this;
+            if(`${API_HOST}` == undefined) {
+                me.$forceUpdate()
+            } else {
+                this.$nextTick(function(){
+                    this.getProdList();
+                })
 
-            this.$nextTick(function(){
-                this.getProdList();
-            })
+                this.$EventBus.$on('search', function (newVal) {
+                    me.search = newVal
+                })
+                this.$EventBus.$on('updateList', function () {
+                    me.getProdList()
+                })
+            }
 
-            this.$EventBus.$on('search', function (newVal) {
-                me.search = newVal
-            })
-            this.$EventBus.$on('updateList', function () {
-                me.getProdList()
-            })
+
         },
         computed: {
             numberOfPages() {
@@ -167,7 +156,6 @@
             },
             getProdList() {
                 var me = this
-                console.log(me.API);
                 me.$http.get(`${API_HOST}/products`).then(function (e) {
                     me.items = e.data._embedded.products;
                 })
