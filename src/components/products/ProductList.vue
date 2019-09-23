@@ -115,15 +115,14 @@
             }
         },
         created() {
-            this.$EventBus.$on('API',function (item) {
-                this.api=item;
-            })
+            var me = this
+            if(`${API_HOST}` == "undefined") {
+                me.$forceUpdate()
+            }
         },
         mounted() {
             var me = this;
-            if(`${API_HOST}` == "undefined") {
-                me.$forceUpdate()
-            } else {
+            console.log(`${API_HOST}`)
                 this.$nextTick(function(){
                     console.log(me.api)
                     this.getProdList();
@@ -135,7 +134,6 @@
                 this.$EventBus.$on('updateList', function () {
                     me.getProdList()
                 })
-            }
 
 
         },
