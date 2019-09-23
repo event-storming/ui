@@ -110,10 +110,16 @@
                 selectItem: {},
                 buyDialog: false,
                 editDialog: false,
-                role :false
+                role :false,
+                API:''
             }
         },
         created() {
+        },
+        beforeUpdate(){
+            var me = this
+            console.log(`${API_HOST}`)
+            me.API=`${API_HOST}`
         },
         mounted() {
             var me = this;
@@ -125,7 +131,7 @@
             this.$EventBus.$on('search', function (newVal) {
                 me.search = newVal
             })
-            this.$EventBus.$on('updateList', function (newVal) {
+            this.$EventBus.$on('updateList', function () {
                 me.getProdList()
             })
         },
@@ -151,7 +157,7 @@
             },
             getProdList() {
                 var me = this
-                console.log(`${API_HOST}`);
+                console.log(me.API);
                 me.$http.get(`${API_HOST}/products`).then(function (e) {
                     me.items = e.data._embedded.products;
                 })
