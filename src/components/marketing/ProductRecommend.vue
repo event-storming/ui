@@ -58,18 +58,24 @@
         methods: {
             getProductList: function () {
                 var me = this
+
+                if(`${API_HOST}` == 'undefined')
+                    window.API_HOST = localStorage.getItem('api_host')
+
                 return new Promise(function (resolve, reject) {
                     me.$http.get(`${API_HOST}/products`).then(function (e) {
-                        console.log("prod" + e)
                         resolve(e.data._embedded.products)
                     });
                 });
             },
             getOrderList: function () {
                 var me = this
+
+                if(`${API_HOST}` == 'undefined')
+                    window.API_HOST = localStorage.getItem('api_host')
+
                 return new Promise(function (resolve, reject) {
                     me.$http.get(`${API_HOST}/mypage/order/${localStorage.getItem('userId')}`).then(function (e) {
-                        console.log("order" + e)
                         resolve(e.data)
                     });
                 });
