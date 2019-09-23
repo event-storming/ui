@@ -110,30 +110,31 @@
                 selectItem: {},
                 buyDialog: false,
                 editDialog: false,
-                role :false,
-                api:'',
+                role: false,
+                api: '',
             }
         },
         created() {
             var me = this
-            if(`${API_HOST}` == "undefined") {
+            if (`${API_HOST}` == "undefined") {
                 me.$forceUpdate()
             }
         },
         mounted() {
             var me = this;
             console.log(`${API_HOST}`)
-                this.$nextTick(function(){
-                    console.log(me.api)
-                    this.getProdList();
-                })
+            this.$nextTick(function () {
+                console.log(me.api)
+                this.getProdList();
+            })
 
-                this.$EventBus.$on('search', function (newVal) {
-                    me.search = newVal
-                })
-                this.$EventBus.$on('updateList', function () {
-                    me.getProdList()
-                })
+            this.$EventBus.$on('search', function (newVal) {
+                me.search = newVal
+            })
+            this.$EventBus.$on('updateList', function () {
+                me.getProdList()
+                this.$forceUpdate()
+            })
 
 
         },
@@ -143,13 +144,13 @@
             }
         },
         methods: {
-            showEdit (item) {
-                this.$emit('editItem',item);
+            showEdit(item) {
+                this.$emit('editItem', item);
             },
             showBuy(item) {
                 var me = this
                 if (item.stock >= 1) {
-                    this.$emit('buyItem',item);
+                    this.$emit('buyItem', item);
                 } else {
                     var app = me.$getComponents('App')
                     app.snackbar = true;
@@ -159,7 +160,13 @@
             },
             getProdList() {
                 var me = this
-                console.log(me.api)
+                if(`${API_HOST}` == "undefined"){
+                    console.log(window.location.path);
+                    console.log(window.location);
+                    console.log(window.location.hostname);
+                }else{
+                    console.log(`${API_HOST}`)
+                }
                 me.$http.get(`${API_HOST}/products`).then(function (e) {
                     me.items = e.data._embedded.products;
                 })
