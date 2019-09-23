@@ -121,6 +121,11 @@
             console.log(`${API_HOST}`)
             me.API=`${API_HOST}`
         },
+        beforeMount(){
+            var me = this
+            console.log(`${API_HOST}`)
+            me.API=`${API_HOST}`
+        },
         mounted() {
             var me = this;
 
