@@ -117,7 +117,7 @@
         },
         mounted() {
             var me = this;
-            if(`${API_HOST}` == undefined) {
+            if(`${API_HOST}` == "undefined") {
                 me.$forceUpdate()
             } else {
                 this.$nextTick(function(){
