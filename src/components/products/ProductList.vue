@@ -115,7 +115,7 @@
             }
         },
         created() {
-            this.$EventBus.on('API',function (item) {
+            this.$EventBus.$on('API',function (item) {
                 this.api=item;
             })
         },
