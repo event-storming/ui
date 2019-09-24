@@ -18,7 +18,7 @@
                 <v-card
                         class="mx-auto"
                         outlined
-                        color="amber"
+                        color="green"
                 >
                     <v-card-text
                         style="font-size: medium; color: black;">

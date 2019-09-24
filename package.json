@@ -12,6 +12,7 @@
     "babel-plugin-transform-runtime": "^6.23.0",
     "register-service-worker": "^1.6.2",
     "vue": "^2.6.10",
+    "vue-google-oauth2": "^1.4.0",
     "vue-router": "^3.0.3",
     "vue-the-mask": "^0.11.1",
     "vuelidate": "^0.7.4",

@@ -19,6 +19,7 @@ import Product from "./components/products/Product";
 import ProductPage from "./components/products/ProductPage";
 
 import Login from './components/oauth/Login.vue';
+import GoogleLogin from 'vue-google-oauth2'
 import axios from 'axios'
 import OrderList from './components/order/OrderList';
 import OrderFinish from "./components/order/OrderFinish";
@@ -59,6 +60,7 @@ Vue.component('ProductSimple', ProductSimple)
 Vue.component('ProductAdd', ProductAdd)
 Vue.component('ProductDelete', ProductDelete)
 Vue.component('BlackListUserInfo', BlackListUserInfo)
+Vue.component('GoogleLogin', GoogleLogin)
 
 Vue.config.productionTip = false
 

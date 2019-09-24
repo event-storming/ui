@@ -18,7 +18,7 @@
                     v-if="$route.path == '/products'"
                     v-model="productSearch"
                     solo-inverted
-                    flat
+                    text
                     hide-details
                     label="Search"
                     prepend-inner-icon="search"
@@ -205,11 +205,29 @@
         },
         mounted() {
         },
+        beforeDestroy(){
+            this.$store.state.login = false
+            this.$store.state.accessToken=''
+            this.$store.state.nickname=''
+            this.$store.state.address = ''
+            this.$store.state.role = ''
+            this.$store.state.userId = ''
+            this.$http.defaults.headers.common['Authorization'] = ''
+            localStorage.clear();
+
+        },
         destroyed(){
-            if(localStorage.getItem('accessToken') != null){
-                localStorage.setItem('accessToken',null);
-                this.$http.defaults.headers.common['Authorization']=null
-            }
+
+            this.$store.state.login = false
+            this.$store.state.accessToken=''
+            this.$store.state.nickname=''
+            this.$store.state.address = ''
+            this.$store.state.role = ''
+            this.$store.state.userId = ''
+            this.$http.defaults.headers.common['Authorization'] = ''
+            localStorage.clear();
+
+            localStorage.clear();
         },
         watch: {
             productSearch(newVal) {

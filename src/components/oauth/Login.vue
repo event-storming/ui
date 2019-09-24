@@ -1,14 +1,23 @@
 <template>
     <v-card class="elevation-12">
         <v-toolbar
-                color="amber"
                 flat
         >
             <v-toolbar-title>Login</v-toolbar-title>
             <div class="flex-grow-1"></div>
         </v-toolbar>
         <v-card-text>
-            <!--<v-counter>aa</v-counter>-->
+
+           <v-card flat style="padding: 15px">
+               <v-row align="center" justify="center">
+               <v-btn flat >GOOGLE</v-btn>
+                   <div class="pa-2"></div>
+               <v-btn flat >FACEBOOK</v-btn>
+               </v-row>
+           </v-card>
+
+           <v-divider> </v-divider>
+
             <v-form>
                 <v-text-field
                         label="Login"
@@ -29,8 +38,7 @@
             </v-form>
         </v-card-text>
         <v-card-actions>
-            <div class="flex-grow-1"></div>
-            <v-btn color="primary" @click="login">Login</v-btn>
+            <v-btn block  color="green" @click="login">Login</v-btn>
         </v-card-actions>
     </v-card>
 </template>
