@@ -8,13 +8,13 @@
         </v-toolbar>
         <v-card-text>
 
-           <v-card flat style="padding: 15px">
-               <v-row align="center" justify="center">
-               <v-btn flat >GOOGLE</v-btn>
-                   <div class="pa-2"></div>
-               <v-btn flat >FACEBOOK</v-btn>
-               </v-row>
-           </v-card>
+<!--           <v-card flat style="padding: 15px">-->
+<!--               <v-row align="center" justify="center">-->
+<!--               <v-btn flat >GOOGLE</v-btn>-->
+<!--                   <div class="pa-2"></div>-->
+<!--               <v-btn flat >FACEBOOK</v-btn>-->
+<!--               </v-row>-->
+<!--           </v-card>-->
 
            <v-divider> </v-divider>
 
