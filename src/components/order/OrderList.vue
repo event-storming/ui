@@ -143,7 +143,6 @@
                 var me = this
                 this.$http.get(`${API_HOST}/mypage/order/${localStorage.getItem('userId')}`)
                     .then(function (e) {
-                        console.log(e)
                         me.orderList = e.data
                     })
             },
@@ -162,8 +161,7 @@
             },
             openSurvey(item) {
                 var me = this
-                console.log(item)
-                me.$router.push({name: 'survey', params: item});
+                me.$router.push({name: 'serveys', params: item});
 
             }
         },

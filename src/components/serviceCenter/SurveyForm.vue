@@ -38,7 +38,7 @@
                     <v-row justify="center">
                         <v-radio-group v-model="surveyRecommend" row>
                             <v-radio
-                                    v-for="n in 3"
+                                    v-for="n in 5"
                                     :key="n"
                                     :label="`${n}점`"
                                     :value="n"
@@ -49,7 +49,7 @@
                     <v-row justify="center">
                         <v-radio-group v-model="surveyDelivery" row>
                             <v-radio
-                                    v-for="n in 3"
+                                    v-for="n in 5"
                                     :key="n"
                                     :label="`${n}점`"
                                     :value="n"
@@ -115,7 +115,8 @@
 
                 let param = {
                     'customerId': me.customerId,
-                    'customerName': me.customerName,
+                    // 'customerName': me.customerName,
+                    'customerName': me.value.productName,
                     'surveyMessage': me.surveyComment,
                     'surveyRecommend':me.surveyRecommend,
                     'surveyDelivery':me.surveyDelivery,

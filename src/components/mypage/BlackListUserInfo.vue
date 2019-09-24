@@ -56,7 +56,6 @@
             getBleckUserList() {
                 var me = this
                 this.$http.get(`${API_HOST}/users`).then(function (e) {
-                        console.log(e.data._embedded.users)
                          me.blackUserList = e.data._embedded.users
                          me.blackUserList.map( item => item.email = me.getEmail(item._links.self.href))
                     })

@@ -114,26 +114,19 @@
                 api: '',
             }
         },
-        created() {
-            var me = this
-            if (`${API_HOST}` == "undefined") {
-                me.$forceUpdate()
-            }
-        },
+        created() {},
         mounted() {
             var me = this;
-            console.log(`${API_HOST}`)
-            this.$nextTick(function () {
-                console.log(me.api)
-                this.getProdList();
-            })
+            // this.$nextTick(function () {
+            //     this.getProdList();
+            // })
+            this.getProdList();
 
             this.$EventBus.$on('search', function (newVal) {
                 me.search = newVal
             })
             this.$EventBus.$on('updateList', function () {
                 me.getProdList()
-                this.$forceUpdate()
             })
 
 

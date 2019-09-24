@@ -85,18 +85,15 @@
 
                 me.productList = [];
                 me.orderList = [];
-                console.log(me.productList)
 
                 var productList = await me.getProductList();
                 var orderList = await me.getOrderList()
 
-                console.log("Aa")
                 me.productList = productList;
                 me.orderList = orderList;
                 me.recommendList = []
 
                 var cnt = 0;
-                console.log(productList)
                 me.productList.forEach(function (productVal) {
                     me.orderList.forEach(function (orderVal) {
                         if (productVal.id == orderVal.productId) {
