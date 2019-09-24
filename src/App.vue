@@ -115,7 +115,6 @@
         <v-dialog
                 v-model="dialog"
                 width="500"
-                persistent
         >
             <Login
                     :dialog.sync="dialog"
@@ -200,10 +199,17 @@
                 this.$store.state.role = localStorage.getItem('role');
                 this.$store.state.userId = localStorage.getItem('userId')
                 this.$http.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('accessToken')}`
+            }else{
+                this.dialog=true
             }
         },
         mounted() {
-
+        },
+        destroyed(){
+            if(localStorage.getItem('accessToken') != null){
+                localStorage.setItem('accessToken',null);
+                this.$http.defaults.headers.common['Authorization']=null
+            }
         },
         watch: {
             productSearch(newVal) {

@@ -4,7 +4,7 @@
                 color="amber"
                 flat
         >
-            <v-toolbar-title>Login form</v-toolbar-title>
+            <v-toolbar-title>Login</v-toolbar-title>
             <div class="flex-grow-1"></div>
         </v-toolbar>
         <v-card-text>
@@ -48,8 +48,8 @@
         },
         data: () => ({
             drawer: null,
-            userId: '',
-            userPw: ''
+            userId: '1@uengine.org',
+            userPw: '1'
         }),
         methods: {
             login: function () {
