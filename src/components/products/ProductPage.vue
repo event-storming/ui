@@ -1,5 +1,5 @@
 <template>
-    <v-container fluid>
+    <v-container fluid >
             <v-dialog
                     v-model="buyDialog"
                     width="800"
@@ -25,13 +25,14 @@
         <v-card flat v-if="$store.state.login == true">
             <div style="font-size:30px; font-style: revert"><br>추천 상품</div>
             <product-recommend
+                    style="background: palegreen; height: auto"
                     @buyItem="buyValue"
                     @editItem="editValue"
             ></product-recommend>
         </v-card>
 
         <v-card flat>
-            <div style="font-size:30px; font-style: revert"><br>일반 상품</div>
+            <div style="font-size:30px; font-style: revert;"><br>일반 상품</div>
             <product-list
                     @buyItem="buyValue"
                     @editItem="editValue"

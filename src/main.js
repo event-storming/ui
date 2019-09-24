@@ -8,10 +8,12 @@ import 'vuetify/dist/vuetify.min.css';
 import VueNumberInput from '@chenfengyuan/vue-number-input';
 import VueTheMask from 'vue-the-mask'
 
+import ProductRecommend from "./components/marketing/ProductRecommend.vue";
+import ProductAds from "./components/marketing/ProductAds";
+
 import Home from "./components/Home";
 import ProductList from "./components/products/ProductList.vue";
 import ProductOrder from "./components/products/ProductDetail.vue";
-import ProductRecommend from "./components/marketing/ProductRecommend.vue";
 import ProductSimple from "./components/products/ProductSimple.vue";
 import ProductAdd from "./components/products/ProductAdd";
 import ProductDelete from "./components/products/ProductDelete";
@@ -19,7 +21,9 @@ import Product from "./components/products/Product";
 import ProductPage from "./components/products/ProductPage";
 
 import Login from './components/oauth/Login.vue';
-import GoogleLogin from 'vue-google-oauth2'
+import GSignInButton from 'vue-google-signin-button'
+import FBSignInButton from 'vue-facebook-signin-button'
+
 import axios from 'axios'
 import OrderList from './components/order/OrderList';
 import OrderFinish from "./components/order/OrderFinish";
@@ -36,6 +40,9 @@ Vue.prototype.$EventBus = new Vue();
 
 Vue.use(VueNumberInput);
 Vue.use(VueTheMask);
+
+Vue.use(GSignInButton)
+Vue.use(FBSignInButton)
 
 if (process.env.NODE_ENV == "development") {
     window.API_HOST = "http://localhost:8088";
@@ -60,7 +67,15 @@ Vue.component('ProductSimple', ProductSimple)
 Vue.component('ProductAdd', ProductAdd)
 Vue.component('ProductDelete', ProductDelete)
 Vue.component('BlackListUserInfo', BlackListUserInfo)
-Vue.component('GoogleLogin', GoogleLogin)
+Vue.component('ProductAds',ProductAds);
+
+//
+// const gOption = {
+//     clientId: 'CLIENT_ID.apps.googleusercontent.com',
+//     scope: 'profile email',
+//     prompt: 'select_account'
+// }
+// Vue.use(GoogleLogin, gOption)
 
 Vue.config.productionTip = false
 

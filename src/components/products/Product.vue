@@ -1,25 +1,28 @@
 <template>
     <v-card>
-        <v-card-title class="subheading font-weight-bold">{{ value.name }}</v-card-title>
-
-        <v-divider></v-divider>
-
         <v-img :src="srcDomain" aspect-ratio="1.7" contain></v-img>
 
         <v-list dense>
             <v-list-item
-                    v-for="(key, index) in filteredKeys"
-                    :key="index"
+                    :key="value.id"
             >
-                <v-list-item-content>{{ key }}:</v-list-item-content>
-                <v-list-item-content class="align-end">{{ value[key.toLowerCase()] }}
-                </v-list-item-content>
+                <v-col>
+                    <v-list-item-content>
+                        [상품번호-{{value.id}}] &nbsp; {{ value.name }}<br>
+                        남은수량:{{value.stock}}
+                    </v-list-item-content>
+                    <v-list-item-content class="font-weight-black" style="justify-content: flex-end;">
+                        {{value.price}} 원
+                    </v-list-item-content>
+                </v-col>
+<!--                <v-list-item-content>{{ key }}:</v-list-item-content>-->
+<!--                <v-list-item-content class="align-end">{{ value[key.toLowerCase()] }}</v-list-item-content>-->
 
             </v-list-item>
             <div align="right">
-                <v-btn text v-if='$store.state.role == "USER_ADMIN"' @click="showEdit"> Edit</v-btn>
-                <v-btn text @click="showDetail"> DETAIL</v-btn>
-                <v-btn text v-if="$store.state.login == true" @click="showBuy"> BUY</v-btn>
+                <v-btn text v-if=" $route.path != '/' && $store.state.role == 'USER_ADMIN' " @click="showEdit"> Edit</v-btn>
+                <v-btn text v-if="$route.path != '/' " @click="showDetail"> DETAIL</v-btn>
+                <v-btn text v-if=" $route.path != '/' && $store.state.login == true" @click="showBuy"> BUY</v-btn>
             </div>
         </v-list>
     </v-card>
@@ -41,6 +44,7 @@
           }
         },
         created () {
+            console.log(this.value)
         },
         computed:{
             filteredKeys() {

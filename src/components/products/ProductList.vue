@@ -1,7 +1,5 @@
 <template>
-    <v-container fluid>
-        <v-card flat>
-            <v-container>
+    <v-container>
                 <v-data-iterator
                         v-if="items"
                         :items="items"
@@ -86,11 +84,6 @@
                     </template>
                 </v-data-iterator>
             </v-container>
-        </v-card>
-
-    </v-container>
-
-
 </template>
 
 <script>

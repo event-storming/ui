@@ -6,12 +6,6 @@
                 clipped-left
                 color="green"
         >
-
-        <!--<v-app-bar-->
-                <!--app-->
-                <!--clipped-left-->
-                <!--color="amber"-->
-        <!--&gt;-->
             <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
             <v-btn text  @click="$router.push('/')"><span class="title ml-3 mr-5">12&nbsp;<span class="font-weight-light">Street</span></span></v-btn>
             <v-text-field
@@ -22,24 +16,37 @@
                     hide-details
                     label="Search"
                     prepend-inner-icon="search"
-                    style="padding-left: 10px"
+                    style="padding-left: 10px;"
             ></v-text-field>
 
             <div class="flex-grow-1"></div>
-            <v-btn text v-if='$route.path == "/products" && $store.state.login == true && $store.state.role == "USER_ADMIN"' @click="addDialog = true"  >상품추가</v-btn>
-            <v-btn text v-if='$route.path == "/products" && $store.state.login == true && $store.state.role == "USER_ADMIN"' @click="deleteDialog = true"  >상품삭제</v-btn>
-<!--            <v-btn text-->
-<!--                   v-if="$route.path == '/mypage' && oderBlackList && $store.state.login == true "-->
-<!--                   @click="pageList()"-->
-<!--                   style="background: red;" >블랙리스트</v-btn>-->
-<!--            <v-btn text-->
-<!--                   v-if="$route.path == '/mypage' && !oderBlackList && $store.state.login == true "-->
-<!--                   @click="pageList()"  >구매리스트</v-btn>-->
-            <v-btn text @click="dialog = true" v-if="$store.state.login == false">Login</v-btn>
+
+            <v-menu offset-y
+                    v-if='$route.path == "/products" && $store.state.login == true && $store.state.role == "USER_ADMIN"'
+            >
+                <template v-slot:activator="{ on }">
+                    <v-btn
+                            text
+                            dark
+                            v-on="on"
+                    >
+                        메뉴
+                    </v-btn>
+                </template>
+
+                <v-list>
+                    <v-list-item
+                            v-for="(menu, index) in menus"
+                            :key="index"
+                            @click="action(menu.id)"
+                    >
+                        <v-list-item-title >{{ menu.title }}</v-list-item-title>
+                    </v-list-item>
+                </v-list>
+            </v-menu>
+
+            <v-btn text @click="loginDialog = true" v-if="$store.state.login == false">Login</v-btn>
             <v-btn text @click="logout" v-else>Logout</v-btn>
-            <!--<v-btn text>-->
-            <!--<v-icon>perm_identity</v-icon>-->
-            <!--</v-btn>-->
         </v-app-bar>
 
         <v-navigation-drawer
@@ -94,6 +101,7 @@
                         </v-list-item-content>
                     </v-list-item>
                 </template>
+
                 <v-list-item
                         v-if="$store.state.login"
                         to='/mypage'
@@ -113,11 +121,12 @@
         </v-navigation-drawer>
 
         <v-dialog
-                v-model="dialog"
+                v-model="loginDialog"
                 width="500"
         >
             <Login
-                    :dialog.sync="dialog"
+                    v-model="loginDialog"
+                    @success="loginDialog = false"
             ></Login>
         </v-dialog>
 
@@ -167,6 +176,7 @@
     </v-app>
 </template>
 
+
 <script>
     export default {
         name: 'App',
@@ -176,7 +186,7 @@
         },
         data: () => ({
             drawer: null,
-            dialog: false,
+            loginDialog: false,
             addDialog: false,
             deleteDialog: false,
             oderBlackList:false,
@@ -188,6 +198,10 @@
             snackbarColor: '',
             snackbarMessage : '',
             productSearch: '',
+            menus:[
+                {id:1 ,title:'상품 추가' ,action:'addDialog = true'},
+                {id:2 ,title:'상품 삭제' ,action:'deleteDialog = true'}
+            ]
         }),
         created() {
             if (localStorage.getItem('accessToken') != null) {
@@ -205,30 +219,6 @@
         },
         mounted() {
         },
-        beforeDestroy(){
-            this.$store.state.login = false
-            this.$store.state.accessToken=''
-            this.$store.state.nickname=''
-            this.$store.state.address = ''
-            this.$store.state.role = ''
-            this.$store.state.userId = ''
-            this.$http.defaults.headers.common['Authorization'] = ''
-            localStorage.clear();
-
-        },
-        destroyed(){
-
-            this.$store.state.login = false
-            this.$store.state.accessToken=''
-            this.$store.state.nickname=''
-            this.$store.state.address = ''
-            this.$store.state.role = ''
-            this.$store.state.userId = ''
-            this.$http.defaults.headers.common['Authorization'] = ''
-            localStorage.clear();
-
-            localStorage.clear();
-        },
         watch: {
             productSearch(newVal) {
                 this.$EventBus.$emit('search', newVal)
@@ -240,6 +230,14 @@
                 me.$store.dispatch('logout')
                 this.$router.push('/')
             },
+            action(select){
+                console.log(select)
+                if(select == '1'){
+                    this.addDialog= true;
+                }else if(select == '2'){
+                    this.deleteDialog= true;
+                }
+            }
         }
     }
 </script>

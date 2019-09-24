@@ -1,32 +1,14 @@
 <template>
-<!--  <v-container>-->
-<!--    <v-dialog-->
-<!--            v-model="buyDialog"-->
-<!--            width="800"-->
-<!--    >-->
-<!--      <order-->
-<!--              v-if="buyDialog"-->
-<!--              v-model="buy"-->
-<!--              @cancel="buyDialog=false"-->
-<!--      ></order>-->
-<!--    </v-dialog>-->
-
-<!--    <v-dialog-->
-<!--            v-model="editDialog"-->
-<!--            width="500"-->
-<!--    >-->
-<!--      <product-add-->
-<!--              v-if="editDialog"-->
-<!--              v-model="edit"-->
-<!--              @cancel="editDialog=false"-->
-<!--      ></product-add>-->
-<!--    </v-dialog>-->
-
-<!--    <product-list-->
-<!--            @buyItem="buyValue"-->
-<!--            @editItem="editValue"-->
-<!--    ></product-list>-->
-<!--  </v-container>-->
+    <v-container>
+        <v-card flat>
+            <v-row justify="center">
+                <ProductAds/>
+            </v-row>
+        </v-card>
+        <v-card flat>
+            <product-List></product-List>
+        </v-card>
+    </v-container>
 </template>
 <style>
   h1, h2 {
@@ -57,3 +39,17 @@ export default {
 };
 </script>
 
+<style>
+
+    #app {
+        font-family: "Avenir", Helvetica, Arial, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-align: center;
+        color: #2c3e50;
+    }
+    body {
+        margin: 0px;
+    }
+
+</style>

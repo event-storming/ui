@@ -89,4 +89,6 @@ export default new Vuex.Store({
             commit('logout')
         },
     }
+
+
 })

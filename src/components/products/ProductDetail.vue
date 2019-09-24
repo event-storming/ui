@@ -179,7 +179,6 @@
                 var me = this
                 list.forEach(function(surveyList){
                     if(me.selectItem.name == surveyList.customerName){
-                        console.log(surveyList)
                         me.selectEvalAgv.cnt=me.selectEvalAgv.cnt+1;
                         me.selectEvalAgv.ratingAgv=me.selectEvalAgv.ratingAgv+surveyList.productSatisfaction
                         me.selectEvalAgv.productAvg=me.selectEvalAgv.productAvg+surveyList.surveyRecommend;
