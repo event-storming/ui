@@ -22,31 +22,32 @@
             <div class="flex-grow-1"></div>
 
             <v-menu offset-y
-                    v-if='$route.path == "/products" && $store.state.login == true && $store.state.role == "USER_ADMIN"'
+                    v-if='$store.state.role == "USER_ADMIN"'
             >
                 <template v-slot:activator="{ on }">
                     <v-btn
                             text
                             dark
                             v-on="on"
+                            style="color: #2c3e50"
                     >
-                        메뉴
+                        <v-icon style="color: grey; size: 10px">fas fa-list</v-icon>
                     </v-btn>
                 </template>
 
                 <v-list>
                     <v-list-item
+                            :class="fav ? 'red--text' : ''"
                             v-for="(menu, index) in menus"
                             :key="index"
                             @click="action(menu.id)"
                     >
-                        <v-list-item-title >{{ menu.title }}</v-list-item-title>
+                        <v-icon style="padding-right: 5px">{{menu.icon}}  </v-icon>
+                        <v-list-item-title >{{ menu.title }} </v-list-item-title>
                     </v-list-item>
                 </v-list>
             </v-menu>
-
-            <v-btn text @click="loginDialog = true" v-if="$store.state.login == false">Login</v-btn>
-            <v-btn text @click="logout" v-else>Logout</v-btn>
+            <v-btn text  @click="loginDialog = true" v-if="$store.state.login == false">Login <v-icon style="padding-left: 10px;color: black">fas fa-lock</v-icon> </v-btn>
         </v-app-bar>
 
         <v-navigation-drawer
@@ -199,11 +200,13 @@
             snackbarMessage : '',
             productSearch: '',
             menus:[
-                {id:1 ,title:'상품 추가' ,action:'addDialog = true'},
-                {id:2 ,title:'상품 삭제' ,action:'deleteDialog = true'}
+                {id:1 ,icon:'mdi-arrow-up-bold-box-outline', title:'상품 등록'},
+                {id:2 ,icon:'mdi-arrow-down-bold-box-outline', title:'상품 삭제'},
+                {id:3 ,icon:'fas fa-unlock', title:'로그 아웃'}
             ]
         }),
         created() {
+            // window.addEventListener('beforeunload', this.handler)
             if (localStorage.getItem('accessToken') != null) {
                 this.$store.state.login = true;
                 this.$store.state.nickname = localStorage.getItem('nickname');
@@ -214,8 +217,11 @@
                 this.$store.state.userId = localStorage.getItem('userId')
                 this.$http.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('accessToken')}`
             }else{
-                this.dialog=true
+                this.loginDialog = true
             }
+        },
+        beforeDestroy(){
+            window.addEventListener('beforeunload', this.handler)
         },
         mounted() {
         },
@@ -225,6 +231,14 @@
             }
         },
         methods: {
+            handler: function handler(event) {
+                localStorage.removeItem('accessToken')
+                localStorage.removeItem('nickname')
+                localStorage.removeItem('money')
+                localStorage.removeItem('address')
+                localStorage.removeItem('role')
+                localStorage.removeItem('userId')
+            },
             logout: function () {
                 var me = this
                 me.$store.dispatch('logout')
@@ -236,6 +250,8 @@
                     this.addDialog= true;
                 }else if(select == '2'){
                     this.deleteDialog= true;
+                }else if(select == '3'){
+                    this.logout()
                 }
             }
         }

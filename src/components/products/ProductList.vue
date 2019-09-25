@@ -1,5 +1,7 @@
 <template>
     <v-container>
+
+        <div style="font-size:20px; font-style: revert;"><br> &reg;eal 한 일반 상품</div>
                 <v-data-iterator
                         v-if="items"
                         :items="items"

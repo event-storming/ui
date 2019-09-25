@@ -1,5 +1,5 @@
 <template>
-       <v-card flat width="50%" height="50%">
+       <v-card flat width="30%" height="30%">
                 <transition-group  tag="div">
                     <div v-for="i in [currentIndex]" :key="i">
                         <product

@@ -1,6 +1,6 @@
 <template>
     <v-card>
-        <v-img :src="srcDomain" aspect-ratio="1.7" contain></v-img>
+        <v-img :src="srcDomain" aspect-ratio="2.0" contain></v-img>
 
         <v-list dense>
             <v-list-item
@@ -43,9 +43,7 @@
               ],
           }
         },
-        created () {
-            console.log(this.value)
-        },
+        created () { },
         computed:{
             filteredKeys() {
                     return this.keys.filter(key => key !== `Name` && key !== 'imageUrl')

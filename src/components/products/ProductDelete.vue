@@ -1,8 +1,8 @@
 <template>
 
     <v-container>
-        <v-card>
-            <v-card-title>상품삭제</v-card-title>
+        <v-card color="green lighten-1">
+            <v-card-title><v-icon>mdi-arrow-up-bold-box-outline</v-icon>상품삭제</v-card-title>
         </v-card>
 
         <v-card>

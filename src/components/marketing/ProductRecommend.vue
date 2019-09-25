@@ -1,5 +1,6 @@
 <template>
     <v-container>
+        <div style="font-size:20px; font-style: revert"><br>지금 뜨는 #핫한 상품</div>
         <v-row>
             <v-col
                     v-for="(item,index) in recommendList"

@@ -1,10 +1,10 @@
 <template>
     <v-container style="padding: 0px">
         <v-card
-                color="amber"
+                color="green lighten-1"
         >
-            <v-card-title v-if="value == null">상품 추가</v-card-title>
-            <v-card-title v-else>상품 변경</v-card-title>
+            <v-card-title v-if="value == null"><v-icon>mdi-arrow-up-bold-box-outline</v-icon>상품 등록</v-card-title>
+            <v-card-title v-else><v-icon>fas fa-edit</v-icon>상품 변경</v-card-title>
 
         </v-card>
 

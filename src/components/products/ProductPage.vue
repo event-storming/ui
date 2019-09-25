@@ -23,16 +23,14 @@
             </v-dialog>
 
         <v-card flat v-if="$store.state.login == true">
-            <div style="font-size:30px; font-style: revert"><br>추천 상품</div>
             <product-recommend
-                    style="background: palegreen; height: auto"
+                    style="background-color:#E8F5E9; height: auto"
                     @buyItem="buyValue"
                     @editItem="editValue"
             ></product-recommend>
         </v-card>
 
         <v-card flat>
-            <div style="font-size:30px; font-style: revert;"><br>일반 상품</div>
             <product-list
                     @buyItem="buyValue"
                     @editItem="editValue"

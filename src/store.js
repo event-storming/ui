@@ -45,11 +45,11 @@ export default new Vuex.Store({
             state.address = null;
             state.role = null;
             state.login = false;
-            localStorage.removeItem("accessToken")
-            localStorage.removeItem("nickname")
-            localStorage.removeItem("money")
-            localStorage.removeItem("address")
-            localStorage.removeItem("role")
+            localStorage.removeItem('accessToken')
+            localStorage.removeItem('nickname')
+            localStorage.removeItem('money')
+            localStorage.removeItem('address')
+            localStorage.removeItem('role')
             localStorage.removeItem('userId')
         }
     },
