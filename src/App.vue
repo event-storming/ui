@@ -22,7 +22,7 @@
             <div class="flex-grow-1"></div>
 
             <v-menu offset-y
-                    v-if='$store.state.role == "USER_ADMIN"'
+                    v-if='$store.state.login == true'
             >
                 <template v-slot:activator="{ on }">
                     <v-btn
@@ -37,7 +37,6 @@
 
                 <v-list>
                     <v-list-item
-                            :class="fav ? 'red--text' : ''"
                             v-for="(menu, index) in menus"
                             :key="index"
                             @click="action(menu.id)"
@@ -216,6 +215,8 @@
                 this.$store.state.role = localStorage.getItem('role');
                 this.$store.state.userId = localStorage.getItem('userId')
                 this.$http.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('accessToken')}`
+            }else{
+                this.loginDialog = true
             }
         },
         mounted() {
