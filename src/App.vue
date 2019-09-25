@@ -31,7 +31,7 @@
                             v-on="on"
                             style="color: #2c3e50"
                     >
-                        <v-icon style="color: grey; size: 10px">fas fa-list</v-icon>
+                        <v-icon style="color: black; size: 10px">fas fa-list</v-icon>
                     </v-btn>
                 </template>
 
@@ -47,7 +47,8 @@
                     </v-list-item>
                 </v-list>
             </v-menu>
-            <v-btn text  @click="loginDialog = true" v-if="$store.state.login == false">Login <v-icon style="padding-left: 10px;color: black">fas fa-lock</v-icon> </v-btn>
+            <v-btn text  @click="loginDialog = true" v-if="$store.state.login == false">Login</v-btn>
+            <v-btn v-else text  @click="logout">Logout</v-btn>
         </v-app-bar>
 
         <v-navigation-drawer
@@ -202,7 +203,6 @@
             menus:[
                 {id:1 ,icon:'mdi-arrow-up-bold-box-outline', title:'상품 등록'},
                 {id:2 ,icon:'mdi-arrow-down-bold-box-outline', title:'상품 삭제'},
-                {id:3 ,icon:'fas fa-unlock', title:'로그 아웃'}
             ]
         }),
         created() {
@@ -216,12 +216,7 @@
                 this.$store.state.role = localStorage.getItem('role');
                 this.$store.state.userId = localStorage.getItem('userId')
                 this.$http.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('accessToken')}`
-            }else{
-                this.loginDialog = true
             }
-        },
-        beforeDestroy(){
-            window.addEventListener('beforeunload', this.handler)
         },
         mounted() {
         },
@@ -250,8 +245,6 @@
                     this.addDialog= true;
                 }else if(select == '2'){
                     this.deleteDialog= true;
-                }else if(select == '3'){
-                    this.logout()
                 }
             }
         }
