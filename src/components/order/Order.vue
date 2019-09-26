@@ -197,33 +197,7 @@
                     })
                 }
             },
-            callUser() {
-                var me = this
-                var app = me.$getComponents('App')
-                me.$http.get(`${API_HOST}/users/${localStorage.getItem('userId')}`).then(function (e) {
-                    me.$emit('update:buyDialog', false)
-                    me.overlay = false
-                    app.snackbar = true;
-                    app.snackbarColor= 'success'
-                    app.snackbarMessage = '구매 완료 하였습니다.'
-                    me.$store.state.nickname = e.data.nickname
-                    me.$store.state.money = e.data.money
-                    me.$store.state.address = e.data.address
 
-                    localStorage.setItem("nickname", e.data.nickname)
-                    localStorage.setItem("money", e.data.money)
-                    localStorage.setItem("address", e.data.address)
-                    // var data = {
-                    //     'productInfo' :  me.value,
-                    //     'customerAddr': me.customerAddr,
-                    //     'phoneNumber': me.phoneNumber,
-                    //     'quantity':me.quantity,
-                    //     'totalAmount': me.totalAmount
-                    // }
-                    // me.$router.push({name: 'orderfinish', params: data});
-                    // me.$EventBus.$emit('message', JSON.parse(JSON.stringify(data)));
-                })
-            }
         },
     }
 </script>

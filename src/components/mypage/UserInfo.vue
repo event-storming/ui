@@ -59,6 +59,23 @@
         },
         data() {
             return {}
+
+        },
+        mounted(){
+            this.callUser();
+        },
+        methods: {
+            callUser() {
+                var me = this
+                me.$http.get(`${API_HOST}/users/${localStorage.getItem('userId')}`).then(function (e) {
+                    me.$store.state.nickname = e.data.nickname
+                    me.$store.state.money = e.data.money
+                    me.$store.state.address = e.data.address
+                    localStorage.setItem("nickname", e.data.nickname)
+                    localStorage.setItem("money", e.data.money)
+                    localStorage.setItem("address", e.data.address)
+                })
+            }
         },
         watch: {}
     }
