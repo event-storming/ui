@@ -7,13 +7,13 @@
                         :items="items"
                         :items-per-page.sync="itemsPerPage"
                         :page="page"
-                        :search="search"
                         hide-default-footer
                 >
                     <template v-slot:default="props">
                         <v-row>
                             <v-col
                                     v-for="(item, index) in props.items"
+                                    v-if=" search.length == 0 || item.name.includes(search)"
                                     :key="item.id"
                                     cols="12"
                                     sm="6"
@@ -112,9 +112,6 @@
         created() {},
         mounted() {
             var me = this;
-            // this.$nextTick(function () {
-            //     this.getProdList();
-            // })
             this.getProdList();
 
             this.$EventBus.$on('search', function (newVal) {

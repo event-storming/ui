@@ -184,7 +184,15 @@
                     }
                     me.$http.post(`${API_HOST}/orders`, param).then(function () {
                         setTimeout(function () {
-                            me.callUser()
+                            // me.callUser()
+                            var data = {
+                                'productInfo' :  me.value,
+                                'customerAddr': me.customerAddr,
+                                'phoneNumber': me.phoneNumber,
+                                'quantity':me.quantity,
+                                'totalAmount': me.totalAmount
+                            }
+                            me.$router.push({name: 'orderfinish', params: data});
                         }, 1000)
                     })
                 }
@@ -205,14 +213,14 @@
                     localStorage.setItem("nickname", e.data.nickname)
                     localStorage.setItem("money", e.data.money)
                     localStorage.setItem("address", e.data.address)
-                    var data = {
-                        'productInfo' :  me.value,
-                        'customerAddr': me.customerAddr,
-                        'phoneNumber': me.phoneNumber,
-                        'quantity':me.quantity,
-                        'totalAmount': me.totalAmount
-                    }
-                    me.$router.push({name: 'orderfinish', params: data});
+                    // var data = {
+                    //     'productInfo' :  me.value,
+                    //     'customerAddr': me.customerAddr,
+                    //     'phoneNumber': me.phoneNumber,
+                    //     'quantity':me.quantity,
+                    //     'totalAmount': me.totalAmount
+                    // }
+                    // me.$router.push({name: 'orderfinish', params: data});
                     // me.$EventBus.$emit('message', JSON.parse(JSON.stringify(data)));
                 })
             }

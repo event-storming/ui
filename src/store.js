@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
+import jwt_decode from 'jwt-decode'
 
 Vue.use(Vuex)
 
@@ -16,6 +17,7 @@ export default new Vuex.Store({
     },
     mutations: {
         login(state, {userId, accessToken}) {
+            console.log(jwt_decode(accessToken))
             console.log(userId)
             console.log(accessToken)
             state.accessToken = accessToken;
@@ -39,6 +41,7 @@ export default new Vuex.Store({
 
         },
         logout(state) {
+
             state.accessToken = null;
             state.nickname = null;
             state.money = null;
