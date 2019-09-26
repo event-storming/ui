@@ -157,7 +157,7 @@
                 setTimeout(() => {
                     this.editedItem = Object.assign({}, this.defaultItem)
                     this.editedIndex = -1
-                }, 300)
+                }, 100)
             },
             openSurvey(item) {
                 var me = this

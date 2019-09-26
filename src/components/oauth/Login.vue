@@ -85,6 +85,7 @@
                 var me = this;
                 let userId = me.userId;
                 let userPw = me.userPw;
+                localStorage.setItem('userId', userId)
                 me.$store.dispatch('login', { userId , userPw } )
                     .then(function() {
                         me.$emit('success',false);

@@ -166,10 +166,10 @@
             check() {
                 var me = this
                 me.$v.$touch();
-                me.overlay = true;
+                // me.overlay = true;
                 setTimeout(function () {
                     me.postOrder()
-                }, 1000);
+                }, 500);
             },
             postOrder() {
                 var me = this
@@ -193,7 +193,7 @@
                                 'totalAmount': me.totalAmount
                             }
                             me.$router.push({name: 'orderfinish', params: data});
-                        }, 1000)
+                        }, 500)
                     })
                 }
             },

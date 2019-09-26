@@ -22,13 +22,13 @@
                 ></product-add>
             </v-dialog>
 
-        <v-card flat v-if="$store.state.login == true">
-            <product-recommend
-                    style="background-color:#E8F5E9; height: auto"
-                    @buyItem="buyValue"
-                    @editItem="editValue"
-            ></product-recommend>
-        </v-card>
+<!--        <v-card flat v-if="$store.state.login == true">-->
+<!--            <product-recommend-->
+<!--                    style="background-color:#E8F5E9; height: auto"-->
+<!--                    @buyItem="buyValue"-->
+<!--                    @editItem="editValue"-->
+<!--            ></product-recommend>-->
+<!--        </v-card>-->
 
         <v-card flat>
             <product-list
