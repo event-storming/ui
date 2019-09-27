@@ -1,7 +1,9 @@
 <template>
        <v-card flat width="30%" height="30%">
                 <transition-group  tag="div">
-                    <div v-for="i in [currentIndex]" :key="i">
+                    <div
+                            v-for="i in [currentIndex]" :key="i"
+                    >
                         <product
                                 v-model=currentProduct
                         ></product>
@@ -20,14 +22,15 @@
             };
         },
 
-        mounted: function() {
-            this.startSlide();
-            this.getProdList();
+        mounted() {
+                this.startSlide();
+                this.getProdList();
+
         },
 
         methods: {
             startSlide: function() {
-                this.timer = setInterval(this.next, 4000);
+                this.timer = setInterval(this.next, 1500);
             },
             next: function() {
                 this.currentIndex += 1;

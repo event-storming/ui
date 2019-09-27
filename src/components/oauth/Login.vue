@@ -30,24 +30,44 @@
         </v-card-text>
 
         <v-card-actions style="padding-bottom: 10px;">
-            <v-btn block  color="green" @click="login">Login</v-btn>
+            <v-btn block color="green" style="color: white" @click="login">Login</v-btn>
         </v-card-actions>
+        <v-row no-gutters>
+            <v-col cols="8"
+                   md="5"
+                   style="margin-top: 10px;">
+                <v-divider></v-divider>
+            </v-col>
+            <v-col cols="12"
+                   md="2"
+                   align="center"
+                   style="color: lightgrey">
+                or
+            </v-col>
+            <v-col cols="8"
+                   md="5"
+                   style="margin-top: 10px;">
+                <v-divider></v-divider>
+            </v-col>
+        </v-row>
 
-        <v-divider></v-divider>
+
         <v-card flat>
-            <v-col  justify="center" align="center" >
+            <v-col justify="center" align="center">
                 <v-btn
                         color="#3c82f7"
-                        style="width: 200px; font-size: 13px; color: white; "
+                        style="width: 250px; font-size: 13px; color: white;background: #CF5541; justify-content: start; "
                         @click="snsLogin('google')">
-                    Sign in with Google
+                    <i class="fab fa-google"  style="font-size: 25px; color: white" ></i>
+                    &nbsp; Login in with Google
                 </v-btn>
                 <div class="pa-2"></div>
                 <v-btn
                         color="#4267b2"
-                        style="width: 200px; font-size: 13px; color: white; "
-                        @click="snsLogin('faceBook')">
-                    Sign in with Facebook
+                        style="width: 250px; font-size: 13px; color: white; justify-content: start;"
+                        @click="snsLogin('facebook')">
+                    <i class="fab fa-facebook-square" style="font-size: 30px"></i>
+                    &nbsp; Login in with Facebook
                 </v-btn>
             </v-col>
         </v-card>
@@ -55,7 +75,8 @@
 </template>
 
 <script>
-    import { mdbBtn } from 'mdbvue';
+    import {mdbBtn} from 'mdbvue';
+
     export default {
         components: {
             mdbBtn
@@ -81,27 +102,27 @@
                 let userId = me.userId;
                 let userPw = me.userPw;
                 localStorage.setItem('userId', userId)
-                me.$store.dispatch('login', { userId , userPw } )
-                    .then(function() {
-                        me.$emit('success',false);
+                me.$store.dispatch('login', {userId, userPw})
+                    .then(function () {
+                        me.$emit('success', false);
                     })
-                    // .catch(({message}) => this.msg = message)
+                // .catch(({message}) => this.msg = message)
             },
-            snsLogin(who){
+            snsLogin(who) {
 
-                var me =this
+                var me = this
                 var app = me.$getComponents('App')
 
-                if(who == 'google'){
+                if (who == 'google') {
                     app.snackbar = true;
                     app.snackbarColor = 'error'
                     app.snackbarMessage = 'Google 로그인 서비스는 준비중입니다.'
-                    app.snackbarPosition=false
-                }else if(who=='facebook'){
+                    app.snackbarPosition = false
+                } else if (who == 'facebook') {
                     app.snackbar = true;
                     app.snackbarColor = 'info'
                     app.snackbarMessage = 'FaceBook 로그인 서비스는 준비중입니다.'
-                    app.snackbarPosition=false
+                    app.snackbarPosition = false
                 }
 
             },
@@ -111,7 +132,7 @@
 </script>
 
 <style>
-    .login-button{
+    .login-button {
         display: inline-block;
         padding: 4px 8px;
         border-radius: 3px;
@@ -120,22 +141,5 @@
         box-shadow: 0 3px 0 #0f69ff;
     }
 
-    .g-signin-button {
-        padding: 4px 8px;
-        border-radius: 3px;
-        background-color: #3c82f7;
-        color: #ffffff;
-        width: 200px;
-    }
-
-    .fb-signin-button {
-        /* This is where you control how the button looks. Be creative! */
-        display: inline-block;
-        padding: 4px 8px;
-        border-radius: 3px;
-        background-color: #4267b2;
-        color: #fff;
-        width: 200px;
-    }
 
 </style>
