@@ -157,8 +157,8 @@
         <v-snackbar
                 v-model="snackbar"
                 :color="snackbarColor"
-                right
-                :timeout="6000"
+                :right="snackbarPosition"
+                :timeout="4000"
                 top
         >
             {{snackbarMessage}}
@@ -198,6 +198,7 @@
             snackbar: false,
             snackbarColor: '',
             snackbarMessage : '',
+            snackbarPosition: true,
             productSearch: '',
             menus:[
                 {id:1 ,icon:'mdi-arrow-up-bold-box-outline', title:'상품 등록'},
