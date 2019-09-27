@@ -1,10 +1,12 @@
-<template>
-    <v-card class="elevation-12">
+<template >
+    <v-card class="elevation-12" style="background: #E8F5E9">
         <v-toolbar
                 flat
+                style="background: #E8F5E9"
         >
-            <v-toolbar-title>Login</v-toolbar-title>
-            <div class="flex-grow-1"></div>
+            <v-col align="center">
+            <v-toolbar-title style="color: #CF5541; background: #E8F5E9; font-size: 38px; font-style: italic; width: auto;"  > 12 Street </v-toolbar-title>
+            </v-col>
         </v-toolbar>
 
 
@@ -52,7 +54,7 @@
         </v-row>
 
 
-        <v-card flat>
+        <v-card flat style="background: #E8F5E9">
             <v-col justify="center" align="center">
                 <v-btn
                         color="#3c82f7"
