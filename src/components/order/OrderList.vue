@@ -87,18 +87,18 @@
             loadData: false,
             headers: [
                 {
-                    text: 'OrderId',
+                    text: 'orderId',
                     align: 'left',
                     sortable: false,
                     value: 'orderId',
                 },
                 {
-                    text: 'Product Name',
+                    text: 'nickName',
                     align: 'left',
                     sortable: false,
-                    value: 'productName',
+                    value: 'nickName',
                 },
-                {text: '주문자', value: 'nickName'},
+                {text: '주문상품', value: 'productName'},
                 {text: '결제금액', value: 'payment', align: 'center'},
                 {text: '구매수량', value: 'quantity', align: 'center'},
                 // {text: '결제시각', value: 'timestamp', align: 'center'},
@@ -143,15 +143,17 @@
                 var me = this
                 this.$http.get(`${API_HOST}/mypage/order/${localStorage.getItem('userId')}`)
                     .then(function (e) {
+                        console.log(e.data)
+                        // me.orderList = e.data._embedded.orders
                         me.orderList = e.data
                     })
             },
-            openDelivery(item) {
-                console.log(item)
-                this.editedIndex = this.orderList.indexOf(item)
-                this.editedItem = Object.assign({}, item)
-                this.dialog = true
-            },
+            // openDelivery(item) {
+            //     console.log(item)
+            //     this.editedIndex = this.orderList.indexOf(item)
+            //     this.editedItem = Object.assign({}, item)
+            //     this.dialog = true
+            // },
             close() {
                 this.dialog = false
                 setTimeout(() => {

@@ -1,6 +1,11 @@
 <template>
     <v-card>
-        <v-img :src="srcDomain" aspect-ratio="2.0" contain></v-img>
+        <v-img :src="srcDomain" aspect-ratio="2.0" contain>
+            <v-col align="start">
+            <div style="color: red; font-size: 20px">10%</div>
+            <div style="color: red;">적립</div>
+            </v-col>
+        </v-img>
 
         <v-list dense>
             <v-list-item

@@ -76,7 +76,7 @@
                     window.API_HOST = localStorage.getItem('api_host')
 
                 return new Promise(function (resolve, reject) {
-                    me.$http.get(`${API_HOST}/mypage/order/${localStorage.getItem('userId')}`).then(function (e) {
+                    me.$http.get(`${API_HOST}/orders`).then(function (e) {
                         resolve(e.data)
                     });
                 });

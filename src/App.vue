@@ -210,7 +210,7 @@
             if (localStorage.getItem('accessToken') != null) {
                 this.$store.state.login = true;
                 this.$store.state.nickname = localStorage.getItem('nickname');
-                this.$store.state.money = localStorage.getItem('money');
+                this.$store.state.mileage = localStorage.getItem('mileage');
                 this.$store.state.address = localStorage.getItem('address');
                 this.$store.state.accessToken = localStorage.getItem('accessToken');
                 this.$store.state.role = localStorage.getItem('role');
@@ -231,7 +231,7 @@
             handler: function handler(event) {
                 localStorage.removeItem('accessToken')
                 localStorage.removeItem('nickname')
-                localStorage.removeItem('money')
+                localStorage.removeItem('mileage')
                 localStorage.removeItem('address')
                 localStorage.removeItem('role')
                 localStorage.removeItem('userId')

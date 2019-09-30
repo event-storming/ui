@@ -58,26 +58,29 @@
                         <br>수령지: {{orderData.customerAddr}}
                     </v-card-text>
 
-
-                    <v-card-actions>
-                        <div class="flex-grow-1"></div>
-                        <v-btn text @click="goShop()">continue</v-btn>
-                    </v-card-actions>
                 </v-card>
 
-<!--                <v-card-->
-<!--                        class="mx-auto"-->
-<!--                        outlined-->
-<!--                >-->
-<!--                    <v-card-title>> 결제 정보</v-card-title>-->
-<!--                    <v-divider></v-divider>-->
-<!--                    <v-card-text>-->
-<!--                        결제 전 잔액:{{ $store.state.money + orderData.totalAmount }}-->
-<!--                        <br>주문 총 금액: {{ orderData.totalAmount }}-->
-<!--                        <br>결제 후 잔액: {{ $store.state.money }}-->
-<!--                    </v-card-text>-->
-<!--                    <v-divider></v-divider>-->
-<!--                </v-card>-->
+                <v-card
+                        class="mx-auto"
+                        outlined
+                >
+                    <v-card-title>> 마일리지 적립 정보</v-card-title>
+                    <v-divider></v-divider>
+                    <v-card-text>
+                        주문 총 금액 : {{ orderData.totalAmount }}
+                        <br>적립 전 마일리지  : {{ $store.state.mileage - (orderData.totalAmount / 10)}}
+                        <br>적립 예정 마일리지: {{ orderData.totalAmount / 10 }}
+                        <br>적립 후 마일리지  : {{ $store.state.mileage }}
+                    </v-card-text>
+                    <v-divider></v-divider>
+
+                    <v-card-actions>
+                        <v-col align="end">
+                        <div clas="flex-grow-1"></div>
+                        <v-btn text @click="goShop()">쇼핑 계속하기</v-btn>
+                        </v-col>
+                    </v-card-actions>
+                </v-card>
 
 
             </v-col>
@@ -95,7 +98,7 @@
         }),
         created() {
             this.orderData = this.$route.params
-            console.log(this.orderData);
+
         },
         beforeDestroy() {
         },
@@ -114,18 +117,19 @@
                 var me = this
                 var app = me.$getComponents('App')
                 me.$http.get(`${API_HOST}/users/${localStorage.getItem('userId')}`).then(function (e) {
+                    console.log(e)
                     me.$emit('update:buyDialog', false)
                     me.overlay = false
                     app.snackbar = true;
                     app.snackbarColor= 'success'
                     app.snackbarMessage = '구매 완료 하였습니다.'
 
+                    me.$store.state.mileage = e.data.mileage
                     me.$store.state.nickname = e.data.nickname
-                    me.$store.state.money = e.data.money
                     me.$store.state.address = e.data.address
 
+                    localStorage.setItem("mileage", e.data.mileage)
                     localStorage.setItem("nickname", e.data.nickname)
-                    localStorage.setItem("money", e.data.money)
                     localStorage.setItem("address", e.data.address)
                 })
             }

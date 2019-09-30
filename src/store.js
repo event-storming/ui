@@ -11,7 +11,7 @@ export default new Vuex.Store({
         userId: '',
         login: false,
         nickname: '',
-        money: '',
+        mileage: '',
         address: '',
         role: ''
     },
@@ -20,6 +20,7 @@ export default new Vuex.Store({
             console.log(jwt_decode(accessToken))
             console.log(userId)
             console.log(accessToken)
+            console.log(state)
             state.accessToken = accessToken;
             state.userId = userId;
             state.login = true;
@@ -27,13 +28,19 @@ export default new Vuex.Store({
             Vue.prototype.$http.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
             // 모든 HTTP 요청 헤더에 Authorization 을 추가한다.
             Vue.prototype.$http.get(`${window.API_HOST}/users/${state.userId}`).then(function (e) {
+                if(e.data.mileage == null) {
+                    state.mileage = 0
+                    localStorage.setItem("mileage", "0")
+                }else{
+                    state.mileage = e.data.mileage
+                    localStorage.setItem("mileage", e.data.mileage)
+                }
+
                 state.nickname = e.data.nickname
-                state.money = e.data.money
                 state.address = e.data.address
                 state.role = e.data.role
 
                 localStorage.setItem("nickname", e.data.nickname)
-                localStorage.setItem("money", e.data.money)
                 localStorage.setItem("address", e.data.address)
                 localStorage.setItem("userId", userId)
                 localStorage.setItem("role", e.data.role)
@@ -44,13 +51,13 @@ export default new Vuex.Store({
 
             state.accessToken = null;
             state.nickname = null;
-            state.money = null;
+            state.mileage = null;
             state.address = null;
             state.role = null;
             state.login = false;
             localStorage.removeItem('accessToken')
             localStorage.removeItem('nickname')
-            localStorage.removeItem('money')
+            localStorage.removeItem('mileage')
             localStorage.removeItem('address')
             localStorage.removeItem('role')
             localStorage.removeItem('userId')

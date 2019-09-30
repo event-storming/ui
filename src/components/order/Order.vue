@@ -60,8 +60,7 @@
                         </v-col>
                     </v-row>
 
-
-                    <!--<the-mask mask="###-####-####" v-model="phoneNumber" type="tel" :masked=true placeholder="test your mask here"></the-mask>-->
+                   <!--<the-mask mask="###-####-####" v-model="phoneNumber" type="tel" :masked=true placeholder="test your mask here"></the-mask>-->
                 </form>
             </v-card>
             <v-row style="margin-top: 5px;">
@@ -95,7 +94,10 @@
                     ></v-text-field>
                 </v-col>
             </v-row>
-
+            <v-row>
+            <div style="color: red; font-size: 18px;"> 10% 적립상품 &nbsp; </div>
+            <div>예상 적립 마일리지: {{ totalAmount/10 }}</div>
+            </v-row>
             <div class="flex-grow-1"></div>
             <v-card-actions>
                 <div class="flex-grow-1"></div>
@@ -173,15 +175,19 @@
             },
             postOrder() {
                 var me = this
+                console.log(me.value)
                 if ((me.nameErrors.length == 0) && (me.addressErrors.length == 0) && (me.nameErrors.length == 0)) {
                     // http localhost:8081/orders productId=1 quantity=3 customerName="홍길동" customerAddr="서울시"
                     let param = {
                         'productId': me.value.id,
+                        'productName': me.value.name,
+                        'price': me.value.price,
                         'quantity': me.quantity,
                         'customerId': localStorage.getItem('userId'),
                         'customerName': localStorage.getItem('nickname'),
                         'customerAddr': me.customerAddr
                     }
+
                     me.$http.post(`${API_HOST}/orders`, param).then(function () {
                         setTimeout(function () {
                             // me.callUser()
