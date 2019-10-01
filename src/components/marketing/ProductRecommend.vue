@@ -1,6 +1,6 @@
 <template>
-    <v-container>
-        <div style="font-size:20px; font-style: revert"><br>지금 뜨는 #핫한 상품</div>
+    <v-container v-if="orderList">
+        <div style="font-size:20px; font-style: revert"><br>현재 주문이 많은 #핫한 상품</div>
         <v-row>
             <v-col
                     v-for="(item,index) in recommendList"
@@ -77,7 +77,7 @@
 
                 return new Promise(function (resolve, reject) {
                     me.$http.get(`${API_HOST}/orders`).then(function (e) {
-                        resolve(e.data)
+                        resolve(e.data._embedded.orders)
                     });
                 });
             },
@@ -141,3 +141,5 @@
 <style scoped>
 
 </style>
+
+

@@ -14,13 +14,6 @@
         >
 
             <template v-slot:item.action="{ item }">
-                <!--<v-icon-->
-                <!--small-->
-                <!--class="mr-2"-->
-                <!--@click="openDelivery(item)"-->
-                <!--&gt;-->
-                <!--배송완료-->
-                <!--</v-icon>-->
                 <v-chip :color="'green'"
                         dark
                         v-if="item.deliveryStarted && item.deliveryCompleted"
@@ -56,24 +49,6 @@
                 </v-icon>
             </template>
 
-            <template v-slot:top>
-                <v-dialog v-model="dialog"
-                          max-width="800px"
-                          scrollable>
-                    <v-card>
-                        <!--                        <order-page></order-page>-->
-                        <delivery-status
-                                :prod-name="editedItem.name"
-                        ></delivery-status>
-                        <v-card-actions>
-                            <div class="flex-grow-1"></div>
-                            <v-btn color="blue darken-1" text @click="close">Cancel</v-btn>
-                        </v-card-actions>
-                    </v-card>
-                </v-dialog>
-            </template>
-
-
         </v-data-table>
     </v-card>
 </template>
@@ -87,57 +62,36 @@
             loadData: false,
             headers: [
                 {
-                    text: 'orderId',
-                    align: 'left',
+                    text: '주문 번호',
+                    align: 'center',
                     sortable: false,
                     value: 'orderId',
                 },
                 {
-                    text: 'nickName',
-                    align: 'left',
+                    text: '주문상품',
+                    align: 'center',
                     sortable: false,
-                    value: 'nickName',
+                    value: 'productName',
                 },
-                {text: '주문상품', value: 'productName'},
-                {text: '결제금액', value: 'payment', align: 'center'},
-                {text: '구매수량', value: 'quantity', align: 'center'},
+                {text: '결제금액', value: 'payment',sortable: false, align: 'center'},
+                {text: '구매수량', value: 'quantity', sortable: false, align: 'center'},
+                {text: 'Delivery', value: 'action', sortable: false, align: 'center'},
+                {text: '리뷰', value: 'Survey', sortable: false, align: 'center'},
                 // {text: '결제시각', value: 'timestamp', align: 'center'},
-                {text: 'Delivery', value: 'action', sortable: false},
-                {text: '리뷰', value: 'Survey', align: 'center'}
             ],
             orderList: [],
-            editedIndex: -1,
-            editedItem: {
-                name: '',
-                calories: 0,
-                fat: 0,
-                carbs: 0,
-                protein: 0,
-            },
-            defaultItem: {
-                name: '',
-                calories: 0,
-                fat: 0,
-                carbs: 0,
-                protein: 0,
-            },
         }),
-
         computed: {},
-
         watch: {
             dialog(val) {
                 val || this.close()
             },
         },
 
-        created() {
-
-        },
+        created() { },
         mounted() {
             this.getOrderList()
         },
-
         methods: {
             getOrderList() {
                 var me = this
@@ -148,21 +102,11 @@
                         me.orderList = e.data
                     })
             },
-            // openDelivery(item) {
-            //     console.log(item)
-            //     this.editedIndex = this.orderList.indexOf(item)
-            //     this.editedItem = Object.assign({}, item)
-            //     this.dialog = true
-            // },
-            close() {
-                this.dialog = false
-                setTimeout(() => {
-                    this.editedItem = Object.assign({}, this.defaultItem)
-                    this.editedIndex = -1
-                }, 100)
-            },
             openSurvey(item) {
                 var me = this
+                var surveyCheck={
+                    'surveyCheck':true
+                }
                 me.$router.push({name: 'serveys', params: item});
 
             }
