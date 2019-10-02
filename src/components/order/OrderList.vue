@@ -36,9 +36,8 @@
                         v-if="item.surveyCompleted"
                         small
                         @click="openSurvey(item)"
-                        style="color: darkolivegreen; background: chartreuse"
                 >
-                    작성완료
+                    리뷰보기
                 </v-icon>
 
                 <v-icon
