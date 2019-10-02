@@ -127,7 +127,6 @@
                 var order = await me.getOrderList();
                 var sur = await me.getSurveyList();
 
-                console.log(order)
                 order.forEach(function(or){
                     sur.forEach(function(select){
                         if(select.orderId == or.orderId){

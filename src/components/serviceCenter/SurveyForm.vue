@@ -2,11 +2,12 @@
     <v-container style="width: 600px; margin-top: 30px" class="elevation-2">
         <v-card-title id="box" style="color: crimson; font-size: 25px; justify-content: left">리뷰 작성</v-card-title>
 
-        <v-card id="box" >
+        <v-card id="box"  :disabled="disableBoolean">
             <v-row>
                 <v-card-title  id="rightline" style="width:22%; font-size: 15px; justify-content: center;">구매하신 상품</v-card-title>
                 <v-col >
-                    <v-card-text >
+                    <v-card-text
+                    >
                         주문번호 &ensp; {{value.orderId}}
                         <br>상품명 &ensp; {{value.productName}}
                         <br>상품금액 &ensp; {{value.productPrice}}&ensp;|&ensp; 수량 &ensp; {{value.productQty}}
@@ -16,7 +17,7 @@
             </v-row>
         </v-card>
 
-        <v-card id="box">
+        <v-card id="box" :disabled="disableBoolean">
             <v-row>
                 <v-card-title id="rightline" style="width:22%; font-size: 15px; justify-content: center">상품평가</v-card-title>
                 <v-col>
@@ -30,7 +31,7 @@
             </v-row>
         </v-card>
 
-        <v-card id="box">
+        <v-card id="box" :disabled="disableBoolean">
             <v-row>
                 <v-card-title id="rightline" style="width:22%; font-size: 15px; justify-content: center">만족도 평가</v-card-title>
                 <v-col >
@@ -59,7 +60,8 @@
                 </v-col>
             </v-row>
         </v-card>
-        <v-card id="box">
+
+        <v-card id="box" :disabled="disableBoolean">
             <v-textarea
                     name="input-7-1"
                     label="리뷰 작성해주세요."
@@ -88,16 +90,12 @@
         props: {
             value: Object,
         },
-        data: () => ({}),
+        data: () => ({
+            disableBoolean :false,
+        }),
         created() {
-            console.log(this.value)
-            if(this.value.surveyCompleted){
-                //서베이 존재
-                console.log('surveyCompleted')
-            }else{
-                console.log('Non surveyCompleted')
-
-            }
+            if(this.value.surveyCompleted != false)
+                this.disableBoolean = true
         },
         beforeDestroy() {
         },
