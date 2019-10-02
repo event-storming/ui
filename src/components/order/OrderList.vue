@@ -33,19 +33,20 @@
 
             <template v-slot:item.Survey="{ item }">
                 <v-icon
-                        small
-                        @click="openSurvey(item)"
-                        v-if="surveyComplete"
-                >
-                    리뷰작성
-                </v-icon>
-
-                <v-icon v-else
+                        v-if="item.surveyCompleted"
                         small
                         @click="openSurvey(item)"
                         style="color: darkolivegreen; background: chartreuse"
                 >
                     작성완료
+                </v-icon>
+
+                <v-icon
+                        v-else
+                        small
+                        @click="openSurvey(item)"
+                >
+                    리뷰작성
                 </v-icon>
             </template>
 
@@ -73,15 +74,17 @@
                     sortable: false,
                     value: 'productName',
                 },
-                {text: '결제금액', value: 'payment',sortable: false, align: 'center'},
                 {text: '구매수량', value: 'quantity', sortable: false, align: 'center'},
+                {text: '결제금액', value: 'payment',sortable: false, align: 'center'},
                 {text: 'Delivery', value: 'action', sortable: false, align: 'center'},
                 {text: '리뷰', value: 'Survey', sortable: false, align: 'center'},
                 // {text: '결제시각', value: 'timestamp', align: 'center'},
             ],
             orderList: [],
+            surveyList:[],
         }),
-        computed: {},
+        computed: {
+        },
         watch: {
             dialog(val) {
                 val || this.close()
@@ -90,26 +93,88 @@
 
         created() { },
         mounted() {
-            this.getOrderList()
+            this.mountedFunction()
         },
         methods: {
+            getSurveyList(){
+                var me = this
+                if(`${API_HOST}` == 'undefined')
+                    window.API_HOST = localStorage.getItem('api_host')
+
+                return new Promise(function (resolve, reject) {
+                    me.$http.get(`${API_HOST}/surveys`).then(function (e) {
+                        resolve(e.data._embedded.surveys)
+                    });
+                });
+
+
+            },
             getOrderList() {
                 var me = this
-                this.$http.get(`${API_HOST}/mypage/order/${localStorage.getItem('userId')}`)
-                    .then(function (e) {
-                        console.log(e.data)
-                        // me.orderList = e.data._embedded.orders
-                        me.orderList = e.data
+                if(`${API_HOST}` == 'undefined')
+                    window.API_HOST = localStorage.getItem('api_host')
+
+                return new Promise(function (resolve, reject) {
+                    me.$http.get(`${API_HOST}/mypage/order/${localStorage.getItem('userId')}`).then(function (e) {
+                        resolve(e.data)
+                    });
+                });
+
+            },
+            async mountedFunction() {
+                var me = this;
+
+                var order = await me.getOrderList();
+                var sur = await me.getSurveyList();
+
+                console.log(order)
+                order.forEach(function(or){
+                    sur.forEach(function(select){
+                        if(select.orderId == or.orderId){
+                            or.surveyCompleted=true
+                        }
                     })
+                })
+
+                me.orderList=order
             },
             openSurvey(item) {
                 var me = this
-                var surveyCheck={
-                    'surveyCheck':true
-                }
-                me.$router.push({name: 'serveys', params: item});
+                let check=false
 
-            }
+                this.$http.get(`${API_HOST}/surveys`).then(function (surveyList) {
+
+                    surveyList.data._embedded.surveys.some(function(select){
+                            if(select.orderId == item.orderId){
+                                check = true
+                                return me.$router.push({ name: 'surveys', params: select });
+                            }
+                        })
+
+
+                    if(check == false){
+                        var data= {
+                            'orderId' : item.orderId,
+                            'customerId': item.userId,
+                            'customerName': item.nickName,
+                            'productName': item.productName,
+                            'productPrice': item.payment,
+                            'productQty': item.quantity,
+                            'surveyMessage': '',
+                            'surveyRecommend':2,
+                            'surveyDelivery':2,
+                            'productSatisfaction': 2,
+                            'surveyCompleted': false
+                        }
+                        me.$router.push({ name: 'surveys', params: data });
+                    }
+
+                })
+
+
+
+            },
+
         },
     }
 </script>

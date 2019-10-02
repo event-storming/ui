@@ -35,8 +35,8 @@ export default new Router({
             component: OrderFinish,
         },
         {
-            path: '/serveys',
-            name: 'serveys',
+            path: '/surveys',
+            name: 'surveys',
             component: Survey,
         },
         {

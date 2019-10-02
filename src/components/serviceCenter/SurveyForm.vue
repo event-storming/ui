@@ -9,7 +9,7 @@
                     <v-card-text >
                         주문번호 &ensp; {{value.orderId}}
                         <br>상품명 &ensp; {{value.productName}}
-                        <br>상품금액 &ensp; {{value.payment}}&ensp;|&ensp; 수량 &ensp; {{value.quantity}}
+                        <br>상품금액 &ensp; {{value.productPrice}}&ensp;|&ensp; 수량 &ensp; {{value.productQty}}
                         <!--                        <br>구매일자:{{orderData.timestamp}}-->
                     </v-card-text>
                 </v-col>
@@ -21,7 +21,7 @@
                 <v-card-title id="rightline" style="width:22%; font-size: 15px; justify-content: center">상품평가</v-card-title>
                 <v-col>
                     <v-rating
-                            v-model="productSatisfaction"
+                            v-model="value.productSatisfaction"
                             background-color="red lighten-3"
                             color="red"
                     ></v-rating>
@@ -36,7 +36,7 @@
                 <v-col >
                     <v-card-title style="font-size: 15px; justify-content: left">> 추천하시나요?</v-card-title>
                     <v-row justify="center">
-                        <v-radio-group v-model="surveyRecommend" row>
+                        <v-radio-group v-model="value.surveyRecommend" row>
                             <v-radio
                                     v-for="n in 5"
                                     :key="n"
@@ -47,7 +47,7 @@
                     </v-row>
                     <v-card-title style="font-size: 15px; justify-content: left">> 배송이 빨라나요?</v-card-title>
                     <v-row justify="center">
-                        <v-radio-group v-model="surveyDelivery" row>
+                        <v-radio-group v-model="value.surveyDelivery" row>
                             <v-radio
                                     v-for="n in 5"
                                     :key="n"
@@ -63,7 +63,7 @@
             <v-textarea
                     name="input-7-1"
                     label="리뷰 작성해주세요."
-                    v-model="surveyComment"
+                    v-model="value.surveyMessage"
             ></v-textarea>
         </v-card>
 
@@ -72,7 +72,7 @@
                 outlined
         >
             <v-row justify="end" align="center" wrap>
-                <v-btn color="primary" text @click="summit()">제출</v-btn>
+                <v-btn v-if="value.surveyCompleted == false" color="primary" text @click="summit()">제출</v-btn>
                 <v-btn color="red" text @click="goList()">취소</v-btn>
             </v-row>
         </v-card>
@@ -88,22 +88,20 @@
         props: {
             value: Object,
         },
-        data: () => ({
-            productSatisfaction: 4,
-            surveyRecommend: 2,
-            surveyDelivery: 2,
-            surveyComment: '',
-            customerName: `${localStorage.getItem('nickname')}`,
-            customerId: `${localStorage.getItem('userId')}`
-
-        }),
+        data: () => ({}),
         created() {
+            console.log(this.value)
+            if(this.value.surveyCompleted){
+                //서베이 존재
+                console.log('surveyCompleted')
+            }else{
+                console.log('Non surveyCompleted')
+
+            }
         },
         beforeDestroy() {
         },
         watch: {
-            productSatisfaction: function (value) {
-            }
         },
         mounted() {
         },
@@ -114,17 +112,19 @@
                 var app = me.$getComponents('App')
 
                 let param = {
-                    'customerId': me.customerId,
-                    // 'customerName': me.customerName,
-                    'customerName': me.value.productName,
-                    'surveyMessage': me.surveyComment,
-                    'surveyRecommend':me.surveyRecommend,
-                    'surveyDelivery':me.surveyDelivery,
-                    'productSatisfaction': me.productSatisfaction,
+                    'orderId' : me.value.orderId,
+                    'customerId': me.value.customerId,
+                    'customerName': me.value.customerName,
+                    'productName': me.value.productName,
+                    'productPrice': me.value.productPrice,
+                    'productQty': me.value.productQty,
+                    'surveyRecommend':me.value.surveyRecommend,
+                    'surveyDelivery':me.value.surveyDelivery,
+                    'productSatisfaction': me.value.productSatisfaction,
+                    'surveyMessage': me.value.surveyMessage,
                 }
 
                 me.$http.post(`${API_HOST}/surveys`, param).then(function () {
-                    console.log('Survey POST');
                     app.snackbar = true;
                     app.snackbarColor = 'success'
                     app.snackbarMessage = '리뷰 작성 되었습니다.'
