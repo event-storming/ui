@@ -21,7 +21,7 @@
                 > {{ item.deli }}
                 </v-chip>
 
-                <v-chip v-else-if="item.deli =='Ready'"
+                <v-chip v-else
                         color="red"
                         dark
                 > {{ item.deli }}
