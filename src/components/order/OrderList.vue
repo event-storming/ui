@@ -102,8 +102,12 @@
 
                 return new Promise(function (resolve, reject) {
                     me.$http.get(`${API_HOST}/surveys`).then(function (e) {
+                        console.log(e)
+
                         resolve(e.data._embedded.surveys)
-                    });
+                    }).catch(function (error){
+                        reject()
+                    } );
                 });
 
 
@@ -124,15 +128,21 @@
                 var me = this;
 
                 var order = await me.getOrderList();
-                var sur = await me.getSurveyList();
-
-                order.forEach(function(or){
-                    sur.forEach(function(select){
-                        if(select.orderId == or.orderId){
-                            or.surveyCompleted=true
-                        }
+                try {
+                    var sur = await me.getSurveyList();
+                    order.forEach(function(or){
+                        sur.forEach(function(select){
+                            if(select.orderId == or.orderId){
+                                or.surveyCompleted=true
+                            }
+                        })
                     })
-                })
+                } catch(err) {
+                    console.log(err)
+                }
+
+
+
 
                 me.orderList=order
             },

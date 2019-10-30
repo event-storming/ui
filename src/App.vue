@@ -128,7 +128,7 @@
                     </v-list-item-action>
                     <v-list-item-content>
                         <v-list-item-title class="grey--text">
-                            My Page(Data Projection)
+                            My Page(API 직접연결)
                         </v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
