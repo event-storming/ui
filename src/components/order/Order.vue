@@ -179,6 +179,7 @@
                 if ((me.nameErrors.length == 0) && (me.addressErrors.length == 0) && (me.nameErrors.length == 0)) {
                     // http localhost:8081/orders productId=1 quantity=3 customerName="홍길동" customerAddr="서울시"
                     let param = {
+                        'orderId': 1,
                         'productId': me.value.id,
                         'productName': me.value.name,
                         'price': me.value.price,

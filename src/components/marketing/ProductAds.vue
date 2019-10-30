@@ -30,7 +30,7 @@
 
         methods: {
             startSlide: function() {
-                this.timer = setInterval(this.next, 1500);
+                this.timer = setInterval(this.next, 4000);
             },
             next: function() {
                 this.currentIndex += 1;

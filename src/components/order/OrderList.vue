@@ -75,7 +75,7 @@
                 },
                 {text: '구매수량', value: 'quantity', sortable: false, align: 'center'},
                 {text: '결제금액', value: 'payment',sortable: false, align: 'center'},
-                {text: 'Delivery', value: 'action', sortable: false, align: 'center'},
+                {text: '배송상태', value: 'action', sortable: false, align: 'center'},
                 {text: '리뷰', value: 'Survey', sortable: false, align: 'center'},
                 // {text: '결제시각', value: 'timestamp', align: 'center'},
             ],

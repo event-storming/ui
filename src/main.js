@@ -26,6 +26,7 @@ import FBSignInButton from 'vue-facebook-signin-button'
 
 import axios from 'axios'
 import OrderList from './components/order/OrderList';
+import OrderListNew from "./components/order/OrderListNew";
 import OrderFinish from "./components/order/OrderFinish";
 import Order from './components/order/Order'
 import UserInfo from './components/mypage/UserInfo'
@@ -56,6 +57,7 @@ Vue.component('ProductList', ProductList);
 Vue.component('ProductOrder', ProductOrder);
 Vue.component('ProductRecommend', ProductRecommend);
 Vue.component('OrderList', OrderList);
+Vue.component('OrderListNew',OrderListNew);
 Vue.component('OrderFinish', OrderFinish);
 Vue.component('Order', Order)
 Vue.component('Survey', Survey);

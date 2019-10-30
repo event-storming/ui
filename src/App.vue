@@ -113,7 +113,22 @@
                     </v-list-item-action>
                     <v-list-item-content>
                         <v-list-item-title class="grey--text">
-                            My Page
+                            My Page(CQRS)
+                        </v-list-item-title>
+                    </v-list-item-content>
+                </v-list-item>
+
+                <v-list-item
+                        v-if="$store.state.login"
+                        to='/mypageNew'
+                        replace
+                >
+                    <v-list-item-action>
+                        <v-icon>perm_identity</v-icon>
+                    </v-list-item-action>
+                    <v-list-item-content>
+                        <v-list-item-title class="grey--text">
+                            My Page(Data Projection)
                         </v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>

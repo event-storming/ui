@@ -5,6 +5,7 @@ import ProductDetail from "./components/products/ProductDetail";
 import OrderFinish from "./components/order/OrderFinish";
 import Home from './components/Home'
 import MyPage from './components/mypage/MyPage.vue';
+import MyPageNew from "./components/mypage/MyPageNew";
 import Survey from "./components/serviceCenter/Survey";
 import ProductPage from "./components/products/ProductPage";
 
@@ -23,6 +24,11 @@ export default new Router({
             path: '/mypage',
             name: 'mypage',
             component: MyPage
+        },
+        {
+            path: '/mypageNew',
+            name: 'mypageNew',
+            component: MyPageNew
         },
         {
             path: '/products',
