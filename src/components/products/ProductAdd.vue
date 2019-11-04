@@ -111,6 +111,10 @@
                     'imageUrl': me.imageUrl
                 }
 
+                console.log(item.imageUrl)
+                if(item.imageUrl == ''){
+                    item.imageUrl ='https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/No_image_3x4.svg/400px-No_image_3x4.svg.png'
+                }
 
                 me.$http.post(`${API_HOST}/products`, item).then(function (e) {
                     me.$emit('cancel', false)

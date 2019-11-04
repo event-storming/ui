@@ -257,7 +257,6 @@
                 this.$router.push('/')
             },
             action(select){
-                console.log(select)
                 if(select == '1'){
                     this.addDialog= true;
                 }else if(select == '2'){
