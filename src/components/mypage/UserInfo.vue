@@ -73,6 +73,8 @@
         methods: {
             callUser() {
                 var me = this
+                var decodeToken = jwt_decode(accessToken)
+
                 me.$http.get(`${API_HOST}/users/${localStorage.getItem('userId')}`).then(function (e) {
                     console.log(e)
                     me.$store.state.nickname = e.data.nickname
@@ -81,11 +83,11 @@
                     localStorage.setItem("address", e.data.address)
                 }).catch(function () {
                     me.$store.state.mileage = 0
-                    me.$store.state.nickname = 'undefined'
-                    me.$store.state.address = 'undefined'
-                    localStorage.setItem("nickname","undefined")
+                    me.$store.state.nickname = decodeToken.nickname
+                    me.$store.state.address = decodeToken.address
+                    localStorage.setItem("nickname",decodeToken.nickname)
                     localStorage.setItem("mileage", 0)
-                    localStorage.setItem("address", "undefined")
+                    localStorage.setItem("address", decodeToken.address)
                 })
             }
         },

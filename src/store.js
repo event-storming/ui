@@ -17,7 +17,9 @@ export default new Vuex.Store({
     },
     mutations: {
         login(state, {userId, accessToken}) {
-            console.log(jwt_decode(accessToken))
+            var decodeToken = jwt_decode(accessToken)
+            console.log(decodeToken)
+
             console.log(userId)
             console.log(accessToken)
             console.log(state)
@@ -30,6 +32,8 @@ export default new Vuex.Store({
 
 
             Vue.prototype.$http.get(`${window.API_HOST}/users/${state.userId}`).then(function (e) {
+
+                console.log(e)
 
                 state.mileage = e.data.mileage
                 localStorage.setItem("mileage", e.data.mileage)
@@ -44,13 +48,16 @@ export default new Vuex.Store({
                 localStorage.setItem("userId", userId)
                 localStorage.setItem("role", e.data.role)
             }).catch(function () {
-                localStorage.setItem("nickname", 'undefined')
+
+
+
+                localStorage.setItem("nickname", decodeToken.nickname)
                 localStorage.setItem("mileage", 0);
-                localStorage.setItem("address", 'undefined')
+                localStorage.setItem("address", decodeToken.address)
 
                 state.mileage = 0
-                state.nickname = 'undefined'
-                state.address = 'undefined'
+                state.nickname = decodeToken.nickname
+                state.address = decodeToken.address
 
 
 
