@@ -14,14 +14,14 @@
                 class="elevation-1"
         >
 
-            <template v-slot:item.delivery="{ item }">
+            <template v-slot:item.delivery="{ item }" >
                 <v-chip v-if="item.deli =='DeliveryCompleted'"
                         color="green"
                         dark
                 > {{ item.deli }}
                 </v-chip>
 
-                <v-chip v-else
+                <v-chip v-else-if="item.deli =='DeliveryReady'"
                         color="red"
                         dark
                 > {{ item.deli }}
@@ -53,7 +53,7 @@
                     value: 'productName',
                 },
                 {text: '구매수량', value: 'quantity', sortable: false, align: 'center'},
-                {text: '결제금액', value: 'payment', sortable: false, align: 'center'},
+                {text: '결제금액', value: 'price', sortable: false, align: 'center'},
                 {text: '배송상태', value: 'delivery', sortable: false, align: 'center'},
                 // {text: '결제시각', value: 'timestamp', align: 'center'},
             ],
@@ -111,7 +111,7 @@
                             if (e.data._embedded.deliveries.length != 0) {
                                 item.deli = e.data._embedded.deliveries[0].deliveryState
                             } else {
-                                item.deli = "Ready"
+                                item.deli = "DeliveryReady"
                             }
                         });
                     })

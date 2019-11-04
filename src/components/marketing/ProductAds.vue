@@ -5,6 +5,7 @@
                             v-for="i in [currentIndex]" :key="i"
                     >
                         <product
+                                v-if="currentProduct.imageUrl"
                                 v-model=currentProduct
                         ></product>
                     </div>

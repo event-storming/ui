@@ -1,6 +1,6 @@
 <template>
     <v-card>
-        <v-img :src="srcDomain" aspect-ratio="2.0" contain>
+        <v-img v-if="value.imageUrl" :src="srcDomain" aspect-ratio="2.0" contain>
             <v-col align="start">
             <div style="color: red; font-size: 20px">{{saving}}%</div>
             <div style="color: red;">적립</div>

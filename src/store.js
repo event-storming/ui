@@ -27,15 +27,14 @@ export default new Vuex.Store({
             localStorage.setItem("accessToken", accessToken)
             Vue.prototype.$http.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
             // 모든 HTTP 요청 헤더에 Authorization 을 추가한다.
-            Vue.prototype.$http.get(`${window.API_HOST}/users/${state.userId}`).then(function (e) {
-                if(e.data.mileage == null) {
-                    state.mileage = 0
-                    localStorage.setItem("mileage", "0")
-                }else{
-                    state.mileage = e.data.mileage
-                    localStorage.setItem("mileage", e.data.mileage)
-                }
 
+
+            Vue.prototype.$http.get(`${window.API_HOST}/users/${state.userId}`).then(function (e) {
+
+                state.mileage = e.data.mileage
+                localStorage.setItem("mileage", e.data.mileage)
+
+                console.log(error)
                 state.nickname = e.data.nickname
                 state.address = e.data.address
                 state.role = e.data.role
@@ -44,6 +43,17 @@ export default new Vuex.Store({
                 localStorage.setItem("address", e.data.address)
                 localStorage.setItem("userId", userId)
                 localStorage.setItem("role", e.data.role)
+            }).catch(function () {
+                localStorage.setItem("nickname", 'undefined')
+                localStorage.setItem("mileage", 0);
+                localStorage.setItem("address", 'undefined')
+
+                state.mileage = 0
+                state.nickname = 'undefined'
+                state.address = 'undefined'
+
+
+
             })
 
         },

@@ -31,23 +31,23 @@
                 </v-chip>
             </template>
 
-            <template v-slot:item.Survey="{ item }">
-                <v-icon
-                        v-if="item.surveyCompleted"
-                        small
-                        @click="openSurvey(item)"
-                >
-                    리뷰보기
-                </v-icon>
+<!--            <template v-slot:item.Survey="{ item }">-->
+<!--                <v-icon-->
+<!--                        v-if="item.surveyCompleted"-->
+<!--                        small-->
+<!--                        @click="openSurvey(item)"-->
+<!--                >-->
+<!--                    리뷰보기-->
+<!--                </v-icon>-->
 
-                <v-icon
-                        v-else
-                        small
-                        @click="openSurvey(item)"
-                >
-                    리뷰작성
-                </v-icon>
-            </template>
+<!--                <v-icon-->
+<!--                        v-else-->
+<!--                        small-->
+<!--                        @click="openSurvey(item)"-->
+<!--                >-->
+<!--                    리뷰작성-->
+<!--                </v-icon>-->
+<!--            </template>-->
 
         </v-data-table>
     </v-card>
@@ -76,7 +76,7 @@
                 {text: '구매수량', value: 'quantity', sortable: false, align: 'center'},
                 {text: '결제금액', value: 'payment',sortable: false, align: 'center'},
                 {text: '배송상태', value: 'action', sortable: false, align: 'center'},
-                {text: '리뷰', value: 'Survey', sortable: false, align: 'center'},
+               // {text: '리뷰', value: 'Survey', sortable: false, align: 'center'},
                 // {text: '결제시각', value: 'timestamp', align: 'center'},
             ],
             orderList: [],
@@ -102,8 +102,6 @@
 
                 return new Promise(function (resolve, reject) {
                     me.$http.get(`${API_HOST}/surveys`).then(function (e) {
-                        console.log(e)
-
                         resolve(e.data._embedded.surveys)
                     }).catch(function (error){
                         reject()
@@ -128,21 +126,18 @@
                 var me = this;
 
                 var order = await me.getOrderList();
-                try {
-                    var sur = await me.getSurveyList();
-                    order.forEach(function(or){
-                        sur.forEach(function(select){
-                            if(select.orderId == or.orderId){
-                                or.surveyCompleted=true
-                            }
-                        })
-                    })
-                } catch(err) {
-                    console.log(err)
-                }
-
-
-
+                // try {
+                //     var sur = await me.getSurveyList();
+                //     order.forEach(function(or){
+                //         sur.forEach(function(select){
+                //             if(select.orderId == or.orderId){
+                //                 or.surveyCompleted=true
+                //             }
+                //         })
+                //     })
+                // } catch(err) {
+                //     console.log(err)
+                // }
 
                 me.orderList=order
             },

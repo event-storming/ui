@@ -128,7 +128,7 @@
                     </v-list-item-action>
                     <v-list-item-content>
                         <v-list-item-title class="grey--text">
-                            My Page(API 직접연결)
+                            My Page(UI mashup)
                         </v-list-item-title>
                     </v-list-item-content>
                 </v-list-item>
