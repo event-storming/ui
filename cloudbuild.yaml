@@ -81,7 +81,8 @@ steps:
                     - name: VUE_APP_API_HOST
                       value: http://$${_GATEWAY_IP}:$${_GATEWAY_PORT}
         EOF
-
+substitutions:
+    _PROJECT_NAME: ui
 options:
   env:
     #    # location/name of GKE cluster (used by all kubectl commands)
