@@ -113,7 +113,7 @@
 
                 console.log(item.imageUrl)
                 if(item.imageUrl == ''){
-                    item.imageUrl ='https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/No_image_3x4.svg/400px-No_image_3x4.svg.png'
+                    item.imageUrl ='https://icon-library.net/images/no-image-available-icon/no-image-available-icon-7.jpg'
                 }
 
                 me.$http.post(`${API_HOST}/products`, item).then(function (e) {
