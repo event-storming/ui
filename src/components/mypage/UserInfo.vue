@@ -79,13 +79,6 @@
                     me.$store.state.address = e.data.address
                     localStorage.setItem("nickname", e.data.nickname)
                     localStorage.setItem("address", e.data.address)
-                }).catch(function () {
-                    // me.$store.state.mileage = 0
-                    // me.$store.state.nickname = 'undefined'
-                    // me.$store.state.address = 'undefined'
-                    // localStorage.setItem("nickname","undefined")
-                    // localStorage.setItem("mileage", 0)
-                    // localStorage.setItem("address", "undefined")
                 })
             }
         },
