@@ -57,6 +57,7 @@
                         <v-col cols="15" sm="3" md="3">
                             구매수량
                             <number-input v-model="quantity" :min="1" :max="value.stock" inline controls></number-input>
+<!--                            <number-input v-model="quantity" :min="1" inline controls></number-input>-->
                         </v-col>
                     </v-row>
 
@@ -189,7 +190,8 @@
                         'customerAddr': me.customerAddr
                     }
 
-                    me.$http.post(`${API_HOST}/orders`, param).then(function () {
+                    me.$http.post(`${API_HOST}/orders`, param).then(function (e) {
+                        console.log(e)
                         setTimeout(function () {
                             // me.callUser()
                             var data = {
@@ -201,6 +203,8 @@
                             }
                             me.$router.push({name: 'orderfinish', params: data});
                         }, 500)
+                    }).catch(function(err){
+                        alert(err.response.data.message)
                     })
                 }
             },
