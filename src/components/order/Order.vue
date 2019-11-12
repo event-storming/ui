@@ -56,8 +56,8 @@
                     <v-row>
                         <v-col cols="15" sm="3" md="3">
                             구매수량
-                            <number-input v-model="quantity" :min="1" :max="value.stock" inline controls></number-input>
-<!--                            <number-input v-model="quantity" :min="1" inline controls></number-input>-->
+<!--                            <number-input v-model="quantity" :min="1" :max="value.stock" inline controls></number-input>-->
+                            <number-input v-model="quantity" :min="1" inline controls></number-input>
                         </v-col>
                     </v-row>
 
