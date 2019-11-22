@@ -14,20 +14,31 @@
                 class="elevation-1"
         >
 
-            <template v-slot:item.delivery="{ item }" >
+            <template v-slot:item.delivery="{ item }">
                 <v-chip v-if="item.deli =='DeliveryCompleted'"
                         color="green"
                         dark
                 > {{ item.deli }}
                 </v-chip>
-
+                <v-chip :color="'red'"
+                        dark
+                        v-else-if="item.deli == 'DeliveryCancelled'"
+                >
+                    {{ item.deli }}
+                </v-chip>
                 <v-chip v-else-if="item.deli =='DeliveryReady'"
                         color="red"
                         dark
                 > {{ item.deli }}
                 </v-chip>
             </template>
-
+            <template v-slot:item.orderStatus="{ item }">
+                <v-btn text
+                       v-if="!(item.deli == 'DeliveryCancelled')"
+                       @click="orderCancelled(item)"
+                > 주문취소
+                </v-btn>
+            </template>
         </v-data-table>
     </v-card>
 </template>
@@ -55,14 +66,14 @@
                 {text: '구매수량', value: 'quantity', sortable: false, align: 'center'},
                 {text: '결제금액', value: 'price', sortable: false, align: 'center'},
                 {text: '배송상태', value: 'delivery', sortable: false, align: 'center'},
+                {text: '주문상태', value: 'orderStatus', sortable: false, align: 'center'},
                 // {text: '결제시각', value: 'timestamp', align: 'center'},
             ],
             orderList: [],
             surveyList: [],
-            page:5,
+            page: 5,
         }),
-        computed: {
-        },
+        computed: {},
         watch: {
             dialog(val) {
                 val || this.close()
@@ -78,17 +89,17 @@
             async mountedFunction() {
                 var me = this;
 
-                try{
+                try {
                     await me.getOrderList();
                     await me.getDeliveryStatus();
                     console.log("Done")
-                }catch (err) {
+                } catch (err) {
                     console.log(err)
                 }
 
 
                 setTimeout(() => {
-                    this.page=10
+                    this.page = 10
                 }, 100);
 
                 // await me.updateList()
@@ -108,14 +119,27 @@
                         me.$http.get(`${API_HOST}/deliveries/search/findByOrderIdOrderByDeliveryIdDesc?orderId=` + item.orderId)
                             .then(function (e) {
 
-                            if (e.data._embedded.deliveries.length != 0) {
-                                item.deli = e.data._embedded.deliveries[0].deliveryState
-                            } else {
-                                item.deli = "DeliveryReady"
-                            }
-                        });
+                                if (e.data._embedded.deliveries.length != 0) {
+                                    item.deli = e.data._embedded.deliveries[0].deliveryState
+                                } else {
+                                    item.deli = "DeliveryReady"
+                                }
+                            });
                     })
                     resolve(me.orderList)
+                })
+            },
+            orderCancelled(item) {
+                var me = this
+                me.$http.patch(`${API_HOST}/orders/${item.orderId}`, {
+                    state: 'OrderCancelled'
+                }).then(function() {
+                    me.$router.go({
+                        path: me.$router.path,
+                        query: {
+                            t: + new Date()
+                        }
+                    })
                 })
             },
             getOrderList() {
