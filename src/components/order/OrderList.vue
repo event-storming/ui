@@ -27,7 +27,7 @@
                 <v-chip :color="'red'"
                         dark
                         v-else-if="item.deliveryCancelled"
-                > 주문 취소 됨
+                > 배송 취소 됨
                 </v-chip>
                 <v-chip :color="'red'"
                         dark

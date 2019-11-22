@@ -47,7 +47,7 @@
             <template v-slot:item.orderAction="{ item }">
                 <v-btn
                        :color="'yellow'"
-                       v-if="item.deli && !(item.deli == 'DeliveryCancelled') "
+                       v-if="!(item.deli == 'DeliveryCancelled') "
                        @click="orderCancelled(item)"
                 > 주문취소
                 </v-btn>
