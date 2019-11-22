@@ -36,6 +36,18 @@
                 </v-chip>
             </template>
             <template v-slot:item.orderStatus="{ item }">
+                <v-chip :color="'green'"
+                        dark
+                        v-if="item.orderState == 'OrderPlaced'"
+                > 주문 완료
+                </v-chip>
+                <v-chip :color="'red'"
+                        dark
+                        v-else
+                > 주문 취소
+                </v-chip>
+            </template>
+            <template v-slot:item.orderAction="{ item }">
                 <v-btn
                         :color="'yellow'"
                         v-if="!item.deliveryCancelled"
@@ -90,6 +102,7 @@
                 {text: '결제금액', value: 'payment', sortable: false, align: 'center'},
                 {text: '배송상태', value: 'action', sortable: false, align: 'center'},
                 {text: '주문상태', value: 'orderStatus', sortable: false, align: 'center'},
+                {text: '주문취소', value: 'orderAction', sortable: false, align: 'center'},
             ],
             orderList: [],
             surveyList: [],
