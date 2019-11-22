@@ -36,8 +36,9 @@
                 </v-chip>
             </template>
             <template v-slot:item.orderStatus="{ item }">
-                <v-btn text
-                       v-if="!item.deliveryCancelled"
+                <v-btn
+                        :color="'yellow'"
+                        v-if="!item.deliveryCancelled"
                        @click="orderCancelled(item)"
                 > 주문취소
                 </v-btn>

@@ -33,8 +33,9 @@
                 </v-chip>
             </template>
             <template v-slot:item.orderStatus="{ item }">
-                <v-btn text
-                       v-if="!(item.deli == 'DeliveryCancelled')"
+                <v-btn
+                       :color="'yellow'"
+                       v-if="item.deli && !(item.deli == 'DeliveryCancelled') "
                        @click="orderCancelled(item)"
                 > 주문취소
                 </v-btn>
@@ -130,6 +131,7 @@
                 })
             },
             orderCancelled(item) {
+                console.log(item)
                 var me = this
                 me.$http.patch(`${API_HOST}/orders/${item.orderId}`, {
                     state: 'OrderCancelled'
