@@ -50,7 +50,7 @@
             <template v-slot:item.orderAction="{ item }">
                 <v-btn
                         :color="'yellow'"
-                        v-if="!item.deliveryCancelled"
+                        v-if="!(item.orderState == 'OrderCancelled') && !item.deliveryCancelled"
                        @click="orderCancelled(item)"
                 > 주문취소
                 </v-btn>
