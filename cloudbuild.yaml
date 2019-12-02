@@ -35,8 +35,8 @@ steps:
           --project "$${PROJECT}" \
           --zone "$${CLOUDSDK_COMPUTE_ZONE}"
 
-        _GATEWAY_IP=$$(kubectl get -o jsonpath="{.status.loadBalancer.ingress[0].ip}" svc gateway)
-        _GATEWAY_PORT=$$(kubectl get -o jsonpath="{.spec.ports[0].port}" svc gateway)
+        _GATEWAY_IP=$$(kubectl get -o jsonpath="{.status.loadBalancer.ingress[0].ip}" svc gateway --ignore-not-found)
+        _GATEWAY_PORT=$$(kubectl get -o jsonpath="{.spec.ports[0].port}" svc gateway --ignore-not-found)
 
         cat <<EOF | kubectl apply -f -
         apiVersion: v1
