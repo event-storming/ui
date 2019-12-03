@@ -27,7 +27,7 @@
             <div align="right">
                 <v-btn text v-if=" $route.path != '/' && $store.state.role == 'USER_ADMIN' " @click="showEdit"> Edit</v-btn>
                 <v-btn text v-if="$route.path != '/' " @click="showDetail"> DETAIL</v-btn>
-                <v-btn text v-if=" $route.path != '/' && $store.state.login == true" @click="showBuy"> BUY</v-btn>
+                <v-btn text v-if=" $route.path != '/' " @click="showBuy"> BUY</v-btn>
             </div>
         </v-list>
     </v-card>
