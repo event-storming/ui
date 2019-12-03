@@ -105,7 +105,7 @@
 
                 <v-list-item
                         v-if="$store.state.login"
-                        to='/mypage'
+                        to='/mypagecqrs'
                         replace
                 >
                     <v-list-item-action>
@@ -120,7 +120,7 @@
 
                 <v-list-item
                         v-if="$store.state.login"
-                        to='/mypageNew'
+                        to='/mypagemashup'
                         replace
                 >
                     <v-list-item-action>

@@ -4,8 +4,8 @@ import axios from 'axios'
 import ProductDetail from "./components/products/ProductDetail";
 import OrderFinish from "./components/order/OrderFinish";
 import Home from './components/Home'
-import MyPage from './components/mypage/MyPage.vue';
-import MyPageNew from "./components/mypage/MyPageNew";
+import MyPageCQRS from './components/mypage/MyPageCQRS.vue';
+import MyPageMashup from "./components/mypage/MyPageMashup.vue";
 import Survey from "./components/serviceCenter/Survey";
 import ProductPage from "./components/products/ProductPage";
 
@@ -21,14 +21,14 @@ export default new Router({
             component: Home,
         },
         {
-            path: '/mypage',
-            name: 'mypage',
-            component: MyPage
+            path: '/mypagecqrs',
+            name: 'mypagecqrs',
+            component: MyPageCQRS
         },
         {
-            path: '/mypageNew',
-            name: 'mypageNew',
-            component: MyPageNew
+            path: '/mypagemashup',
+            name: 'MyPageMashup',
+            component: MyPageMashup
         },
         {
             path: '/products',

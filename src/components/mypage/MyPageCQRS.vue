@@ -6,7 +6,7 @@
 <!--        <order-list v-if=show style="margin-top: 10px;"></order-list>-->
 <!--        <black-list-user-info v-else style="margin-top: 10px;" ></black-list-user-info>-->
 
-        <order-list style="margin-top: 10px;"></order-list>
+        <order-list-c-q-r-s style="margin-top: 10px;"></order-list-c-q-r-s>
 <!--        <black-list-user-info v-if=" $store.state.role == 'USER_ADMIN' " style="margin-top: 10px;" ></black-list-user-info>-->
     </v-container>
 </template>

@@ -25,8 +25,8 @@ import GSignInButton from 'vue-google-signin-button'
 import FBSignInButton from 'vue-facebook-signin-button'
 
 import axios from 'axios'
-import OrderList from './components/order/OrderList';
-import OrderListNew from "./components/order/OrderListNew";
+import OrderListCQRS from './components/order/OrderListCQRS';
+import OrderListMashup from "./components/order/OrderListMashup";
 import OrderFinish from "./components/order/OrderFinish";
 import Order from './components/order/Order'
 import UserInfo from './components/mypage/UserInfo'
@@ -56,8 +56,8 @@ Vue.component('ProductPage', ProductPage)
 Vue.component('ProductList', ProductList);
 Vue.component('ProductOrder', ProductOrder);
 Vue.component('ProductRecommend', ProductRecommend);
-Vue.component('OrderList', OrderList);
-Vue.component('OrderListNew',OrderListNew);
+Vue.component('OrderListCQRS', OrderListCQRS);
+Vue.component('OrderListMashup',OrderListMashup);
 Vue.component('OrderFinish', OrderFinish);
 Vue.component('Order', Order)
 Vue.component('Survey', Survey);

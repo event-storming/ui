@@ -46,9 +46,9 @@
             </template>
             <template v-slot:item.orderAction="{ item }">
                 <v-btn
-                       :color="'yellow'"
-                       v-if="!(item.state == 'OrderCancelled') && !(item.deli == 'DeliveryCancelled') "
-                       @click="orderCancelled(item)"
+                        :color="'yellow'"
+                        v-if="!(item.state == 'OrderCancelled') && !(item.deli == 'DeliveryCancelled') "
+                        @click="orderCancelled(item)"
                 > 주문취소
                 </v-btn>
             </template>
@@ -99,59 +99,28 @@
 
         },
         methods: {
-            async mountedFunction() {
+            mountedFunction() {
                 var me = this;
 
                 try {
-                    await me.getOrderList();
-                    await me.getDeliveryStatus();
-                    console.log("Done")
+                    me.getOrderList();
                 } catch (err) {
                     console.log(err)
                 }
 
-
-                setTimeout(() => {
-                    this.page = 10
-                }, 100);
-
-                // await me.updateList()
-
-
                 return me.orderList
 
-            },
-            getDeliveryStatus() {
-                var me = this
-
-                if (`${API_HOST}` == 'undefined')
-                    window.API_HOST = localStorage.getItem('api_host')
-
-                return new Promise(function (resolve, reject) {
-                    me.orderList.forEach(function (item) {
-                        me.$http.get(`${API_HOST}/deliveries/search/findByOrderIdOrderByDeliveryIdDesc?orderId=` + item.orderId)
-                            .then(function (e) {
-
-                                if (e.data._embedded.deliveries.length != 0) {
-                                    item.deli = e.data._embedded.deliveries[0].deliveryState
-                                } else {
-                                    item.deli = "DeliveryReady"
-                                }
-                            });
-                    })
-                    resolve(me.orderList)
-                })
             },
             orderCancelled(item) {
                 console.log(item)
                 var me = this
                 me.$http.patch(`${API_HOST}/orders/${item.orderId}`, {
                     state: 'OrderCancelled'
-                }).then(function() {
+                }).then(function () {
                     me.$router.go({
                         path: me.$router.path,
                         query: {
-                            t: + new Date()
+                            t: +new Date()
                         }
                     })
                 })
@@ -159,22 +128,31 @@
             getOrderList() {
                 var me = this
 
-
                 if (`${API_HOST}` == 'undefined')
                     window.API_HOST = localStorage.getItem('api_host')
 
-                return new Promise(function (resolve, reject) {
-                    me.$http.get(`${API_HOST}/orders/search/findByCustomerId?customerId=${localStorage.getItem('userId')}`).then(function (e) {
+                console.log(`${API_HOST}`)
 
-                        e.data._embedded.orders.forEach(function (item) {
-                            var tempArray = item._links.self.href.split('/')
+                me.$http.get(`${API_HOST}/orders/search/findByCustomerId?customerId=${localStorage.getItem('userId')}`).then(function (orderResult) {
+                    orderResult.data._embedded.orders.forEach(function (orderItem, orderIndex) {
+                        console.log(orderItem)
+                        me.$http.get(`${API_HOST}` + orderItem._links.delivery.href).then(function (deliveryResult) {
+                            console.log(deliveryResult);
+                            orderItem.orderId = deliveryResult.data._embedded.deliveries[0].orderId
+                            orderItem.deli = deliveryResult.data._embedded.deliveries[0].deliveryState
+
+                            me.orderList.push(orderItem)
+                        }).catch(function (deliveryError) {
+                            console.log(orderItem)
+
+                            var tempArray = orderItem._links.self.href.split('/')
                             var orderId = tempArray[tempArray.length - 1]
-                            item.orderId = orderId
-                        })
+                            orderItem.orderId = orderId
 
-                        me.orderList = e.data._embedded.orders;
-                        resolve(me.orderList)
-                    });
+                            me.orderList.push(orderItem)
+
+                        })
+                    })
                 })
             },
 
