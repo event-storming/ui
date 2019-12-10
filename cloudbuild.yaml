@@ -26,7 +26,7 @@ steps:
   ### deploy
   - id: 'deploy'
     name: 'gcr.io/cloud-builders/gcloud'
-    entrypoint: 'bash'
+    entrypoint: ''
     args:
       - '-c'
       - |
@@ -38,8 +38,14 @@ steps:
         _GATEWAY_IP=$$(kubectl get -o jsonpath="{.status.loadBalancer.ingress[0].ip}" svc gateway --ignore-not-found)
         _GATEWAY_PORT=$$(kubectl get -o jsonpath="{.spec.ports[0].port}" svc gateway --ignore-not-found)
 
-        if [ ${_GATEWAY_IP} ] then else _GATEWAY_IP=localhost fi
-        if [ ${_GATEWAY_PORT} ] then else _GATEWAY_PORT=8080 fi
+        if [ -z $_GATEWAY_IP];
+        then
+          _GATEWAY_IP="localhost"
+        fi
+        if [ -z $_GATEWAY_PORT];
+        then
+          _GATEWAY_PORT=8080
+        fi
 
         echo ${_GATEWAY_IP}
 
