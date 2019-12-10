@@ -26,7 +26,7 @@ steps:
   ### deploy
   - id: 'deploy'
     name: 'gcr.io/cloud-builders/gcloud'
-    entrypoint: ''
+    entrypoint: 'bash'
     args:
       - '-c'
       - |
