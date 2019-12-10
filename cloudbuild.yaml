@@ -38,15 +38,6 @@ steps:
         _GATEWAY_IP=$$(kubectl get -o jsonpath="{.status.loadBalancer.ingress[0].ip}" svc gateway --ignore-not-found)
         _GATEWAY_PORT=$$(kubectl get -o jsonpath="{.spec.ports[0].port}" svc gateway --ignore-not-found)
 
-        if [[ -z $_GATEWAY_IP]];
-        then
-          _GATEWAY_IP="localhost"
-        fi
-        if [[ -z $_GATEWAY_PORT]];
-        then
-          _GATEWAY_PORT=8080
-        fi
-
         cat <<EOF | kubectl apply -f -
         apiVersion: v1
         kind: Service
@@ -88,7 +79,7 @@ steps:
                     - containerPort: 8080
                   env:
                     - name: VUE_APP_API_HOST
-                      value: http://$${_GATEWAY_IP}:$${_GATEWAY_PORT}
+                      value: http://$${_GATEWAY_IP:-localhost}:$${_GATEWAY_PORT:-8080}
         EOF
 substitutions:
     _PROJECT_NAME: ui
