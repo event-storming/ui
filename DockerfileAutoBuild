@@ -1,0 +1,16 @@
+FROM mhart/alpine-node:10 AS NODE
+
+WORKDIR /tmp/
+COPY package*.json ./
+RUN npm install
+RUN npm install -g spa-http-server
+COPY . .
+RUN npm run build
+
+FROM NODE
+COPY --from=NODE /tmp/dist /opt/www
+COPY --from=NODE /tmp/run.sh /opt/run.sh
+ARG VUE_APP_API_HOST
+ENV VUE_APP_API_HOST=$VUE_APP_API_HOST
+EXPOSE 8080
+ENTRYPOINT ["sh","/opt/run.sh" ]

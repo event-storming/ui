@@ -1,4 +1,4 @@
-FROM mhart/alpine-node:5.7.1
+FROM mhart/alpine-node:10
 
 VOLUME /tmp
 RUN npm install -g spa-http-server

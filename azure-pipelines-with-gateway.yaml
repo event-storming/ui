@@ -1,0 +1,131 @@
+# Deploy to Azure Kubernetes Service
+# Build and push image to Azure Container Registry; Deploy to Azure Kubernetes Service
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+
+trigger:
+  - master
+
+resources:
+  - repo: self
+
+variables:
+
+  # Container registry service connection established during pipeline creation
+  dockerRegistryServiceConnection: 'c860058c-3e50-4801-8650-cd6be9406172'
+  imageRepository: 'ui'
+  containerRegistry: 'myeventstormingregistry.azurecr.io'
+  dockerfilePath: '**/DockerfileAutoBuild'
+  tag: '$(Build.BuildId)'
+  imagePullSecret: 'myeventstormingregistry4a7e-auth'
+
+  # Agent VM image name
+  vmImageName: 'ubuntu-latest'
+
+  # Name of the new namespace being created to deploy the PR changes.
+  k8sNamespaceForPR: '$(system.pullRequest.sourceBranch)'
+
+stages:
+- stage: Build
+  displayName: Build stage
+  jobs:
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: $(vmImageName)
+    steps:
+       - task: Docker@2
+         displayName: Build and push an image to container registry
+         inputs:
+           command: buildAndPush
+           repository: $(imageRepository)
+           dockerfile: $(dockerfilePath)
+           containerRegistry: $(dockerRegistryServiceConnection)
+           tags: |
+             $(tag)
+
+      - upload: manifests
+        artifact: manifests
+
+- stage: Deploy
+  displayName: Deploy stage
+  #   dependsOn: Build
+
+  jobs:
+  - deployment: Deploy
+    #     condition: and(succeeded(), not(startsWith(variables['Build.SourceBranch'], 'refs/pull/')))
+    displayName: Deploy
+    pool:
+      vmImage: $(vmImageName)
+    environment: 'kimscottui.default'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: Kubernetes@1
+            displayName: 'Get gatewayIp'
+            name: 'gatewayip'
+            continueOnError: true
+            inputs:
+              connectionType: 'Kubernetes Service Connection'
+              namespace: 'default'
+              command: 'get'
+              arguments: "svc gateway --ignore-not-found"
+              secretType: 'dockerRegistry'
+              containerRegistryType: 'Azure Container Registry'
+              outputFormat: "jsonpath='{.status.loadBalancer.ingress[0].ip}'"
+          - task: Kubernetes@1
+            displayName: 'Get gateway port'
+            name: 'gatewayport'
+            continueOnError: true
+            inputs:
+              connectionType: 'Kubernetes Service Connection'
+              namespace: 'default'
+              command: 'get'
+              arguments: "svc gateway --ignore-not-found"
+              secretType: 'dockerRegistry'
+              containerRegistryType: 'Azure Container Registry'
+              outputFormat: "jsonpath='{.spec.ports[0].port}'"
+          - task: Kubernetes@1
+            inputs:
+              connectionType: 'Kubernetes Service Connection'
+              namespace: 'default'
+              command: 'apply'
+              useConfigurationFile: true
+              configurationType: 'inline'
+              inline: |
+                apiVersion: apps/v1
+                kind: Deployment
+                metadata:
+                  name: $(imageRepository)
+                  labels:
+                    app: $(imageRepository)
+                spec:
+                  replicas: 1
+                  selector:
+                    matchLabels:
+                      app: $(imageRepository)
+                  template:
+                    metadata:
+                      labels:
+                        app: $(imageRepository)
+                    spec:
+                      containers:
+                        - name: $(imageRepository)
+                          image: $(containerRegistry)/$(imageRepository):$(tag)
+                          ports:
+                            - containerPort: 8080
+                          env:
+                            - name: VUE_APP_API_HOST
+                              value: http://$(gatewayip.KubectlOutput):$(gatewayport.KubectlOutput)
+              secretType: 'dockerRegistry'
+              containerRegistryType: 'Azure Container Registry'
+           - task: KubernetesManifest@0
+             displayName: Deploy to Kubernetes cluster
+             inputs:
+               action: deploy
+               manifests: |
+                 $(Pipeline.Workspace)/manifests/service.yml
+               imagePullSecrets: |
+                 $(imagePullSecret)
+               containers: |
+                 $(containerRegistry)/$(imageRepository):$(tag)
