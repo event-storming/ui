@@ -3,26 +3,42 @@
 # https://docs.microsoft.com/azure/devops/pipelines/languages/docker
 
 trigger:
+#  tags:
+#    include:
+#      - v*.*
+
+#  branches:
+#    include:
+#      - releases/*
+
+#  branches:
+#    include:
+#      - master
+#  paths:
+#    include:
+#      - docs/*
+#    exclude:
+#      - README.md
+#      - azure*.yml
   - master
 
 resources:
   - repo: self
 
 variables:
-
-  # Container registry service connection established during pipeline creation
-  dockerRegistryServiceConnection: 'c860058c-3e50-4801-8650-cd6be9406172'
-  imageRepository: 'ui'
-  containerRegistry: 'myeventstormingregistry.azurecr.io'
-  dockerfilePath: '**/DockerfileAutoBuild'
-  tag: '$(Build.BuildId)'
-  imagePullSecret: 'myeventstormingregistry4a7e-auth'
-
+- group: common-value
+  # containerRegistry: 'event.azurecr.io'
+  # containerRegistryDockerConnection: 'acr'
+  # environment: 'aks.default'
+- name: imageRepository
+  value: 'ui'
+- name: dockerfilePath
+  value: '**/DockerfileAutoBuild'
+- name: tag
+  value: '$(Build.BuildId)'
   # Agent VM image name
-  vmImageName: 'ubuntu-latest'
-
-  # Name of the new namespace being created to deploy the PR changes.
-  k8sNamespaceForPR: '$(system.pullRequest.sourceBranch)'
+- name: vmImageName
+  value: 'ubuntu-latest'
 
 stages:
 - stage: Build
@@ -33,18 +49,17 @@ stages:
     pool:
       vmImage: $(vmImageName)
     steps:
-       - task: Docker@2
-         displayName: Build and push an image to container registry
-         inputs:
-           command: buildAndPush
-           repository: $(imageRepository)
-           dockerfile: $(dockerfilePath)
-           containerRegistry: $(dockerRegistryServiceConnection)
-           tags: |
-             $(tag)
+    - task: Docker@2
+      inputs:
+        containerRegistry: $(containerRegistryDockerConnection)
+        repository: $(imageRepository)
+        command: 'buildAndPush'
+        Dockerfile: $(dockerfilePath)
+        tags: |
+          $(tag)
 
-      - upload: manifests
-        artifact: manifests
+    - upload: manifests
+      artifact: manifests
 
 - stage: Deploy
   displayName: Deploy stage
@@ -56,7 +71,7 @@ stages:
     displayName: Deploy
     pool:
       vmImage: $(vmImageName)
-    environment: 'kimscottui.default'
+    environment: $(environment)
     strategy:
       runOnce:
         deploy:
@@ -119,13 +134,27 @@ stages:
                               value: http://$(gatewayip.KubectlOutput):$(gatewayport.KubectlOutput)
               secretType: 'dockerRegistry'
               containerRegistryType: 'Azure Container Registry'
-           - task: KubernetesManifest@0
-             displayName: Deploy to Kubernetes cluster
-             inputs:
-               action: deploy
-               manifests: |
-                 $(Pipeline.Workspace)/manifests/service.yml
-               imagePullSecrets: |
-                 $(imagePullSecret)
-               containers: |
-                 $(containerRegistry)/$(imageRepository):$(tag)
+          - task: Kubernetes@1
+            inputs:
+              connectionType: 'Kubernetes Service Connection'
+              namespace: 'default'
+              command: 'apply'
+              useConfigurationFile: true
+              configurationType: 'inline'
+              inline: |
+                apiVersion: v1
+                kind: Service
+                metadata:
+                  name: $(imageRepository)
+                  labels:
+                    app: $(imageRepository)
+                spec:
+                  ports:
+                    - port: 8080
+                      targetPort: 8080
+                  selector:
+                    app: $(imageRepository)
+                  type:
+                      LoadBalancer
+              secretType: 'dockerRegistry'
+              containerRegistryType: 'Azure Container Registry'
