@@ -19,7 +19,7 @@
                         v-if="item.deliveryStarted && item.deliveryCompleted"
                 > 배송 완료
                 </v-chip>
-                <v-chip :color="'green'"
+                <v-chip :color="'blue'"
                         dark
                         v-else-if="item.deliveryStarted && !item.deliveryCompleted"
                 > 배송 시작

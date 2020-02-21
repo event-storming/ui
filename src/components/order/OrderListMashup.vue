@@ -20,6 +20,12 @@
                         dark
                 > {{ item.deli }}
                 </v-chip>
+                <v-chip :color="'blue'"
+                        dark
+                        v-else-if="item.deli == 'DeliveryStarted'"
+                >
+                    {{ item.deli }}
+                </v-chip>
                 <v-chip :color="'red'"
                         dark
                         v-else-if="item.deli == 'DeliveryCancelled'"

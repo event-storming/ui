@@ -58,9 +58,6 @@ stages:
         tags: |
           $(tag)
 
-    - upload: manifests
-      artifact: manifests
-
 - stage: Deploy
   displayName: Deploy stage
   #   dependsOn: Build
@@ -131,7 +128,7 @@ stages:
                             - containerPort: 8080
                           env:
                             - name: VUE_APP_API_HOST
-                              value: http://$(gatewayip.KubectlOutput):$(gatewayport.KubectlOutput)
+                              value: http://${gatewayip.KubectlOutput}:${gatewayport.KubectlOutput}
               secretType: 'dockerRegistry'
               containerRegistryType: 'Azure Container Registry'
           - task: Kubernetes@1
