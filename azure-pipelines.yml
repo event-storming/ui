@@ -86,18 +86,6 @@ stages:
               containerRegistryType: 'Azure Container Registry'
               outputFormat: "jsonpath='{.status.loadBalancer.ingress[0].ip}'"
           - task: Kubernetes@1
-            displayName: 'Get gateway port'
-            name: 'gatewayport'
-            continueOnError: true
-            inputs:
-              connectionType: 'Kubernetes Service Connection'
-              namespace: 'default'
-              command: 'get'
-              arguments: "svc gateway --ignore-not-found"
-              secretType: 'dockerRegistry'
-              containerRegistryType: 'Azure Container Registry'
-              outputFormat: "jsonpath='{.spec.ports[0].port}'"
-          - task: Kubernetes@1
             inputs:
               connectionType: 'Kubernetes Service Connection'
               namespace: 'default'
@@ -128,7 +116,7 @@ stages:
                             - containerPort: 8080
                           env:
                             - name: VUE_APP_API_HOST
-                              value: http://${gatewayip.KubectlOutput}:${gatewayport.KubectlOutput}
+                              value: http://${gatewayip.KubectlOutput}:8080
               secretType: 'dockerRegistry'
               containerRegistryType: 'Azure Container Registry'
           - task: Kubernetes@1
