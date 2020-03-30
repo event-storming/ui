@@ -39,7 +39,7 @@ phases:
       - kubectl config set-credentials admin --token="$KUBE_TOKEN"
       - kubectl config set-context default --cluster=k8s --user=admin
       - kubectl config use-context default
-      - _GATEWAY_IP=$(kubectl get -o jsonpath="{.status.loadBalancer.ingress[0].ip}" svc gateway --ignore-not-found)
+      - _GATEWAY_IP=$(kubectl get -o jsonpath="{.status.loadBalancer.ingress[0].hostname}" svc gateway --ignore-not-found)
       - _GATEWAY_PORT=$(kubectl get -o jsonpath="{.spec.ports[0].port}" svc gateway --ignore-not-found)
       - |
           cat <<EOF | kubectl apply -f -
