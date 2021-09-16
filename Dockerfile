@@ -1,7 +1,6 @@
-FROM mhart/alpine-node:10
+FROM webratio/nodejs-http-server
 
 VOLUME /tmp
-RUN npm install -g spa-http-server
 ADD dist /opt/www
 ADD run.sh /opt/run.sh
 ARG VUE_APP_API_HOST
